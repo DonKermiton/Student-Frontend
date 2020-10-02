@@ -1,0 +1,44 @@
+#wrapper {
+  min-height: 1000vh;
+}
+
+#profile-images {
+  max-height: 50vh;
+}
+
+#profile-images div img{
+  height: 50vh;
+}
+
+.addImage {
+  position: relative;
+  left: -15%;
+}
+
+#photo-front {
+  display: block;
+  position: absolute;
+  bottom: -4%;
+  right: 50%;
+  transform: translate(50%, 0%);
+
+  height: 30vh;
+  width: 30vh;
+
+  border: 2px ridge blue;
+}
+
+#edit-photo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(3,3,3,.4);
+}
+
+
+
+
+
+

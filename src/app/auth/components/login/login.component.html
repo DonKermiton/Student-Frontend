@@ -1,0 +1,27 @@
+<div id="wrapper" class="position-absolute">
+  <div class="mask d-flex align-items-center">
+
+    <div class="col-xs-12 offset-md-1 col-md-8 offset-lg-1 col-lg-5 bg-light py-4 rounded shadow">
+      <h1 class="text-center mt-1">Log In</h1>
+      <hr>
+      <div class="row">
+        <div class="col-12">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" class="form-control" formControlName="email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" formControlName="password">
+          </div>
+
+          <button class="w-100 btn btn-primary" type="submit">Log In</button>
+          <hr>
+        </form>
+          <a class="nav-link">Forgot password ?</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="d-flex" id="wrapper">
+  <app-sidemenu class="sticky-top sidebar-menu" [sideMenuActive]="sideMenu"></app-sidemenu>
+
+  <div id="page-content-wrapper">
+    <app-navbar (hideMenu)="changeStateMenu()"></app-navbar>
+
+    <div class="row ">
+      <div class="container-fluid bg-main">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

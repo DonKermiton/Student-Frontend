@@ -1,0 +1,25 @@
+#wrapper{
+  background: #223;
+}
+#background-photo {
+  min-height: 50vh;
+  background-image: url('src/assets/img/fa7ef7471d234161240d6f84069a9f57.jpg');
+  background-position: center;
+
+}
+
+
+
+#user-photo img {
+  z-index: 10;
+  border: 2px solid #224abe;
+
+}
+
+#user-body{
+  height: 100vh;
+}
+
+#user-body .row{
+  background: #334;
+}
