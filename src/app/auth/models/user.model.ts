@@ -19,7 +19,7 @@ export interface User {
   last_name: string;
   email: string;
   accountType: number;
-  photo: string;
+  group: string;
 }
 
 export interface TokenResponse {

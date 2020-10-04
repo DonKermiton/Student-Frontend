@@ -5,7 +5,7 @@ import {ViewImageComponent} from './components/view-image/view-image.component';
 
 
 const routes: Routes = [
-  {path: '', component: ViewImageComponent}];
+  {path: 'photo', component: ViewImageComponent}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

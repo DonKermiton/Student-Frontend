@@ -8,7 +8,7 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/h
 
 import {NotifierModule} from 'angular-notifier';
 import {SharedModule} from './shared/shared.module';
-import {LoggedInterceptor} from './auth/interceptors/logged.interceptor';
+// import {LoggedInterceptor} from './auth/interceptors/logged.interceptor';
 
 
 

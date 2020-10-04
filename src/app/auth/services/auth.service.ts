@@ -1,75 +1,73 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {TokenResponse, User, UserPayLoad} from '../models/user.model';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {TokenResponse, UserPayLoad} from '../models/user.model';
+import {Observable} from 'rxjs';
 import {UsersService} from './users.service';
+import {tap} from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class AuthService {
+    private token: string;
 
-  private token: string;
+    constructor(private http: HttpClient,
+                private router: Router,
+                private user: UsersService) {
+    }
 
-  constructor(private http: HttpClient,
-              private router: Router,
-              private user: UsersService) {
-  }
+    public autoLogin() {
+        this.getToken();
+        this.handleLogin();
 
-  public autoLogin() {
-    this.getToken();
-    this.getUserData().subscribe(data => {
-      console.log(data);
-      this.user.User.next(data);
-    });
-  }
+    }
 
-  public login(user: UserPayLoad): Observable<any> {
-    const base = this.http.post('/users/login', user);
+    public login(user: UserPayLoad): Observable<any> {
+        const base = this.http.post('/users/login', user, {responseType: 'json'});
 
-    return base.pipe(
-      map((data: TokenResponse) => {
-        if (data.token) {
-          this.saveToken(data.token);
+        return base.pipe(
+            tap((data: TokenResponse) => {
+                if (data.token) {
+                    this.saveToken(data.token);
+                }
+                return data;
+            })
+        );
+    }
+
+    public getUserData(): Observable<any> {
+        return this.http.get(`users/profile`, {
+            headers: {Authorization: `${this.getToken()}`}
+        });
+    }
+
+    public getToken(): string {
+        if (!this.token) {
+            this.token = localStorage.getItem('userToken');
         }
-        return data;
-      })
-    );
-  }
-
-  public getUserData(): Observable<any> {
-    return this.http.get(`users/profile`, {
-      headers: {Authorization: `${this.getToken()}`}
-    });
-  }
-
-  public getToken(): string {
-    if (!this.token) {
-      this.token = localStorage.getItem('userToken');
+        return this.token;
     }
-    return this.token;
-  }
 
-  public tokenAsObservable(): Observable<string> {
-    if (!this.token) {
-      this.token = localStorage.getItem('userToken');
+    logout() {
+        this.token = '';
+        this.user.User.next(null);
+        window.localStorage.removeItem('userToken');
+        this.router.navigateByUrl('auth/login');
     }
-    return of(this.token);
-  }
+    // todo change
+    private handleLogin() {
+        this.getUserData().subscribe(data => {
+            console.log('login', data);
+            this.user.User.next(data);
+            this.user.getUserInfo(data.id);
+        });
+    }
 
-  logout() {
-    this.token = '';
-    this.user.User.next(null);
-    window.localStorage.removeItem('userToken');
-    this.router.navigateByUrl('auth/login');
-  }
-
-  private saveToken(token: string) {
-    localStorage.setItem('userToken', token);
-    this.token = token;
-  }
+    private saveToken(token: string) {
+        localStorage.setItem('userToken', token);
+        this.token = token;
+    }
 
 
 }

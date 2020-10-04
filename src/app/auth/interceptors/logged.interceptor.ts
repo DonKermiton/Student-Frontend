@@ -1,3 +1,4 @@
+/*
 import {Injectable} from '@angular/core';
 import {HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
@@ -11,7 +12,7 @@ export class LoggedInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
-    /*  return this.auth.tokenAsObservable().pipe(
+    /!*  return this.auth.tokenAsObservable().pipe(
         take(1),
         exhaustMap((token => {
           console.log(token);
@@ -25,8 +26,8 @@ export class LoggedInterceptor implements HttpInterceptor {
           });
           return next.handle(modifiedReq);
         }))
-      );*/
-
+      );*!/
+/!*
     const token = this.auth.getToken() || '';
     console.log(req.url === 'auth/login' );
     console.log(token);
@@ -42,7 +43,10 @@ export class LoggedInterceptor implements HttpInterceptor {
       headers: new HttpHeaders().set('Authorization', token)
     });
     console.log(modifiedReq);
-    return next.handle(modifiedReq);
+    return next.handle(modifiedReq);*!/
+
+
   }
 
 }
+*/
