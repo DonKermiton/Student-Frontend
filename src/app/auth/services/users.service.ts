@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/user.model';
-import {switchMap, tap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -38,6 +38,17 @@ export class UsersService {
                 headers: {Authorization: localStorage.getItem('userToken')}})
             .subscribe(console.log);
     }
+
+    countUserPhotos(id: number) {
+        return this.http.get(`photo/countUserPhoto/${id}`).pipe(
+            map(data => data)
+        );
+    }
+
+    getUser() {
+        return this.User.asObservable();
+    }
+
 
 
 }

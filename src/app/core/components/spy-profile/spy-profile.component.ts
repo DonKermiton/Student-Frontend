@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {UsersService} from '../../auth/services/users.service';
+import {UsersService} from '../../../auth/services/users.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {map} from 'rxjs/operators';
-import {User} from '../../auth/models/user.model';
+import {User} from '../../../auth/models/user.model';
 
 @Component({
   selector: 'app-spy-profile',
