@@ -6,6 +6,7 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {LayoutLoggedComponent} from './components/layout-logged/layout-logged.component';
 import {SidemenuComponent} from './components/sidemenu/sidemenu.component';
 import { ViewImageComponent } from './components/view-image/view-image.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 @NgModule({
@@ -14,10 +15,12 @@ import { ViewImageComponent } from './components/view-image/view-image.component
     LayoutLoggedComponent,
     SidemenuComponent,
     ViewImageComponent,
+    SpinnerComponent,
   ],
-  exports: [
-    LayoutLoggedComponent
-  ],
+    exports: [
+        LayoutLoggedComponent,
+        SpinnerComponent
+    ],
   imports: [
     CommonModule,
     SharedRoutingModule,

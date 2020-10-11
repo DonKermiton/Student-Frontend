@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/user.model';
 import {map, switchMap, tap} from 'rxjs/operators';
+import {photoModel} from "../../core/models/photo.model";
 
 @Injectable({
     providedIn: 'root',
@@ -34,8 +35,10 @@ export class UsersService {
         formData.append('file', form)
 
         this.http.put('photo/upload', formData,
-            {responseType: 'text',
-                headers: {Authorization: localStorage.getItem('userToken')}})
+            {
+                responseType: 'text',
+                headers: {Authorization: localStorage.getItem('userToken')}
+            })
             .subscribe(console.log);
     }
 
@@ -45,10 +48,21 @@ export class UsersService {
         );
     }
 
+    getPhotoCollection(limit: number = 6, id: number = 5): Observable<photoModel[]> {
+        return this.http.get<photoModel[]>(`photo/getPhotoCollectionInfo/${limit}/${id}`).pipe(
+            map((photo: photoModel[]) => {
+                return photo;
+            })
+        )
+    }
+
+    getPhotoByUrl(id: number, url: string){
+        return this.http.get(`/photo/getSelectedPhoto/${id}/${url}`, {responseType: "text"})
+    }
+
     getUser() {
         return this.User.asObservable();
     }
-
 
 
 }

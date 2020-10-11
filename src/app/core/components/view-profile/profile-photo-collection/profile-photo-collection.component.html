@@ -1,0 +1,18 @@
+<div class="container">
+    <input class="btn btn-group btn-danger" type="file" id="file"
+           (change)="files($event.target.files)" formControlName="image">
+    <button class="btn btn-primary">Upload Photo</button>
+
+    <div class="row" *ngIf="this.photoCollection;else loadingPhoto">
+        <div class="col-xs-12 col-md-5 col-xl-3" *ngFor="let png of this.photoCollection">
+            <img src="/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
+                 class="img-fluid rounded">
+        </div>
+
+
+    </div>
+    <ng-template #loadingPhoto>
+        <app-spinner></app-spinner>
+    </ng-template>
+</div>
+
