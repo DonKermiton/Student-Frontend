@@ -1,8 +1,9 @@
-<div id="wrapper" class="d-flex justify-content-center">
+<div id="wrapper" class="d-flex justify-content-center" (click)="closeModal()">
     <div id="info-box" class="col-xs-12 col-md-6 col-lg-4 bg-light rounded">
         <h5 class="pt-3">Are you Sure ?</h5>
+        <small>{{20 - timer}}</small>
         <hr>
-        <span class="p-3 text-info">You will Delete</span>
+        <span class="p-3 text-info">Deleted will be {{messageBox}}</span>
 
         <div class="d-flex justify-content-around pt-5 pb-2">
             <button class="btn btn-primary w-25" (click)="emitResponse(false)">No</button>
