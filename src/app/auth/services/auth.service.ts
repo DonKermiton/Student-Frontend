@@ -37,8 +37,7 @@ export class AuthService {
     }
 
     public getUserData(): Observable<any> {
-        return this.http.get(`users/profile`, {
-            headers: {Authorization: `${this.getToken()}`}
+        return this.http.get(`users/profile`, {responseType: 'text', headers: {Authorization: `${this.getToken()}`}
         });
     }
 
