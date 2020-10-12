@@ -28,6 +28,7 @@ export class AuthService {
 
         return base.pipe(
             tap((data: TokenResponse) => {
+                console.log(data);
                 if (data.token) {
                     this.saveToken(data.token);
                 }
@@ -37,7 +38,7 @@ export class AuthService {
     }
 
     public getUserData(): Observable<any> {
-        return this.http.get(`users/profile`, {responseType: 'text', headers: {Authorization: `${this.getToken()}`}
+        return this.http.get(`users/profile`, {responseType: 'json', headers: {Authorization: `${this.getToken()}`}
         });
     }
 

@@ -1,0 +1,17 @@
+.photoOptions {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 10%;
+  background-color: black;
+  width: 5%;
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .photoOptions{
+    display: block;
+  }
+}
+
+

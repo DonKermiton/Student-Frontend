@@ -7,6 +7,7 @@ import {LayoutLoggedComponent} from './components/layout-logged/layout-logged.co
 import {SidemenuComponent} from './components/sidemenu/sidemenu.component';
 import { ViewImageComponent } from './components/view-image/view-image.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ConfirmActionComponent } from './components/confirm-action/confirm-action.component';
 
 
 @NgModule({
@@ -16,10 +17,12 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SidemenuComponent,
     ViewImageComponent,
     SpinnerComponent,
+    ConfirmActionComponent,
   ],
     exports: [
         LayoutLoggedComponent,
-        SpinnerComponent
+        SpinnerComponent,
+        ConfirmActionComponent
     ],
   imports: [
     CommonModule,

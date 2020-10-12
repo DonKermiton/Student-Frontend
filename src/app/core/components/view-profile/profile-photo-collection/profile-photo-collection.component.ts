@@ -33,8 +33,11 @@ export class ProfilePhotoCollectionComponent implements OnInit {
   }
 
 
+    showMenu(png: photoModel) {
 
+    }
 
-
-
+    deletePhoto(png: photoModel) {
+        console.log('delete');
+    }
 }

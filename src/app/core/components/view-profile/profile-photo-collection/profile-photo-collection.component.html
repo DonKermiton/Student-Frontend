@@ -3,10 +3,24 @@
            (change)="files($event.target.files)" formControlName="image">
     <button class="btn btn-primary">Upload Photo</button>
 
-    <div class="row" *ngIf="this.photoCollection;else loadingPhoto">
-        <div class="col-xs-12 col-md-5 col-xl-3" *ngFor="let png of this.photoCollection">
+    <div class="row collectionImg" *ngIf="this.photoCollection;else loadingPhoto" >
+        <div class="col-xs-12 col-md-5 col-xl-3" *ngFor="let png of this.photoCollection" appPhotoOption>
             <img src="/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
                  class="img-fluid rounded">
+
+            <div class="photoOptions">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v" aria-hidden="true" (click)="showMenu(png)"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" (click)="deletePhoto(png)">Separated link</a>
+                </div>
+
+            </div>
         </div>
 
 
@@ -14,5 +28,7 @@
     <ng-template #loadingPhoto>
         <app-spinner></app-spinner>
     </ng-template>
+
+    <app-confirm-action ></app-confirm-action>
 </div>
 
