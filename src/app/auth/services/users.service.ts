@@ -22,12 +22,13 @@ export class UsersService {
                     this.User.next(user);
                     this.userID = user.id;
                 })),
-            switchMap(() => this.getUserPhoto(1, this.userID))
+            switchMap(() => this.getUserPhoto(1, this.userID)),
+            switchMap(() => this.getUserPhoto(0, this.userID)),
         ).subscribe(console.log);
     }
 
     getUserPhoto(background: number, userID: number): Observable<any> {
-        return this.http.get(`photo/getUserProfilePhoto/:background/:userID`, {responseType: 'text'});
+        return this.http.get(`photo/getUserProfilePhoto/${background}/${userID}`, {responseType: 'text'});
     }
 
     uploadPhoto(form) {

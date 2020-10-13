@@ -18,7 +18,7 @@ export class ProfileTableComponent implements OnInit {
 
     canEditProfile = false;
 
-    private filesToUpload: null;
+
 
     constructor(public users: UsersService,
                 private route: ActivatedRoute) {
@@ -51,13 +51,6 @@ export class ProfileTableComponent implements OnInit {
         this.initForm();
     }
 
-    uploadImage() {
-        this.users.uploadPhoto(this.filesToUpload);
-    }
-
-    files(files: any) {
-        this.filesToUpload = files[0];
-    }
 
 
     windowWidth() {

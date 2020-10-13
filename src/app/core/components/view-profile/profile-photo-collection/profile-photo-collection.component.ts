@@ -17,6 +17,7 @@ export class ProfilePhotoCollectionComponent implements OnInit {
 
     confirmBoxText= false;
     selectedPhoto: photoModel;
+    photoBox = false;
 
     constructor(public users: UsersService,
                 private photos: PhotoService,
@@ -28,7 +29,7 @@ export class ProfilePhotoCollectionComponent implements OnInit {
         this.route.parent.params
             .pipe(
                 tap((params: Params) => this.numberID = params.id),
-                mergeMap(() => this.users.getPhotoCollection(this.numberID)),
+                mergeMap(() => this.users.getPhotoCollection(999 ,this.numberID)),
                 map((photo: photoModel[]) => photo)
             )
             .subscribe((photo: any) => {
@@ -61,5 +62,13 @@ export class ProfilePhotoCollectionComponent implements OnInit {
     deletePhoto(png: photoModel, index: number) {
         this.photoCollection.splice(index, 1);
         this.photos.deleteSelectedPhoto(this.numberID, png).subscribe(console.log)
+    }
+
+    selectPhotoAs(png: photoModel, type: number) {
+        this.photos.selectAsFront(png, type).subscribe(console.log)
+    }
+
+    closePhotoBox() {
+        this.photoBox = false;
     }
 }

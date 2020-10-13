@@ -8,6 +8,9 @@ import {SidemenuComponent} from './components/sidemenu/sidemenu.component';
 import { ViewImageComponent } from './components/view-image/view-image.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ConfirmActionComponent } from './components/confirm-action/confirm-action.component';
+import { UploadPhotoComponent } from './components/upload-photo/upload-photo.component';
+import {AngularFileUploaderModule} from 'angular-file-uploader';
+import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
 
 
 @NgModule({
@@ -18,17 +21,21 @@ import { ConfirmActionComponent } from './components/confirm-action/confirm-acti
     ViewImageComponent,
     SpinnerComponent,
     ConfirmActionComponent,
+    UploadPhotoComponent,
+    DragAndUploadDirective,
   ],
     exports: [
         LayoutLoggedComponent,
         SpinnerComponent,
-        ConfirmActionComponent
+        ConfirmActionComponent,
+        UploadPhotoComponent
     ],
-  imports: [
-    CommonModule,
-    SharedRoutingModule,
+    imports: [
+        CommonModule,
+        SharedRoutingModule,
+        AngularFileUploaderModule,
 
-  ]
+    ]
 })
 export class SharedModule {
 }

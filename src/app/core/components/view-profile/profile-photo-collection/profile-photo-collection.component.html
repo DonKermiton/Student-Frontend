@@ -1,20 +1,22 @@
 <div class="container">
-    <!--<input class="btn btn-group btn-danger" type="file" id="file"
-           (change)="files($event.target.files)" formControlName="image">
-    <button class="btn btn-primary">Upload Photo</button>-->
+
+    <div class="col-12">
+        <button class="btn btn-primary w-100" (click)="photoBox = true">Upload Photo</button>
+    </div>
 
     <div class="row collectionImg" *ngIf="this.photoCollection;else loadingPhoto" >
-        <div class="col-xs-12 col-md-5 col-xl-3" *ngFor="let png of this.photoCollection; let i = index" appPhotoOption>
+        <div class="col-xs-12 col-md-5 col-xl-3 mt-3 border-bottom border-light" *ngFor="let png of this.photoCollection; let i = index" appPhotoOption>
+            <app-spinner></app-spinner>
             <img src="/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
                  class="img-fluid rounded">
+
 
             <div class="photoOptions">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item">Action</a>
-                    <a class="dropdown-item">Another action</a>
-                    <a class="dropdown-item">Something else here</a>
+                    <a class="dropdown-item" (click)="selectPhotoAs(png, 0)">Set as front profile Photo</a>
+                    <a class="dropdown-item" (click)="selectPhotoAs(png, 1)">Set as back profile Photo</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" (click)="handleEmitConfirmBox(deletePhoto, png, i)">Delete</a>
                 </div>
@@ -29,5 +31,6 @@
     </ng-template>
 
     <app-confirm-action *ngIf="confirmBoxText" (closeModalEmitter)="closeConfirmBox()" [messageBox]="confirmBoxText"></app-confirm-action>
+    <app-upload-photo *ngIf="photoBox" (closeModalEmitter)="closePhotoBox()"></app-upload-photo>
 </div>
 
