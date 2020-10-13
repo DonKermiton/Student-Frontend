@@ -7,7 +7,7 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 
 @import "./_variables.scss";
 
-body{
+body {
 
 
 }
@@ -28,7 +28,7 @@ body{
   background-color: $outside;
 }
 
-.bg-five{
+.bg-five {
   background-color: $grayer;
 }
 
@@ -36,7 +36,7 @@ body{
   background-color: $main;
 }
 
-.text-first{
+.text-first {
   color: $main;
 }
 
@@ -52,7 +52,7 @@ body{
   color: $outside;
 }
 
-.text-five{
+.text-five {
   color: $grayer;
 }
 
@@ -75,4 +75,22 @@ body{
 
 .border-main {
   border: 1px solid $main;
+}
+
+.fileover {
+  animation: shake 1s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-1deg);
+  }
+
+
 }

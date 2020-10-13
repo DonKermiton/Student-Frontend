@@ -27,11 +27,16 @@ export class ConfirmActionComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.modalTimerHandler.unsubscribe();
+        this.confirmService.confirmSubject.next(false);
     }
 
 
     emitResponse(confirmAction: boolean) {
+        console.log(confirmAction);
         this.confirmService.confirmSubject.next(confirmAction);
+
+        this.closeModal();
+
     }
 
     closeModal() {

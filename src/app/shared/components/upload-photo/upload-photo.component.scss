@@ -1,0 +1,41 @@
+#wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0, .3);
+  z-index: 10000;
+}
+
+#info-box {
+  position: absolute;
+  top: 10%;
+
+}
+
+.drop-field {
+  position: relative;
+  min-height: 50%;
+}
+
+.drop-field input {
+  opacity: 0;
+  position: absolute;
+  z-index: 1000001;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.drop-field label {
+  color: white;
+  min-width: 15%;
+  width: auto;
+  height: auto;
+  padding: 20px 35px;
+  background-color: palevioletred;
+  border-radius: 21.5px;
+}
+
