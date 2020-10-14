@@ -1,5 +1,5 @@
-<div id="wrapper" class="text-third" *ngIf="(users.User| async )">
-    <div id="profile-images" class="position-relative">
+<div id="wrapper" class="" *ngIf="(users.User| async )">
+    <div id="profile-images" class="position-relative bg-secondary">
         <div class="d-flex justify-content-center text-center">
             <img src="/photo/getUserProfilePhoto/0/{{(users.User| async).id}}" class="img-fluid rounded shadow"/>
         </div>
@@ -9,7 +9,7 @@
     <hr>
 
     <div class="text-center mt-3">
-        <h3 class="font-weight-bold text-fourth">{{(users.User | async)?.first_name }} {{(users.User | async)?.last_name }}</h3>
+        <h3 class="font-weight-bold ">{{(users.User | async)?.first_name }} {{(users.User | async)?.last_name }}</h3>
         <h5>({{(users.User |async)?.id }})  {{(users.User |async)?.group }}</h5>
     </div>
 
@@ -24,7 +24,9 @@
     </ul>
 
 
-    <router-outlet></router-outlet>
+
     </div>
+    <router-outlet></router-outlet>
 </div>
+
 

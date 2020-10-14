@@ -4,7 +4,8 @@
 
   color: white;
   font-weight: revert;
-
+  background: rgb(34,107,195);
+  background: linear-gradient(66deg, rgba(34,107,195,1) 0%, rgba(45,161,253,1) 100%);
 
   transition: margin .25s ease-out;
 }
