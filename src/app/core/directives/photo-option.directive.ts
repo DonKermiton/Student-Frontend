@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostBinding, HostListener} from '@angular/core';
+import {Directive, ElementRef, HostListener} from '@angular/core';
 
 @Directive({
     selector: '[appPhotoOption]'
@@ -8,18 +8,20 @@ export class PhotoOptionDirective {
 
 
     constructor(private el: ElementRef) {
-      this.width = window.innerWidth >= 1024;
+        this.width = window.innerWidth >= 1024;
     }
 
     @HostListener('mouseenter') onMouseEnter() {
-
-        // this.el.nativeElement.style.display = 'block';
-      this.el.nativeElement.children[1].style.display = 'block';
+        this.el.nativeElement.children[1].style.display = 'block';
     }
 
     @HostListener('mouseleave') onMouseLeave() {
-      if(this.width)
-      this.el.nativeElement.children[1].style.display = 'none'
+        if (this.width)
+            this.el.nativeElement.children[1].style.display = 'none';
+        // if (this.el.nativeElement.children[1].classList.contains('show'))
+            // console.log(this.el.nativeElement.children[1].classList.remove('show'))
+
+        console.log(this.el.nativeElement.children[1].childNodes[1].classList.remove('show'))
     }
 
 }
