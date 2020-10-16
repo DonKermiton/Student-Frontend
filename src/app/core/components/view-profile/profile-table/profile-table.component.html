@@ -5,11 +5,9 @@
                 <div class="d-flex justify-content-between ">
                     <span>Photos ({{this.numberOfPhoto}})</span>
                     <button class="btn btn-outline-primary  btn-sm" routerLink="../photo">See All</button>
-<!--                    <span class="text-primary border border-primary px-1 rounded">See All</span>-->
                 </div>
 
-                <div class="row mt-2 justify-content-between">
-
+                <div class="row mt-2 justify-content-between border-top">
                     <div class="col-xs-12 col-md-4 mt-2" *ngFor="let photo of photoCollection">
                         <div>
                             <ng-container *ngIf="this.photoCollection; else loadingPhoto">
@@ -17,7 +15,6 @@
                                      class="img-fluid rounded">
                             </ng-container>
                         </div>
-                        <hr>
 
                     </div>
 

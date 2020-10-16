@@ -1,4 +1,4 @@
-<div class="container bg-white mt-5 py-5 rounded">
+<div class="container bg-white py-5 rounded">
     <div class="col-12">
         <button class="btn btn-primary w-100 mb-5" (click)="showPhotoBox()">Upload Photo</button>
     </div>
@@ -16,11 +16,11 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" (click)="selectPhotoAs(png, 0)">Set as front profile Photo</a>
-                    <a class="dropdown-item" (click)="selectPhotoAs(png, 1)">Set as back profile Photo</a>
+                    <a class="dropdown-item" (click)="selectPhotoAsFront(png.id)" *ngIf="isYourProfile">Set as front profile Photo</a>
+                    <a class="dropdown-item" (click)="selectPhotoAsBack(png.id)" *ngIf="isYourProfile">Set as back profile Photo</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger"
-                       (click)="handleEmitConfirmBox('deletePhoto', png, i)">Delete</a>
+                       (click)="handleEmitConfirmBox('deletePhoto', png, i)" *ngIf="canEditProfile">Delete</a>
                 </div>
 
             </div>

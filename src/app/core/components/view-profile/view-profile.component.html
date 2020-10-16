@@ -1,16 +1,16 @@
-<div id="wrapper" class="" *ngIf="(users.User| async )">
+<div id="wrapper" class="" *ngIf="profileUser">
     <div id="profile-images" class="position-relative bg-secondary">
         <div class="d-flex justify-content-center text-center">
-            <img src="/photo/getUserProfilePhoto/0/{{(users.User| async).id}}" class="img-fluid rounded shadow"/>
+            <img src="/photo/getUserProfile/Back/{{profileUser.id}}" class="img-fluid rounded shadow"/>
         </div>
-        <img id="photo-front" src="/photo/getUserProfilePhoto/1/{{(users.User| async).id}}" alt=""
+        <img id="photo-front" src="/photo/getUserProfile/Front/{{profileUser.id}}" alt=""
              class="img-fluid rounded-circle">
     </div>
     <hr>
 
-    <div class="text-center mt-3">
-        <h3 class="font-weight-bold ">{{(users.User | async)?.first_name }} {{(users.User | async)?.last_name }}</h3>
-        <h5>({{(users.User |async)?.id }})  {{(users.User |async)?.group }}</h5>
+    <div class="text-center mt-3 ">
+        <h3 class="font-weight-bold ">{{profileUser.first_name}} {{profileUser.last_name}}</h3>
+        <h5 class="text-warning">({{profileUser.id}})  {{profileUser.group}}</h5>
     </div>
 
     <div class="container">

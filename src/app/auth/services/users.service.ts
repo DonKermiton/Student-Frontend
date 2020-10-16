@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/user.model';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {photoModel} from "../../core/models/photo.model";
+import {PhotoService} from '../../shared/services/photo.service';
 
 @Injectable({
     providedIn: 'root',
@@ -22,13 +23,17 @@ export class UsersService {
                     this.User.next(user);
                     this.userID = user.id;
                 })),
-            switchMap(() => this.getUserPhoto(1, this.userID)),
-            switchMap(() => this.getUserPhoto(0, this.userID)),
+            switchMap(() => this.getUserFrontProfile(this.userID)),
+            switchMap(() => this.getUserBackProfile(this.userID)),
         ).subscribe(console.log);
     }
 
-    getUserPhoto(background: number, userID: number): Observable<any> {
-        return this.http.get(`photo/getUserProfilePhoto/${background}/${userID}`, {responseType: 'text'});
+    getUserFrontProfile(id: number) {
+        return this.http.get(`/photo/getUserProfile/Front/${id}`, {responseType: 'text'})
+    }
+
+    getUserBackProfile(id: number) {
+        return this.http.get(`/photo/getUserProfile/Back/${id}`, {responseType: 'text'})
     }
 
     uploadPhoto(form) {
@@ -63,6 +68,10 @@ export class UsersService {
 
     getUser() {
         return this.User.asObservable();
+    }
+
+    getSelectedUser(id: number): Observable<User> {
+        return this.http.get<User>(`/users/profile/${id}`);
     }
 
 

@@ -7,12 +7,12 @@
                    (change)="files($event.target.files)" *ngIf="!sendingImage; else loading">
             <br>
             <i class="mt-3 fa display-4 fa-upload mb-4"></i>
-
+            <h5>Drag</h5>
             <h5>OR</h5>
             <label for="file" class="mt-3">Browse</label>
 
         </div>
-        <button class="btn btn-primary w-100" (click)="uploadImage()">Upload Photo</button>
+        <button class="btn btn-primary w-100" *ngIf="filesToUpload" (click)="uploadImage()">Upload image{{filesToUpload.length > 1 ? 's' : ''}}</button>
         <button class="btn btn-danger w-100" (click)="closeModal()">Close</button>
         <div *ngIf="filesToUpload">
             <h5 *ngFor="let info of filesToUpload; let i = index">({{i + 1}}). {{info.name}}</h5>

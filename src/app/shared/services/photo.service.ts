@@ -24,12 +24,21 @@ export class PhotoService {
         })
     }
 
-    selectAsFront(png: photoModel, type: number) {
-        return this.http.patch(`/photo/updatePhoto/${type}`, png, {
+    selectPhotoAsFront(photoID: number) {
+        return this.http.patch(`/photo/setImageAsFront/${photoID}`, {}, {
             responseType: 'text',
             headers: {Authorization: `${this.auth.getToken()}`}
         })
     }
+
+    selectPhotoAsBack(photoID: number) {
+        return this.http.patch(`/photo/setImageAsBack/${photoID}`, {}, {
+            responseType: 'text',
+            headers: {Authorization: `${this.auth.getToken()}`}
+        })
+    }
+
+
 
 
 }

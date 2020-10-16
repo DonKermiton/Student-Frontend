@@ -13,6 +13,7 @@ import {AngularFileUploaderModule} from 'angular-file-uploader';
 import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
 
 
+
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -23,6 +24,7 @@ import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
     ConfirmActionComponent,
     UploadPhotoComponent,
     DragAndUploadDirective,
+
   ],
     exports: [
         LayoutLoggedComponent,
