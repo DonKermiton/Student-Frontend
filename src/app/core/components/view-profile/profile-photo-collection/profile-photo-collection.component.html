@@ -1,8 +1,11 @@
 <div class="container bg-white py-5 rounded">
-    <div class="col-12">
+    <div class="col-12" *ngIf="isYourProfile">
         <button class="btn btn-primary w-100 mb-5" (click)="showPhotoBox()">Upload Photo</button>
     </div>
     <hr>
+    <div class="text-center" *ngIf="photoCollection">
+        <span *ngIf="photoCollection.length ===0">No photo has been added yet</span>
+    </div>
     <div class="row collectionImg" *ngIf="this.photoCollection;else loadingPhoto">
         <div class="col-xs-12 col-md-5 col-xl-3 mt-3 border-bottom border-dark"
              *ngFor="let png of this.photoCollection; let i = index" appPhotoOption>
@@ -11,13 +14,15 @@
                  class="img-fluid rounded">
 
 
-            <div class="photoOptions">
+            <div class="photoOptions" [hidden]="!canEditProfile">
                 <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" (click)="selectPhotoAsFront(png.id)" *ngIf="isYourProfile">Set as front profile Photo</a>
-                    <a class="dropdown-item" (click)="selectPhotoAsBack(png.id)" *ngIf="isYourProfile">Set as back profile Photo</a>
+                <div class="dropdown-menu" >
+                    <a class="dropdown-item" (click)="selectPhotoAsFront(png.id)" *ngIf="isYourProfile">Set as front
+                        profile Photo</a>
+                    <a class="dropdown-item" (click)="selectPhotoAsBack(png.id)" *ngIf="isYourProfile">Set as back
+                        profile Photo</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger"
                        (click)="handleEmitConfirmBox('deletePhoto', png, i)" *ngIf="canEditProfile">Delete</a>

@@ -1,4 +1,4 @@
-<div id="wrapper" class="" *ngIf="profileUser">
+<div id="wrapper" class="" *ngIf="profileUser ">
     <div id="profile-images" class="position-relative bg-secondary">
         <div class="d-flex justify-content-center text-center">
             <img src="/photo/getUserProfile/Back/{{profileUser.id}}" class="img-fluid rounded shadow"/>
@@ -26,7 +26,8 @@
 
 
     </div>
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="updateProfileViewImages()"></router-outlet>
 </div>
 
+<h3 class="text-center">{{error}}</h3>
 

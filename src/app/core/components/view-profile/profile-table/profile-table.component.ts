@@ -18,6 +18,7 @@ export class ProfileTableComponent implements OnInit {
 
     canEditProfile = false;
 
+    id: number;
 
 
     constructor(public users: UsersService,
@@ -25,32 +26,30 @@ export class ProfileTableComponent implements OnInit {
     }
 
     ngOnInit() {
-        let id;
-
         this.route.parent.params
             .pipe(
-                tap((params: Params) => {
-                    id = params.id;
+                mergeMap((params: Params) => {
+                    this.id = params.id;
+                    return this.users.getUser()
                 }),
-                mergeMap(() => this.users.getUser()),
-                tap((user: User) => {
-                    this.canEditProfile = user.id == id
+                mergeMap((user: User) => {
+                    this.canEditProfile = user.id == this.id
+                    return this.users.countUserPhotos(this.id)
                 }),
-                mergeMap(() => this.users.countUserPhotos(id)),
-                tap((numberOfPhoto: number) => {
-                    this.numberOfPhoto = numberOfPhoto;
-                }),
-                mergeMap(() => this.users.getPhotoCollection( this.windowWidth() === 1 ? 1 : (this.numberOfPhoto < 6 ? this.numberOfPhoto : 6),id)),
+                mergeMap((numberOfPhoto: number) => {
+                        this.numberOfPhoto = numberOfPhoto;
+                        return this.users.getPhotoCollection(this.windowWidth() === 1 ? 1 : (this.numberOfPhoto < 6 ? this.numberOfPhoto : 6), this.id);
+                    }
+                ),
                 map((photo: photoModel[]) => photo)
             ).subscribe((photo: any) => {
             this.photoCollection = photo;
-            if(photo.url) this.users.getPhotoByUrl(id, photo.imgLink).subscribe();
+            if (photo.url) this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
         })
 
 
         this.initForm();
     }
-
 
 
     windowWidth() {

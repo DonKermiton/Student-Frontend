@@ -11,7 +11,7 @@
                     <div class="col-xs-12 col-md-4 mt-2" *ngFor="let photo of photoCollection">
                         <div>
                             <ng-container *ngIf="this.photoCollection; else loadingPhoto">
-                                <img src="/photo/getSelectedPhoto/5/{{photo.imgLink}}" alt="{{photo.id}}"
+                                <img src="/photo/getSelectedPhoto/{{id}}/{{photo.imgLink}}" alt="{{photo.id}}"
                                      class="img-fluid rounded">
                             </ng-container>
                         </div>

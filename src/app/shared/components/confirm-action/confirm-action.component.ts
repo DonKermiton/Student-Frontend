@@ -10,7 +10,7 @@ import {ConfirmDialogService} from "../../services/confirm-dialog.service";
 })
 export class ConfirmActionComponent implements OnInit, OnDestroy {
     @Output() closeModalEmitter = new EventEmitter<void>();
-    @Input() messageBox: string;
+    @Input() messageBox: boolean;
     timer= 0;
     modalTimerHandler: Subscription;
 

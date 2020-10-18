@@ -19,9 +19,8 @@ export class PhotoOptionDirective {
         if (this.width)
             this.el.nativeElement.children[1].style.display = 'none';
         // if (this.el.nativeElement.children[1].classList.contains('show'))
-            // console.log(this.el.nativeElement.children[1].classList.remove('show'))
+        // console.log(this.el.nativeElement.children[1].classList.remove('show'))
 
-        console.log(this.el.nativeElement.children[1].childNodes[1].classList.remove('show'))
     }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UsersService} from '../../../../auth/services/users.service';
 import {map, mergeMap, tap} from "rxjs/operators";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -14,6 +14,7 @@ import {CanEditProfileService} from '../../../../shared/services/can-edit-profil
     styleUrls: ['./profile-photo-collection.component.scss']
 })
 export class ProfilePhotoCollectionComponent implements OnInit {
+
     photoCollection: photoModel[];
     numberID: number;
 
@@ -35,18 +36,19 @@ export class ProfilePhotoCollectionComponent implements OnInit {
     ngOnInit() {
         this.route.parent.params
             .pipe(
-                tap((params: Params) => this.numberID = +params.id),
-                mergeMap(() => this.users.getUser()),
-                tap(user => {
-                    this.canEditProfile = user.id === this.numberID || user.accountType > 1;
-                    this.isYourProfile = user.id === this.numberID;
+                mergeMap((params: Params) => {
+                    this.numberID = +params.id
+                    return this.users.getUser();
                 }),
-                mergeMap(() => this.users.getPhotoCollection(100, this.numberID)),
+                mergeMap((user) => {
+                    this.canEditProfile = (user.id === this.numberID || user.accountType > 1) || false;
+                    this.isYourProfile = (user.id === this.numberID) || false;
+                    return this.users.getPhotoCollection(100, this.numberID)
+                }),
                 map((photo: photoModel[]) => photo)
             )
             .subscribe((photo: any) => {
                 this.photoCollection = photo;
-                console.log(this.canEditProfile);
                 // if (photo.url) this.users.getPhotoByUrl(this.numberID, photo.imgLink).subscribe();
 
             });
@@ -79,16 +81,16 @@ export class ProfilePhotoCollectionComponent implements OnInit {
     deletePhoto(png: photoModel, index: number) {
         this.deletePhotoSubscription.unsubscribe();
         this.photoCollection.splice(index, 1);
-        this.photos.deleteSelectedPhoto(this.numberID, png).subscribe(console.log)
+        this.photos.deleteSelectedPhoto(this.numberID, png).subscribe()
 
     }
 
     selectPhotoAsFront(id: number) {
-        this.photos.selectPhotoAsFront(id).subscribe(console.log)
+        this.photos.selectPhotoAsFront(id).subscribe()
     }
 
     selectPhotoAsBack(id: number) {
-        this.photos.selectPhotoAsBack(id).subscribe(console.log)
+        this.photos.selectPhotoAsBack(id).subscribe()
     }
 
     showPhotoBox() {
@@ -107,7 +109,7 @@ export class ProfilePhotoCollectionComponent implements OnInit {
             tap((photo: any) => {
                 this.photoCollection = photo;
             })
-        ).subscribe();
+        ).subscribe(photo => this.users.getPhotoByUrl(this.numberID, photo.imgLink).subscribe());
 
     }
 }
