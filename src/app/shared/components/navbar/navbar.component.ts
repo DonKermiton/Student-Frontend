@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from '../../../auth/services/auth.service';
-import {User} from '../../../auth/models/user.model';
+import {User} from '../../models/user.model';
 import {UsersService} from "../../../auth/services/users.service";
 
 @Component({

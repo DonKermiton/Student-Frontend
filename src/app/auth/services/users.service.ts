@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from '../models/user.model';
+import {User} from '../../shared/models/user.model';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {photoModel} from "../../core/models/photo.model";
 import {PhotoService} from '../../shared/services/photo.service';

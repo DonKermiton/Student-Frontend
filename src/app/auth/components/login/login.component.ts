@@ -4,7 +4,7 @@ import {AuthService} from '../../services/auth.service';
 import {NotifierService} from 'angular-notifier';
 import {mergeMap, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {User} from '../../models/user.model';
+import {User} from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-login',

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {TokenResponse, UserPayLoad} from '../models/user.model';
+import {TokenResponse, UserPayLoad} from '../../shared/models/user.model';
 import {Observable} from 'rxjs';
 import {UsersService} from './users.service';
 import {tap} from "rxjs/operators";

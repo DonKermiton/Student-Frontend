@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../auth/services/users.service';
 import {mergeMap, retry, retryWhen, switchMap, tap} from 'rxjs/operators';
-import {User} from '../../../auth/models/user.model';
+import {User} from '../../../shared/models/user.model';
 import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({

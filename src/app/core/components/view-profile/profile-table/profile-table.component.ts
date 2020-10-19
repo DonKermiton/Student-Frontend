@@ -2,9 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
 import {map, mergeMap, tap} from 'rxjs/operators';
-import {User} from '../../../../auth/models/user.model';
+import {User} from '../../../../shared/models/user.model';
 import {ActivatedRoute, Params} from "@angular/router";
 import {photoModel} from "../../../models/photo.model";
+import {PostsService} from "../../../../shared/services/posts.service";
+import {PostModel} from "../../../../shared/models/post.model";
 
 @Component({
     selector: 'app-profile-table',
@@ -19,6 +21,7 @@ export class ProfileTableComponent implements OnInit {
     scrollUpDistance = 2;
     direction = '';
     modalOpen = false;
+    postArray: PostModel[];
 
 
 
@@ -32,7 +35,8 @@ export class ProfileTableComponent implements OnInit {
 
 
     constructor(public users: UsersService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private post: PostsService) {
         this.appendItems(0, this.sum);
 
     }
@@ -58,6 +62,8 @@ export class ProfileTableComponent implements OnInit {
             this.photoCollection = photo;
             if (photo.url) this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
         })
+
+        this.post.getUserPost(this.id, 1).subscribe(console.log);
 
 
         this.initForm();
@@ -85,9 +91,7 @@ export class ProfileTableComponent implements OnInit {
 
 
     addItems(startIndex, endIndex, _method) {
-        for (let i = this.sum; i < this.sum + 20; ++i) {
-            this.array.push(i);
-        }
+
     }
 
     appendItems(startIndex, endIndex) {
