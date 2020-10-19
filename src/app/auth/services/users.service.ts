@@ -25,7 +25,7 @@ export class UsersService {
                 })),
             switchMap(() => this.getUserFrontProfile(this.userID)),
             switchMap(() => this.getUserBackProfile(this.userID)),
-        ).subscribe(console.log);
+        ).subscribe();
     }
 
     getUserFrontProfile(id: number) {
@@ -40,12 +40,11 @@ export class UsersService {
         let formData = new FormData();
         formData.append('file', form)
 
-        this.http.put('photo/upload', formData,
+       return this.http.put('photo/upload', formData,
             {
                 responseType: 'text',
                 headers: {Authorization: localStorage.getItem('userToken')}
-            })
-            .subscribe(console.log);
+            });
     }
 
     countUserPhotos(id: number) {

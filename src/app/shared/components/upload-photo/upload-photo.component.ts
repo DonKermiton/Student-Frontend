@@ -21,7 +21,7 @@ export class UploadPhotoComponent implements OnInit {
     uploadImage() {
         this.sendingImage = true;
         for(const photo of this.filesToUpload) {
-            this.users.uploadPhoto(photo);
+            this.users.uploadPhoto(photo).subscribe(console.log);
         }
 
         this.closeModal();

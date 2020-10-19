@@ -8,6 +8,7 @@ import {ProfileTableComponent} from './components/view-profile/profile-table/pro
 import {ProfilePhotoCollectionComponent} from './components/view-profile/profile-photo-collection/profile-photo-collection.component';
 import {SharedModule} from "../shared/shared.module";
 import { PhotoOptionDirective } from './directives/photo-option.directive';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PhotoOptionDirective } from './directives/photo-option.directive';
         CommonModule,
         CoreRoutingModule,
         AngularFileUploaderModule,
-        SharedModule
+        SharedModule,
+        InfiniteScrollModule
     ]
 })
 export class CoreModule {

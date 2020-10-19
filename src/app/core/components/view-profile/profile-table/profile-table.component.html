@@ -32,6 +32,20 @@
                 <button class="btn btn-primary" type="submit">Upload</button>
                 <hr>
             </div>
+
+            <div class="search-results"
+                 data-infinite-scroll
+                 debounce
+                 [infiniteScrollDistance]="scrollDistance"
+                 [infiniteScrollUpDistance]="scrollUpDistance"
+                 [infiniteScrollThrottle]="throttle"
+                 (scrolled)="onScrollDown($event)"
+                 (scrolledUp)="onUp($event)">
+                <p *ngFor="let i of array">
+                    {{ i }}
+                </p>
+            </div>
+
         </div>
 
         <ng-template #loadingPhoto>

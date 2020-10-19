@@ -81,8 +81,7 @@ export class ProfilePhotoCollectionComponent implements OnInit {
     deletePhoto(png: photoModel, index: number) {
         this.deletePhotoSubscription.unsubscribe();
         this.photoCollection.splice(index, 1);
-        this.photos.deleteSelectedPhoto(this.numberID, png).subscribe()
-
+        this.photos.deleteSelectedPhoto(this.numberID, png).subscribe();
     }
 
     selectPhotoAsFront(id: number) {
