@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
-import {map, mergeMap, tap} from 'rxjs/operators';
+import {map, mergeMap, switchMap} from 'rxjs/operators';
 import {User} from '../../../../shared/models/user.model';
 import {ActivatedRoute, Params} from "@angular/router";
 import {photoModel} from "../../../models/photo.model";
 import {PostsService} from "../../../../shared/services/posts.service";
 import {PostModel} from "../../../../shared/models/post.model";
+import {formatDistanceToNow} from 'date-fns'
 
 @Component({
     selector: 'app-profile-table',
@@ -14,15 +15,14 @@ import {PostModel} from "../../../../shared/models/post.model";
     styleUrls: ['./profile-table.component.scss']
 })
 export class ProfileTableComponent implements OnInit {
-    array = [];
+    skip = 0;
     sum = 100;
     throttle = 300;
     scrollDistance = 1;
     scrollUpDistance = 2;
     direction = '';
     modalOpen = false;
-    postArray: PostModel[];
-
+    postArray: PostModel[] = [];
 
 
     photoCollection: photoModel[];
@@ -83,14 +83,14 @@ export class ProfileTableComponent implements OnInit {
         return size;
     }
 
-    private initForm() {
-        this.imageForm = new FormGroup({
-            image: new FormControl(null),
-        })
-    }
-
-
     addItems(startIndex, endIndex, _method) {
+        this.post.getUserPost(this.id, this.skip)
+            .pipe(
+                switchMap((post: PostModel[]) => post),
+                map((post: PostModel) => post))
+            .subscribe((post) => {
+                this.postArray.push(post);
+            })
 
     }
 
@@ -102,11 +102,12 @@ export class ProfileTableComponent implements OnInit {
         this.addItems(startIndex, endIndex, 'unshift');
     }
 
-    onScrollDown (ev) {
+    onScrollDown(ev) {
         console.log('scrolled down!!', ev);
 
         // add another 20 items
         const start = this.sum;
+        this.skip += 10;
         this.sum += 5;
         this.appendItems(start, this.sum);
 
@@ -122,8 +123,30 @@ export class ProfileTableComponent implements OnInit {
         this.direction = 'up';
     }
 
-
     toggleModal() {
         this.modalOpen = !this.modalOpen;
+    }
+
+    getPostDate(date) {
+        return formatDistanceToNow(new Date(date));
+    }
+
+    checkDuplicate() {
+        for (let i = 0; i < this.postArray.length; i++) {
+            console.log(this.postArray[i].postID);
+            /*for (let j = 0; j < this.postArray.length; j++) {
+                if (i !== j) {
+                    if (this.postArray[i].postID === this.postArray[j].postID) {
+                        console.log(this.postArray[i])
+                    }
+                }
+            }*/
+        }
+    }
+
+    private initForm() {
+        this.imageForm = new FormGroup({
+            image: new FormControl(null),
+        })
     }
 }

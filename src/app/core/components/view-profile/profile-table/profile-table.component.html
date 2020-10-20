@@ -29,7 +29,7 @@
                     <textarea class="form-control" id="post"></textarea>
                 </div>
 
-                <button class="btn btn-primary" type="submit">Upload</button>
+                <button class="btn btn-primary" (click)="checkDuplicate()">Upload</button>
                 <hr>
             </div>
 
@@ -41,9 +41,19 @@
                  [infiniteScrollThrottle]="throttle"
                  (scrolled)="onScrollDown($event)"
                  (scrolledUp)="onUp($event)">
-                <p *ngFor="let i of array">
-                    {{ i }}
-                </p>
+                <div class="card text-center" *ngFor="let post of postArray">
+                    <div class="card-header">
+                        {{post.postID}}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">{{post.text}}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {{getPostDate(post.created)}}
+                    </div>
+                    <hr>
+                </div>
             </div>
 
             <app-spinner></app-spinner>

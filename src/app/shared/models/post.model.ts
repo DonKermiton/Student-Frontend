@@ -1,5 +1,5 @@
 export interface PostModel {
-    id: number;
+    postID: number;
     ownerID: number;
     created: Date,
     text: string;
