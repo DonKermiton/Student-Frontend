@@ -9,10 +9,11 @@ import {ProfilePhotoCollectionComponent} from './components/view-profile/profile
 import {SharedModule} from "../shared/shared.module";
 import { PhotoOptionDirective } from './directives/photo-option.directive';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { ShowCommentsDirective } from './directives/show-comments.directive';
 
 
 @NgModule({
-    declarations: [ViewProfileComponent, ProfileTableComponent, ProfilePhotoCollectionComponent, PhotoOptionDirective],
+    declarations: [ViewProfileComponent, ProfileTableComponent, ProfilePhotoCollectionComponent, PhotoOptionDirective, ShowCommentsDirective],
     imports: [
         CommonModule,
         CoreRoutingModule,

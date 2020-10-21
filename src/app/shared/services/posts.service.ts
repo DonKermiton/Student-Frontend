@@ -13,4 +13,8 @@ export class PostsService {
         return this.http.get(`/posts/userPost?id=${id}&skip=${skip}`,  { responseType: 'json'} );
     }
 
+    getUserPostNumber(id: number){
+        return this.http.get(`/posts/userPostCount`,  { responseType: 'text'} );
+    }
+
 }

@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
-import {map, mergeMap, switchMap} from 'rxjs/operators';
+import {map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import {User} from '../../../../shared/models/user.model';
 import {ActivatedRoute, Params} from "@angular/router";
 import {photoModel} from "../../../models/photo.model";
 import {PostsService} from "../../../../shared/services/posts.service";
 import {PostModel} from "../../../../shared/models/post.model";
 import {formatDistanceToNow} from 'date-fns'
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-profile-table',
@@ -28,24 +29,29 @@ export class ProfileTableComponent implements OnInit {
     photoCollection: photoModel[];
     numberOfPhoto = 0;
     imageForm: FormGroup;
+    postNumber = 0;
 
     canEditProfile = false;
 
     id: number;
-
+    postSubscription: Subscription
 
     constructor(public users: UsersService,
                 private route: ActivatedRoute,
                 private post: PostsService) {
-        this.appendItems(0, this.sum);
-
     }
 
     ngOnInit() {
         this.route.parent.params
             .pipe(
-                mergeMap((params: Params) => {
+                tap((params: Params) => {
                     this.id = params.id;
+                }),
+                mergeMap(() =>
+                    this.post.getUserPostNumber(this.id)
+                ),
+                mergeMap((number: any) => {
+                    this.postNumber = number;
                     return this.users.getUser()
                 }),
                 mergeMap((user: User) => {
@@ -62,13 +68,10 @@ export class ProfileTableComponent implements OnInit {
             this.photoCollection = photo;
             if (photo.url) this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
         })
-
-        this.post.getUserPost(this.id, 1).subscribe(console.log);
-
+        this.addItems()
 
         this.initForm();
     }
-
 
     windowWidth() {
         let size;
@@ -83,42 +86,42 @@ export class ProfileTableComponent implements OnInit {
         return size;
     }
 
-    addItems(startIndex, endIndex, _method) {
-        this.post.getUserPost(this.id, this.skip)
+    addItems() {
+        this.postSubscription = this.post.getUserPost(this.id, this.skip)
             .pipe(
                 switchMap((post: PostModel[]) => post),
                 map((post: PostModel) => post))
             .subscribe((post) => {
-                this.postArray.push(post);
+                if (this.postArray.length <= this.postNumber)
+                    this.postArray.push(post);
+                this.postSubscription.unsubscribe();
             })
 
     }
 
-    appendItems(startIndex, endIndex) {
-        this.addItems(startIndex, endIndex, 'push');
+    appendItems() {
+        this.addItems();
     }
 
-    prependItems(startIndex, endIndex) {
-        this.addItems(startIndex, endIndex, 'unshift');
+    prependItems() {
+        this.addItems();
     }
 
     onScrollDown(ev) {
         console.log('scrolled down!!', ev);
-
         // add another 20 items
-        const start = this.sum;
-        this.skip += 10;
+
+        this.skip += 1;
         this.sum += 5;
-        this.appendItems(start, this.sum);
+        this.appendItems();
 
         this.direction = 'down'
     }
 
     onUp(ev) {
         console.log('scrolled up!', ev);
-        const start = 50;
         this.sum += 20;
-        this.prependItems(start, this.sum);
+        this.prependItems();
 
         this.direction = 'up';
     }

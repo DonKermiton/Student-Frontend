@@ -15,23 +15,21 @@
                                      class="img-fluid rounded">
                             </ng-container>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-7 offset-xl-1 col-xl-6 mt-3  rounded ">
-            <div class="col-12 bg-five py-2">
-                <div class="form-group">
-                    <label for="post">Create Post</label>
-                    <textarea class="form-control" id="post"></textarea>
-                </div>
+            <!--  <div class="col-12 bg-five py-2">
+                  <div class="form-group">
+                      <label for="post">Create Post</label>
+                      <textarea class="form-control" id="post"></textarea>
+                  </div>
 
-                <button class="btn btn-primary" (click)="checkDuplicate()">Upload</button>
-                <hr>
-            </div>
+                  <button class="btn btn-primary" (click)="checkDuplicate()">Upload</button>
+                  <hr>
+              </div>-->
 
             <div class="search-results"
                  data-infinite-scroll
@@ -40,23 +38,67 @@
                  [infiniteScrollUpDistance]="scrollUpDistance"
                  [infiniteScrollThrottle]="throttle"
                  (scrolled)="onScrollDown($event)"
-                 (scrolledUp)="onUp($event)">
-                <div class="card text-center" *ngFor="let post of postArray">
-                    <div class="card-header">
-                        {{post.postID}}
+            >
+                <div class="card mb-2" *ngFor="let post of postArray; let i = index">
+                    <div>
+                        <div class="post-header d-flex justify-content-between">
+                            <img src="/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded">
+                            <div class="text-muted border-bottom border-secondary">
+                                <small>{{getPostDate(post.created)}} ago</small>
+                            </div>
+
+                        </div>
+                        <div class="post-body px-5  ">
+                            <span class="border-left border-secondary px-2">
+                            {{post.text}}
+                            </span>
+                        </div>
+                        <hr>
+                        <!-- <div class="px-5 text-right">
+                             <i class="fa fa-thumbs-up rounded-circle p-1 text-primary" aria-hidden="true"></i>
+                             <small>3</small>
+                         </div>-->
+                        <div class="btn-group btn-group-sm w-100 px-5 pb-2" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-primary w-100">
+                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                Like
+                            </button>
+                            <button type="button" class="btn btn-outline-success w-100">
+                                <i class="fa fa-comment" aria-hidden="true"></i>
+                                Add a comment
+                            </button>
+                            <button type="button" class="btn btn-outline-info w-100">
+                                <i class="fa fa-share" aria-hidden="true"></i>
+                                Share
+                            </button>
+                        </div>
+                        <div id="wrapper" appShowComments>
+                            <div class="text-right">
+                                <small class="text-primary">Show comments</small>
+                            </div>
+                            <div class="w-100 px-5 pb-2 bg-light rounded mb-1">
+                                <div>
+                                    <img src="/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded" width="15"
+                                         height="15">
+                                    <small class="text-info">Michal Pietrucha</small>
+                                </div>
+                                <div>
+                                    <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias at, atque
+                                        consectetur consequatur dolore dolorum et eum fugit maxime mollitia nemo
+                                        nesciunt nihil porro, quidem quos rerum sint suscipit.</small>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <small class="text-primary">Show more</small>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">{{post.text}}</p>
-                    </div>
-                    <div class="card-footer text-muted">
-                        {{getPostDate(post.created)}}
-                    </div>
-                    <hr>
                 </div>
             </div>
 
-            <app-spinner></app-spinner>
+            <app-spinner *ngIf="postNumber != postArray.length"></app-spinner>
         </div>
 
         <ng-template #loadingPhoto>
