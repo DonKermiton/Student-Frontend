@@ -1,13 +1,13 @@
 {
-  "/users": {
+  "/users/*": {
     "target": "http://localhost:3000",
     "secure": false
   },
-  "/photo": {
+  "/photo/*": {
     "target": "http://localhost:3000",
     "secure": false
   },
-  "/posts": {
+  "/posts/*": {
     "target": "http://localhost:3000",
     "secure": false
   }

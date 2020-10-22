@@ -9,3 +9,12 @@
   display: block;
   min-height: 10vh;
 }
+
+.dropdown-post {
+  z-index: 5;
+}
+
+.dropdown-post div {
+  padding: 8px 5px;
+  border: 2px solid white;
+}

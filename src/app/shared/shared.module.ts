@@ -11,6 +11,7 @@ import { ConfirmActionComponent } from './components/confirm-action/confirm-acti
 import { UploadPhotoComponent } from './components/upload-photo/upload-photo.component';
 import {AngularFileUploaderModule} from 'angular-file-uploader';
 import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
+import { UploadPostComponent } from './components/upload-post/upload-post.component';
 
 
 
@@ -24,13 +25,15 @@ import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
     ConfirmActionComponent,
     UploadPhotoComponent,
     DragAndUploadDirective,
+    UploadPostComponent,
 
   ],
     exports: [
         LayoutLoggedComponent,
         SpinnerComponent,
         ConfirmActionComponent,
-        UploadPhotoComponent
+        UploadPhotoComponent,
+        UploadPostComponent
     ],
     imports: [
         CommonModule,

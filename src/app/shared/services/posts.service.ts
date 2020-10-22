@@ -14,7 +14,11 @@ export class PostsService {
     }
 
     getUserPostNumber(id: number){
-        return this.http.get(`/posts/userPostCount`,  { responseType: 'text'} );
+        return this.http.get(`/posts/userPost/Count`,  { responseType: 'text'} );
+    }
+
+    createPost() {
+
     }
 
 }

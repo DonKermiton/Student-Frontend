@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
 import {map, mergeMap, switchMap, tap} from 'rxjs/operators';
@@ -152,4 +152,11 @@ export class ProfileTableComponent implements OnInit {
             image: new FormControl(null),
         })
     }
+
+    emitShowComments(id: number) {
+        this.showCommentsArray.push(id);
+    }
+    
+    showCommentsArray = [];
+    
 }
