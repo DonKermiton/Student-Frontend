@@ -12,6 +12,7 @@ import { UploadPhotoComponent } from './components/upload-photo/upload-photo.com
 import {AngularFileUploaderModule} from 'angular-file-uploader';
 import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
 import { UploadPostComponent } from './components/upload-post/upload-post.component';
+import { ShowPostOptionsDirective } from './directives/show-post-options.directive';
 
 
 
@@ -26,6 +27,7 @@ import { UploadPostComponent } from './components/upload-post/upload-post.compon
     UploadPhotoComponent,
     DragAndUploadDirective,
     UploadPostComponent,
+    ShowPostOptionsDirective,
 
   ],
     exports: [
@@ -33,7 +35,8 @@ import { UploadPostComponent } from './components/upload-post/upload-post.compon
         SpinnerComponent,
         ConfirmActionComponent,
         UploadPhotoComponent,
-        UploadPostComponent
+        UploadPostComponent,
+        ShowPostOptionsDirective
     ],
     imports: [
         CommonModule,

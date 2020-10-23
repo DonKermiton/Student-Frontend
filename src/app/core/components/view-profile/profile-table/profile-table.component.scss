@@ -10,11 +10,26 @@
   min-height: 10vh;
 }
 
-.dropdown-post {
-  z-index: 5;
-}
+
 
 .dropdown-post div {
   padding: 8px 5px;
   border: 2px solid white;
 }
+
+.post-dropdown {
+  z-index: 5;
+}
+
+.post-dropdown div{
+  padding: 5px 12px;
+  white-space: nowrap;
+
+}
+
+.dropdown button {
+  background-color:transparent;
+  border: none;
+}
+
+.dropdown-toggle:after { content: none }

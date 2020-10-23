@@ -21,4 +21,8 @@ export class PostsService {
 
     }
 
+    deletePost(id: number) {
+        return this.http.delete(`/posts/userPost?id=${id}`, {  headers: {Authorization: localStorage.getItem('userToken')}})
+    }
+
 }

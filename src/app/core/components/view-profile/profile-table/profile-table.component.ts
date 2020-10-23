@@ -158,5 +158,8 @@ export class ProfileTableComponent implements OnInit {
     }
     
     showCommentsArray = [];
-    
+
+    deletePost(postID: number) {
+        this.post.deletePost(postID).subscribe(console.log);
+    }
 }

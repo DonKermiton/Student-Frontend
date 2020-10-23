@@ -21,16 +21,6 @@
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-7 offset-xl-1 col-xl-6 mt-3  rounded ">
-            <!--  <div class="col-12 bg-five py-2">
-                  <div class="form-group">
-                      <label for="post">Create Post</label>
-                      <textarea class="form-control" id="post"></textarea>
-                  </div>
-
-                  <button class="btn btn-primary" (click)="checkDuplicate()">Upload</button>
-                  <hr>
-              </div>-->
-
             <div class="search-results"
                  data-infinite-scroll
                  debounce
@@ -39,29 +29,41 @@
                  [infiniteScrollThrottle]="throttle"
                  (scrolled)="onScrollDown($event)"
             >
-                <div class="card mb-2" *ngFor="let post of postArray; let i = index">
+                <div class="card" *ngFor="let post of postArray; let i = index">
                     <div>
-                        <div class="post-header d-flex justify-content-between">
-                            <img src="/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded">
-                            <small>Michal Pietrucha</small>
-                            <div class="text-muted border-bottom border-secondary">
-                                <div>
-                                    <small>{{getPostDate(post.created)}} ago</small>
-                                    <small class="nav-link">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </small>
-                                    <div class="dropdown-post position-relative bg-secondary text-white rounded">
-                                        <div>test</div>
-                                        <div>test</div>
-                                        <div>test</div>
+                        <div class="col-12">
+                            <div class="row mx-auto">
+                                <div class="col px-0">
+                                    <img src="/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded img-fluid"
+                                         >
+                                </div>
+                                <div class="col-8">
+                                    <span class="post-author text-warning">Name && Surname</span>
+                                    <br>
+                                    <small class="text-secondary">{{getPostDate(post.created)}} ago</small>
+                                </div>
+
+
+                                <div class="col dropdown d-flex justify-content-end">
+                                    <button class="dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <i class="fa fa-rotate-90 fa-ellipsis-v" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item">Edit</a>
+                                        <a class="dropdown-item">Another action</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-danger" (click)="deletePost(post.postID)">Delete</a>
                                     </div>
                                 </div>
 
                             </div>
 
+
                         </div>
-                        <div class="post-body px-5  ">
-                            <span class="border-left border-secondary px-2">
+                        <div class="post-body">
+                            <span class="border-left border-secondary px-2 bg-light">
                             {{post.text}}
                             </span>
                         </div>
