@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -10,11 +10,11 @@ export class PostsService {
     }
 
     getUserPost(id: number, skip: number) {
-        return this.http.get(`/posts/userPost?id=${id}&skip=${skip}`,  { responseType: 'json'} );
+        return this.http.get(`/api/posts/userPost?id=${id}&skip=${skip}`, {responseType: 'json'});
     }
 
-    getUserPostNumber(id: number){
-        return this.http.get(`/posts/userPost/Count`,  { responseType: 'text'} );
+    getUserPostNumber(id: number) {
+        return this.http.get(`/api/posts/userPost/Count?id=${id}`, {responseType: 'text'});
     }
 
     createPost() {
@@ -22,7 +22,11 @@ export class PostsService {
     }
 
     deletePost(id: number) {
-        return this.http.delete(`/posts/userPost?id=${id}`, {  headers: {Authorization: localStorage.getItem('userToken')}})
+        return this.http.delete(`/api/posts/userPost?id=${id}`, {headers: {Authorization: localStorage.getItem('userToken')}});
+    }
+
+    getPostComment(postID: number, take: number) {
+        return this.http.get(`/api/posts/userPost/Comment?postID=${postID}&skip=${take}`, {responseType: 'json'});
     }
 
 }

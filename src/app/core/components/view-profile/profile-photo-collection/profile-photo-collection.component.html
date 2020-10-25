@@ -10,7 +10,7 @@
         <div class="col-xs-12 col-md-5 col-xl-3 mt-3 border-bottom border-dark"
              *ngFor="let png of this.photoCollection; let i = index" appPhotoOption>
 
-            <img src="/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
+            <img src="/api/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
                  class="img-fluid rounded">
 
 

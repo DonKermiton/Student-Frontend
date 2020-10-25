@@ -13,7 +13,7 @@
         <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
           <span class="px-3 mr-2 d-none d-lg-inline text-gray-600 small font-weight-bold text-warning">{{(users.User | async)?.first_name}}</span>
-          <img src="/photo/getUserProfile/Front/{{(users.User| async).id}}"  alt="profile"
+          <img src="/api/photo/getUserProfile/Front/{{(users.User| async).id}}"  alt="profile"
                class="rounded-circle" width="30"
                height="30"
                style="border: 1px solid #224abe"

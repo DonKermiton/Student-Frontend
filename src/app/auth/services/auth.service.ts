@@ -24,7 +24,7 @@ export class AuthService {
     }
 
     public login(user: UserPayLoad): Observable<any> {
-        const base = this.http.post('/users/login', user, {responseType: 'json'});
+        const base = this.http.post('/api/users/login', user, {responseType: 'json'});
 
         return base.pipe(
             tap((data: TokenResponse) => {
@@ -38,7 +38,7 @@ export class AuthService {
     }
 
     public getUserData(): Observable<any> {
-        return this.http.get(`users/profile`, {responseType: 'json', headers: {Authorization: `${this.getToken()}`}
+        return this.http.get(`/api/users/profile`, {responseType: 'json', headers: {Authorization: `${this.getToken()}`}
         });
     }
 

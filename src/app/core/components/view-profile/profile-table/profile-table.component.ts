@@ -1,14 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
 import {map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import {User} from '../../../../shared/models/user.model';
-import {ActivatedRoute, Params} from "@angular/router";
-import {photoModel} from "../../../models/photo.model";
-import {PostsService} from "../../../../shared/services/posts.service";
-import {PostModel} from "../../../../shared/models/post.model";
-import {formatDistanceToNow} from 'date-fns'
-import {Subscription} from "rxjs";
+import {ActivatedRoute, Params} from '@angular/router';
+import {photoModel} from '../../../models/photo.model';
+import {PostsService} from '../../../../shared/services/posts.service';
+import {PostModel} from '../../../../shared/models/post.model';
+import {formatDistanceToNow} from 'date-fns';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-profile-table',
@@ -34,7 +34,8 @@ export class ProfileTableComponent implements OnInit {
     canEditProfile = false;
 
     id: number;
-    postSubscription: Subscription
+    postSubscription: Subscription;
+    showCommentsArray = [];
 
     constructor(public users: UsersService,
                 private route: ActivatedRoute,
@@ -50,25 +51,29 @@ export class ProfileTableComponent implements OnInit {
                 mergeMap(() =>
                     this.post.getUserPostNumber(this.id)
                 ),
-                mergeMap((number: any) => {
-                    this.postNumber = number;
-                    return this.users.getUser()
+                mergeMap((nmb: any) => {
+                    this.postNumber = nmb;
+                    return this.users.getUser();
                 }),
                 mergeMap((user: User) => {
-                    this.canEditProfile = user.id == this.id
-                    return this.users.countUserPhotos(this.id)
+                    this.canEditProfile = user.id == this.id;
+                    return this.users.countUserPhotos(this.id);
                 }),
                 mergeMap((numberOfPhoto: number) => {
                         this.numberOfPhoto = numberOfPhoto;
-                        return this.users.getPhotoCollection(this.windowWidth() === 1 ? 1 : (this.numberOfPhoto < 6 ? this.numberOfPhoto : 6), this.id);
+                        return this.users.getPhotoCollection(this.windowWidth() ===
+                        1 ? 1 : (this.numberOfPhoto < 6 ? this.numberOfPhoto : 6), this.id);
                     }
                 ),
                 map((photo: photoModel[]) => photo)
             ).subscribe((photo: any) => {
-            this.photoCollection = photo;
-            if (photo.url) this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
-        })
-        this.addItems()
+                console.log(this.postNumber);
+                this.photoCollection = photo;
+                if (photo.url) {
+                this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
+                }
+        });
+        this.addItems();
 
         this.initForm();
     }
@@ -80,7 +85,7 @@ export class ProfileTableComponent implements OnInit {
         } else if (window.innerWidth < 1280) {
             size = 6;
         } else {
-            size = 6
+            size = 6;
         }
 
         return size;
@@ -92,10 +97,11 @@ export class ProfileTableComponent implements OnInit {
                 switchMap((post: PostModel[]) => post),
                 map((post: PostModel) => post))
             .subscribe((post) => {
-                if (this.postArray.length <= this.postNumber)
+                if (this.postArray.length <= this.postNumber) {
                     this.postArray.push(post);
+                }
                 this.postSubscription.unsubscribe();
-            })
+            });
 
     }
 
@@ -115,7 +121,7 @@ export class ProfileTableComponent implements OnInit {
         this.sum += 5;
         this.appendItems();
 
-        this.direction = 'down'
+        this.direction = 'down';
     }
 
     onUp(ev) {
@@ -134,32 +140,21 @@ export class ProfileTableComponent implements OnInit {
         return formatDistanceToNow(new Date(date));
     }
 
-    checkDuplicate() {
-        for (let i = 0; i < this.postArray.length; i++) {
-            console.log(this.postArray[i].postID);
-            /*for (let j = 0; j < this.postArray.length; j++) {
-                if (i !== j) {
-                    if (this.postArray[i].postID === this.postArray[j].postID) {
-                        console.log(this.postArray[i])
-                    }
-                }
-            }*/
-        }
-    }
-
-    private initForm() {
-        this.imageForm = new FormGroup({
-            image: new FormControl(null),
-        })
+    getPostComment(postID: number, last: number) {
+        this.post.getPostComment(postID, last).subscribe(console.log);
     }
 
     emitShowComments(id: number) {
         this.showCommentsArray.push(id);
     }
-    
-    showCommentsArray = [];
 
     deletePost(postID: number) {
-        this.post.deletePost(postID).subscribe(console.log);
+        this.post.deletePost(postID).subscribe();
+    }
+
+    private initForm() {
+        this.imageForm = new FormGroup({
+            image: new FormControl(null),
+        });
     }
 }

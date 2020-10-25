@@ -1,10 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UsersService} from '../../../../auth/services/users.service';
-import {map, mergeMap, tap} from "rxjs/operators";
-import {ActivatedRoute, Params} from "@angular/router";
-import {photoModel} from "../../../models/photo.model";
-import {PhotoService} from "../../../../shared/services/photo.service";
-import {ConfirmDialogService} from "../../../../shared/services/confirm-dialog.service";
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {ActivatedRoute, Params} from '@angular/router';
+import {photoModel} from '../../../models/photo.model';
+import {PhotoService} from '../../../../shared/services/photo.service';
+import {ConfirmDialogService} from '../../../../shared/services/confirm-dialog.service';
 import {Subscription} from 'rxjs';
 import {CanEditProfileService} from '../../../../shared/services/can-edit-profile.service';
 
@@ -37,13 +37,13 @@ export class ProfilePhotoCollectionComponent implements OnInit {
         this.route.parent.params
             .pipe(
                 mergeMap((params: Params) => {
-                    this.numberID = +params.id
+                    this.numberID = +params.id;
                     return this.users.getUser();
                 }),
                 mergeMap((user) => {
                     this.canEditProfile = (user.id === this.numberID || user.accountType > 1) || false;
                     this.isYourProfile = (user.id === this.numberID) || false;
-                    return this.users.getPhotoCollection(100, this.numberID)
+                    return this.users.getPhotoCollection(100, this.numberID);
                 }),
                 map((photo: photoModel[]) => photo)
             )
@@ -60,7 +60,9 @@ export class ProfilePhotoCollectionComponent implements OnInit {
         this.deletePhotoSubscription = this.confirmService.getConfirmStream()
             .subscribe(confirm => {
                 if (confirm === true) {
-                    if (fun === 'deletePhoto') this.deletePhoto(png, i)
+                    if (fun === 'deletePhoto') {
+                        this.deletePhoto(png, i);
+                    }
                 } else {
                     if (this.deletePhotoSubscription) {
                         this.deletePhotoSubscription.unsubscribe();
@@ -85,11 +87,11 @@ export class ProfilePhotoCollectionComponent implements OnInit {
     }
 
     selectPhotoAsFront(id: number) {
-        this.photos.selectPhotoAsFront(id).subscribe()
+        this.photos.selectPhotoAsFront(id).subscribe();
     }
 
     selectPhotoAsBack(id: number) {
-        this.photos.selectPhotoAsBack(id).subscribe()
+        this.photos.selectPhotoAsBack(id).subscribe();
     }
 
     showPhotoBox() {
@@ -98,7 +100,7 @@ export class ProfilePhotoCollectionComponent implements OnInit {
 
     closePhotoBox() {
         this.photoBox = false;
-        setTimeout(() => this.updatePhotoCollection(), 0)
+        setTimeout(() => this.updatePhotoCollection(), 0);
 
     }
 
