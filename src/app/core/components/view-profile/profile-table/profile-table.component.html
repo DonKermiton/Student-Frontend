@@ -36,10 +36,10 @@
                             <div class="row mx-auto">
                                 <div class="col px-0">
                                     <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded img-fluid"
-                                         >
+                                    >
                                 </div>
                                 <div class="col-8">
-                                    <span class="post-author text-warning">Name && Surname</span>
+                                    <span class="post-author text-warning">{{post.user.first_name}} {{post.user.last_name}}</span>
                                     <br>
                                     <small class="text-secondary">{{getPostDate(post.created)}} ago</small>
                                 </div>
@@ -55,7 +55,8 @@
                                         <a class="dropdown-item">Edit</a>
                                         <a class="dropdown-item">Another action</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item text-danger" (click)="deletePost(post.postID)">Delete</a>
+                                        <a class="dropdown-item text-danger"
+                                           (click)="deletePost(post.postID)">Delete</a>
                                     </div>
                                 </div>
 
@@ -92,23 +93,25 @@
                                 <small class="text-primary" (click)="getPostComment(post.postID, 0)">Show
                                     comments</small>
                             </div>
-                            <div class="w-100 px-5 pb-2 bg-light rounded mb-1">
-                                <div>
-                                    <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded" width="15"
-                                         height="15">
-                                    <small class="text-info">Michal Pietrucha</small>
-                                </div>
-                                <div>
-                                    <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias at, atque
-                                        consectetur consequatur dolore dolorum et eum fugit maxime mollitia nemo
-                                        nesciunt nihil porro, quidem quos rerum sint suscipit.</small>
-                                </div>
 
-                                <div class="text-center">
-                                    <small class="text-primary">Show more</small>
-                                </div>
+                            <div class="w-100 px-5 pb-2 bg-light rounded mb-1" *ngFor="let comment of postComments">
+                                <ng-container *ngIf="comment.postID === post.postID">
+                                    <div>
+                                        <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded"
+                                             width="15"
+                                             height="15">
+                                        <small class="text-info">{{comment.user.first_name}} {{comment.user.last_name}}</small>
+                                    </div>
+                                    <div>
+                                        <small>{{comment.text}}</small>
+                                    </div>
+
+                                </ng-container>
                             </div>
-
+                            <div class="text-center">
+                                <small class="text-primary" (click)="getPostComment(post.postID, countSelectedPostComments(post.postID))"
+                                       >Show more</small>
+                            </div>
 
                         </div>
 
@@ -118,9 +121,9 @@
                                     Likes (4)</small>
                             </div>
                             <div class="col-6 btn-outline-success">
-                                <small>
+                                <small *ngIf="postArray">
                                     <i class="fa fa-comment" aria-hidden="true"></i>
-                                    Comments (5)
+                                    Comments ({{(postsService.countPostComments(post.postID)| async) }})
                                 </small>
                             </div>
                         </div>

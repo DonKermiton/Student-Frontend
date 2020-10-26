@@ -6,7 +6,7 @@ import {User} from '../../../../shared/models/user.model';
 import {ActivatedRoute, Params} from '@angular/router';
 import {photoModel} from '../../../models/photo.model';
 import {PostsService} from '../../../../shared/services/posts.service';
-import {PostModel} from '../../../../shared/models/post.model';
+import {PostComment, PostModel} from '../../../../shared/models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {Subscription} from 'rxjs';
 
@@ -36,10 +36,11 @@ export class ProfileTableComponent implements OnInit {
     id: number;
     postSubscription: Subscription;
     showCommentsArray = [];
+    postComments: PostComment[] = [];
 
     constructor(public users: UsersService,
                 private route: ActivatedRoute,
-                private post: PostsService) {
+                public postsService: PostsService) {
     }
 
     ngOnInit() {
@@ -49,7 +50,7 @@ export class ProfileTableComponent implements OnInit {
                     this.id = params.id;
                 }),
                 mergeMap(() =>
-                    this.post.getUserPostNumber(this.id)
+                    this.postsService.getUserPostNumber(this.id)
                 ),
                 mergeMap((nmb: any) => {
                     this.postNumber = nmb;
@@ -67,11 +68,11 @@ export class ProfileTableComponent implements OnInit {
                 ),
                 map((photo: photoModel[]) => photo)
             ).subscribe((photo: any) => {
-                console.log(this.postNumber);
-                this.photoCollection = photo;
-                if (photo.url) {
+            console.log(this.postNumber);
+            this.photoCollection = photo;
+            if (photo.url) {
                 this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
-                }
+            }
         });
         this.addItems();
 
@@ -92,7 +93,7 @@ export class ProfileTableComponent implements OnInit {
     }
 
     addItems() {
-        this.postSubscription = this.post.getUserPost(this.id, this.skip)
+        this.postSubscription = this.postsService.getUserPost(this.id, this.skip)
             .pipe(
                 switchMap((post: PostModel[]) => post),
                 map((post: PostModel) => post))
@@ -141,7 +142,12 @@ export class ProfileTableComponent implements OnInit {
     }
 
     getPostComment(postID: number, last: number) {
-        this.post.getPostComment(postID, last).subscribe(console.log);
+        this.postsService.getPostComment(postID, last).subscribe((postComments: PostComment) => {
+            if(postComments) this.postComments.push(postComments);
+        });
+    }
+
+    getPostComments(id: number ){
     }
 
     emitShowComments(id: number) {
@@ -149,8 +155,13 @@ export class ProfileTableComponent implements OnInit {
     }
 
     deletePost(postID: number) {
-        this.post.deletePost(postID).subscribe();
+        this.postsService.deletePost(postID).subscribe();
     }
+
+    countSelectedPostComments(id: number) {
+        return this.postComments.filter(e => e.postID === id).length;
+    }
+
 
     private initForm() {
         this.imageForm = new FormGroup({
