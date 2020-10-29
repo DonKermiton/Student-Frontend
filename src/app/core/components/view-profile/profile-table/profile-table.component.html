@@ -94,8 +94,11 @@
                                     comments</small>
                             </div>
 
-                            <div class="w-100 px-5 pb-2 bg-light rounded mb-1" *ngFor="let comment of postComments">
-                                <ng-container *ngIf="comment.postID === post.postID">
+
+                            <ng-container *ngFor="let comment of postComments">
+                                <div class="w-100 px-5 pb-2 bg-light rounded mb-1"
+                                     *ngIf="comment.postID === post.postID">
+
                                     <div>
                                         <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded"
                                              width="15"
@@ -106,11 +109,13 @@
                                         <small>{{comment.text}}</small>
                                     </div>
 
-                                </ng-container>
-                            </div>
+                                </div>
+                            </ng-container>
+
                             <div class="text-center">
-                                <small class="text-primary" (click)="getPostComment(post.postID, countSelectedPostComments(post.postID))"
-                                       >Show more</small>
+                                <small class="text-primary"
+                                       (click)="getPostComment(post.postID, countSelectedPostComments(post.postID))"
+                                >Show more</small>
                             </div>
 
                         </div>
@@ -123,7 +128,7 @@
                             <div class="col-6 btn-outline-success">
                                 <small *ngIf="postArray">
                                     <i class="fa fa-comment" aria-hidden="true"></i>
-                                    Comments ({{(postsService.countPostComments(post.postID)| async) }})
+                                    Comments (1)
                                 </small>
                             </div>
                         </div>

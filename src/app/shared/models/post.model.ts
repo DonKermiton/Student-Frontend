@@ -1,15 +1,17 @@
 export interface PostModel {
     postID: number;
     ownerID: number;
-    created: Date,
+    created: Date;
     text: string;
     group: string;
     user: {
         id: number;
         first_name: string;
         last_name: string;
-    }
-    postComments: [],
+    };
+    comments: number;
+    likes: number;
+
 }
 
 export interface PostComment {
@@ -21,5 +23,5 @@ export interface PostComment {
         id: number;
         first_name: string;
         last_name: string;
-    }
+    };
 }

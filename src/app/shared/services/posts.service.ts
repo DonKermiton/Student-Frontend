@@ -13,13 +13,13 @@ export class PostsService {
     }
 
     getUserPost(id: number, skip: number) {
-        let params = new HttpParams({
+        const params = new HttpParams({
             fromObject: {
                 id: `${id}`,
                 skip: `${skip}`,
             }
         });
-        return this.http.get(`/api/posts/userPost`, { params: params,responseType: 'json'});
+        return this.http.get(`/api/posts/userPost`, {params, responseType: 'json'});
     }
 
     getUserPostNumber(id: number) {
@@ -35,21 +35,21 @@ export class PostsService {
     }
 
     getPostComment(postID: number, take: number): Observable<PostComment> {
-        let params = new HttpParams({
+        const params = new HttpParams({
             fromObject: {
                 postID: `${postID}`,
                 skip: `${take}`,
             }
         });
 
-        return this.http.get<PostComment>(`/api/posts/userPost/Comment`, {params: params ,responseType: 'json'});
+        return this.http.get<PostComment>(`/api/posts/userPost/Comment`, {params, responseType: 'json'});
     }
 
     countPostComments(id: number) {
-        return this.http.get(`/api/posts/userPost/Comments/Count?id=${id}`)
-            .pipe(
-                tap(console.log),
-                map((e) => e)
-            )
+        return this.http.get(`/api/posts/userPost/Comments/Count?id=${id}`);
+    }
+
+    countPostLikes(id: number) {
+        return this.http.get(`/api/posts/userPost/likes/count?id=${id}`);
     }
 }
