@@ -46,6 +46,7 @@ export class PostsService {
     }
 
     countPostComments(id: number) {
+        console.log(id);
         return this.http.get(`/api/posts/userPost/Comments/Count?id=${id}`);
     }
 

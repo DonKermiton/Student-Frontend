@@ -1,5 +1,5 @@
 body {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .sidebar-menu{
@@ -9,7 +9,8 @@ body {
 
 #page-content-wrapper {
   min-width: 100vw;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 @media (min-width: 768px) {

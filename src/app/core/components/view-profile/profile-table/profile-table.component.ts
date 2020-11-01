@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
-import {map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {User} from '../../../../shared/models/user.model';
 import {ActivatedRoute, Params} from '@angular/router';
 import {photoModel} from '../../../models/photo.model';
@@ -49,18 +49,18 @@ export class ProfileTableComponent implements OnInit {
                 tap((params: Params) => {
                     this.id = params.id;
                 }),
-                mergeMap(() =>
+                switchMap(() =>
                     this.postsService.getUserPostNumber(this.id)
                 ),
-                mergeMap((nmb: any) => {
+                switchMap((nmb: any) => {
                     this.postNumber = nmb;
                     return this.users.getUser();
                 }),
-                mergeMap((user: User) => {
+                switchMap((user: User) => {
                     this.canEditProfile = user.id == this.id;
                     return this.users.countUserPhotos(this.id);
                 }),
-                mergeMap((numberOfPhoto: number) => {
+                switchMap((numberOfPhoto: number) => {
                         this.numberOfPhoto = numberOfPhoto;
                         return this.users.getPhotoCollection(this.windowWidth() ===
                         1 ? 1 : (this.numberOfPhoto < 6 ? this.numberOfPhoto : 6), this.id);
@@ -96,11 +96,16 @@ export class ProfileTableComponent implements OnInit {
         this.postSubscription = this.postsService.getUserPost(this.id, this.skip)
             .pipe(
                 switchMap((post: PostModel[]) => post),
-                map((post: PostModel) => post))
-            .subscribe((post) => {
-                if (this.postArray.length <= this.postNumber) {
-                    this.postArray.push(post);
-                }
+                map((post: PostModel) => post),
+                switchMap((post) => {
+                    if (this.postArray.length < this.postNumber) {
+                        this.postArray.push(post);
+                    }
+                    return this.postsService.countPostComments(post.postID);
+                })
+            ).subscribe((likes: number) => {
+                if(this.postArray) this.postArray[0].comments = likes || 0;
+                console.log(this.postArray[this.postArray.length - 1]);
                 this.postSubscription.unsubscribe();
             });
 
@@ -143,11 +148,13 @@ export class ProfileTableComponent implements OnInit {
 
     getPostComment(postID: number, last: number) {
         this.postsService.getPostComment(postID, last).subscribe((postComments: PostComment) => {
-            if(postComments) this.postComments.push(postComments);
+            if (postComments) {
+                this.postComments.push(postComments);
+            }
         });
     }
 
-    getPostComments(id: number ){
+    getPostComments(id: number) {
     }
 
     emitShowComments(id: number) {

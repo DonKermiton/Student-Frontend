@@ -1,20 +1,21 @@
 import {Directive, ElementRef, HostListener} from '@angular/core';
 
 @Directive({
-  selector: '[appShowPostOptions]'
+    selector: '[appShowPostOptions]'
 })
 export class ShowPostOptionsDirective {
 
-  constructor(private el: ElementRef) { }
+    constructor(private el: ElementRef) {
+    }
 
-  @HostListener('click') onClick() {
-    this.el.nativeElement.lastChild.style.display = 'block'
+    @HostListener('click') onClick() {
+        this.el.nativeElement.lastChild.style.display = 'block';
 
-  }
+    }
 
-  @HostListener('mouseleave') onLeave() {
-    this.el.nativeElement.lastChild.style.display = 'none'
-    console.log('leave');
-  }
+    @HostListener('mouseleave') onLeave() {
+        this.el.nativeElement.lastChild.style.display = 'none';
+        console.log('leave');
+    }
 
 }
