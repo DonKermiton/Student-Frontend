@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UsersService} from '../../../../auth/services/users.service';
-import {map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
 import {ActivatedRoute, Params} from '@angular/router';
 import {photoModel} from '../../../models/photo.model';
 import {PhotoService} from '../../../../shared/services/photo.service';
@@ -40,6 +40,9 @@ export class ProfilePhotoCollectionComponent implements OnInit {
                     this.numberID = +params.id;
                     return this.users.getUser();
                 }),
+                retryWhen(errors => errors.pipe(
+                    tap(err => console.log(err))
+                )),
                 switchMap((user) => {
                     this.canEditProfile = (user.id === this.numberID || user.accountType > 1) || false;
                     this.isYourProfile = (user.id === this.numberID) || false;

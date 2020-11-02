@@ -20,7 +20,7 @@ export class LayoutLoggedComponent implements OnInit {
         });
         fromEvent(document, 'touchmove').subscribe(event => {
             // @ts-ignore
-            this.sideMenu = window.innerWidth / 2 < (event.touches[0].clientX - touchX);
+            this.sideMenu = (window.innerWidth / 3) < (event.touches[0].clientX - touchX);
         });
     }
 

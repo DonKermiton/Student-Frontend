@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'shared',
     loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
+  },
+  { path: 'adminPanel',
+    loadChildren: () => import('./admin-panel/admin-panel.module').then(m => m.AdminPanelModule),
+    component: LayoutLoggedComponent,
   }
 ];
 

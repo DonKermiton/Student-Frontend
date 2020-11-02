@@ -1,4 +1,4 @@
-<div class="bg-second test" id="sidebar-wrapper" [ngClass]="sideMenuActive ? 'toggled' : ''">
+<div class="bg-second " id="sidebar-wrapper" [ngClass]="sideMenuActive ? 'toggle' : ''">
     <div id="items-wrapper" class="d-flex flex-column">
         <div id="sidebar-heading" class="d-flex justify-content-center mt-3 ">
             <img src="../../../../assets/img/logo.png" alt="" class="img-fluid"/>
@@ -7,26 +7,31 @@
         <div id="sidebar-items">
             <div class="sidebar-item d-flex align-items-center justify-content-around border-bottom border-info mt-3 " routerLink="/dashboard" routerLinkActive="active-sidebar-item text-info" >
                 <div class="flex-fill d-flex align-items-center justify-content-around hideText">
-                    <span>test</span>
+                    <span>first link</span>
                 </div>
-                <div class="flex-fill text-right mr-5">
+                <div class="flex-fill " [ngClass]="sideMenuActive ? 'text-right' : 'text-center'">
                     <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                 </div>
             </div>
-            <div class="sidebar-item d-flex align-items-center justify-content-around border-bottom border-info">
+            <div class="sidebar-item d-flex align-items-center justify-content-around border-bottom border-info" routerLink="/core" routerLinkActive="active-sidebar-item text-info">
                 <div class="flex-fill d-flex align-items-center justify-content-around hideText">
-                    <span>test</span>
+                    <span>second link</span>
                 </div>
-                <div class="flex-fill text-right mr-5">
+                <div class="flex-fill " [ngClass]="sideMenuActive ? 'text-right' : 'text-center'">
                     <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                 </div>
+
+              <!--  <div class="px-5"  routerLink="/core/profile" routerLinkActive="active-sidebar-item text-info" >
+                    test
+                </div>-->
+
             </div>
 
             <div class="sidebar-item d-flex align-items-center justify-content-around border-bottom border-info">
                 <div class="flex-fill d-flex align-items-center justify-content-around hideText">
-                    <span>test</span>
+                    <span>third link</span>
                 </div>
-                <div class="flex-fill text-right mr-5">
+                <div class="flex-fill " [ngClass]="sideMenuActive ? 'text-right' : 'text-center'">
                     <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                 </div>
             </div>
@@ -34,8 +39,10 @@
 
         <div class="flex-fill"></div>
 
-        <div class="text-center">
-            <i class="fa fa-caret-left" aria-hidden="true"></i>
+        <div class="text-center" >
+            <i class="fa fa-caret-left p-4" aria-hidden="true"
+               (click)="sideMenuActive = !sideMenuActive"
+               [ngClass]="!sideMenuActive ? 'fa-rotate-180' : ''"></i>
         </div>
 
         <div>
@@ -48,8 +55,8 @@
                          style="border: 1px solid #224abe"
                     />
                 </a>
-                <div class="dropdown-menu  bg-transparent" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/core/profile" routerLinkActive="active">
+                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="/core/profile" routerLinkActive="active-sidebar-item text-info">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         Your profile</a>
                     <a class="dropdown-item"
