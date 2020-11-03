@@ -46,11 +46,11 @@ span {
 
 }
 
-i {
-  margin-right: .25rem;
+.more-options{
+  height: 0;
+
+  overflow: hidden;
 }
-
-
 
 .list-group-item {
   cursor: pointer;
@@ -59,6 +59,10 @@ i {
 .active {
   color: rosybrown;
   font-weight: bold;
+}
+
+.link-disabled {
+  pointer-events: none;
 }
 
 #sidebar-wrapper.toggle {

@@ -13,6 +13,7 @@ import {AngularFileUploaderModule} from 'angular-file-uploader';
 import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
 import { UploadPostComponent } from './components/upload-post/upload-post.component';
 import { ShowPostOptionsDirective } from './directives/show-post-options.directive';
+import { ShowMoreOptionsDirective } from './directives/show-more-options.directive';
 
 
 
@@ -28,6 +29,7 @@ import { ShowPostOptionsDirective } from './directives/show-post-options.directi
     DragAndUploadDirective,
     UploadPostComponent,
     ShowPostOptionsDirective,
+    ShowMoreOptionsDirective,
 
   ],
     exports: [
