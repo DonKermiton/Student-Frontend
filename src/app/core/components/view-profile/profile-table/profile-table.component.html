@@ -30,13 +30,12 @@
                  [infiniteScrollThrottle]="throttle"
                  (scrolled)="onScrollDown($event)"
             >
-                <div class="card" *ngFor="let post of postArray; let i = index">
+                <div class="card mt-2" *ngFor="let post of postArray; let i = index">
                     <div>
-                        <div class="col-12">
+                        <div class="col-12 pl-0 pr-0">
                             <div class="row mx-auto">
                                 <div class="col px-0">
-                                    <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded img-fluid"
-                                    >
+                                    <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded img-fluid">
                                 </div>
                                 <div class="col-8">
                                     <span class="post-author text-warning">{{post.user.first_name}} {{post.user.last_name}}</span>

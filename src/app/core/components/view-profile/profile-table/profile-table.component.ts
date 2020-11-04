@@ -68,13 +68,13 @@ export class ProfileTableComponent implements OnInit {
                 ),
                 map((photo: photoModel[]) => photo)
             ).subscribe((photo: any) => {
-            console.log(this.postNumber);
+            this.addItems();
             this.photoCollection = photo;
             if (photo.url) {
                 this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
             }
         });
-        this.addItems();
+
 
         this.initForm();
     }
@@ -104,8 +104,7 @@ export class ProfileTableComponent implements OnInit {
                     return this.postsService.countPostComments(post.postID);
                 })
             ).subscribe((likes: number) => {
-                if(this.postArray) this.postArray[0].comments = likes || 0;
-                console.log(this.postArray[this.postArray.length - 1]);
+                console.log(likes);
                 this.postSubscription.unsubscribe();
             });
 
