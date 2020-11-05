@@ -14,6 +14,8 @@ import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
 import { UploadPostComponent } from './components/upload-post/upload-post.component';
 import { ShowPostOptionsDirective } from './directives/show-post-options.directive';
 import { ShowMoreOptionsDirective } from './directives/show-more-options.directive';
+import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
+
 
 
 
@@ -29,6 +31,8 @@ import { ShowMoreOptionsDirective } from './directives/show-more-options.directi
     UploadPostComponent,
     ShowPostOptionsDirective,
     ShowMoreOptionsDirective,
+    ImageViewerComponent,
+
 
   ],
     exports: [

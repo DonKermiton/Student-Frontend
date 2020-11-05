@@ -7,6 +7,8 @@ import {PhotoService} from '../../../../shared/services/photo.service';
 import {ConfirmDialogService} from '../../../../shared/services/confirm-dialog.service';
 import {Subscription} from 'rxjs';
 import {CanEditProfileService} from '../../../../shared/services/can-edit-profile.service';
+import {Location} from '@angular/common';
+
 
 @Component({
     selector: 'app-profile-photo-collection',
@@ -30,12 +32,11 @@ export class ProfilePhotoCollectionComponent implements OnInit {
                 private photos: PhotoService,
                 private CanEditProfile: CanEditProfileService,
                 private confirmService: ConfirmDialogService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                public location: Location) {
     }
 
     ngOnInit() {
-
-
         this.route.parent.params
             .pipe(
                 mergeMap((params: Params) => {

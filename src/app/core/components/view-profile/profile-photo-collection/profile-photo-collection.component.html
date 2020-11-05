@@ -7,7 +7,7 @@
         <span *ngIf="photoCollection.length ===0">No photo has been added yet</span>
     </div>
     <div class="row collectionImg" *ngIf="this.photoCollection;else loadingPhoto">
-        <div class="col-xs-12 col-md-5 col-xl-3 mt-3 border-bottom border-dark"
+        <div class="col-xs-12 col-md-5 col-xl-3 mt-3 border-bottom border-dark" (click)="location.back()"
              *ngFor="let png of this.photoCollection; let i = index" appPhotoOption>
 
             <img src="/api/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
