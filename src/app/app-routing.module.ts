@@ -35,7 +35,8 @@ const routes: Routes = [
   { path: 'adminPanel',
     loadChildren: () => import('./admin-panel/admin-panel.module').then(m => m.AdminPanelModule),
     component: LayoutLoggedComponent,
-  }
+  },
+  { path: 'image-view', loadChildren: () => import('./image-view/image-view.module').then(m => m.ImageViewModule) }
 ];
 
 @NgModule({

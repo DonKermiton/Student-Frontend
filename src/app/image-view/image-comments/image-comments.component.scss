@@ -1,0 +1,54 @@
+#comments-wrapper {
+  min-height: 100vh;
+  max-height: 100vh;
+  margin-left: -100vw;
+  width: 100vw;
+
+  color: white;
+  font-weight: revert;
+  background-color: #222;
+
+  overflow: hidden;
+
+  transition: margin .25s ease-out;
+}
+
+
+@media (min-width: 1024px) {
+  #comments-wrapper {
+    margin-left: 0;
+    width: 20vw;
+    transition: width .3s;
+  }
+
+  #comments-heading img {
+    height: 7vh;
+  }
+
+  #photo-description {
+
+  }
+
+  #photo-description::after {
+    content: '';
+    display: block;
+    width: 90%;
+    height: .1rem;
+    margin-left: 5%;
+    background-color: #fff;
+
+  }
+
+  .photo-description-text {
+    height: 6rem;
+    //height: auto;
+    overflow: hidden;
+    font-size: .9rem;
+  }
+
+  #photo-comments {
+    max-height: 72vh;
+    overflow-y: scroll;
+  }
+
+}
