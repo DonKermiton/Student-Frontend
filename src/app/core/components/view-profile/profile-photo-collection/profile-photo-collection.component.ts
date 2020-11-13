@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../../../../auth/services/users.service';
 import {map, mergeMap, tap} from 'rxjs/operators';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {photoModel} from '../../../models/photo.model';
 import {PhotoService} from '../../../../shared/services/photo.service';
 import {ConfirmDialogService} from '../../../../shared/services/confirm-dialog.service';
@@ -33,7 +33,7 @@ export class ProfilePhotoCollectionComponent implements OnInit {
                 private CanEditProfile: CanEditProfileService,
                 private confirmService: ConfirmDialogService,
                 private route: ActivatedRoute,
-                public location: Location) {
+                public router: Router) {
     }
 
     ngOnInit() {

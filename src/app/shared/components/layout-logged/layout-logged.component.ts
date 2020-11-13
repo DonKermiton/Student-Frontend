@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {fromEvent} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-layout-logged',
@@ -9,10 +10,13 @@ import {fromEvent} from 'rxjs';
 export class LayoutLoggedComponent implements OnInit {
     sideMenu = false;
 
-    constructor() {
+    constructor(private router: Router) {
     }
 
     ngOnInit() {
+        //redirect when user there is no token in localstorage
+
+        // mobile swap screen to right to open sidemenu
         let touchX;
         fromEvent(document, 'touchstart').subscribe(event => {
             // @ts-ignore

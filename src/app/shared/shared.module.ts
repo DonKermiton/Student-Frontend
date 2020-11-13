@@ -15,6 +15,7 @@ import { UploadPostComponent } from './components/upload-post/upload-post.compon
 import { ShowPostOptionsDirective } from './directives/show-post-options.directive';
 import { ShowMoreOptionsDirective } from './directives/show-more-options.directive';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
+import { CommentsViewComponent } from './components/image-viewer/comments-view/comments-view.component';
 
 
 
@@ -32,6 +33,7 @@ import { ImageViewerComponent } from './components/image-viewer/image-viewer.com
     ShowPostOptionsDirective,
     ShowMoreOptionsDirective,
     ImageViewerComponent,
+    CommentsViewComponent,
 
 
   ],

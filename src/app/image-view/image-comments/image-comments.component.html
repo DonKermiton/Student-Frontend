@@ -1,6 +1,6 @@
-<div class="bg-second " id="comments-wrapper">
+<div class="bg-second " id="comments-wrapper" [class.hide-comments]="showComments">
     <div id="items-wrapper" class="d-flex flex-column">
-        <div id="comments-heading" class="d-flex">
+        <div id="comments-heading" class="d-flex border-bottom border-white" >
             <img src="../../../assets/img/profile_placeholder.png" class="img-fluid"/>
             <div class="d-flex flex-column ml-2">
                 <div>
@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div id="photo-description" class="px-2" >
+        <div id="photo-description" class="p-2" >
             <div class="photo-description-text" [ngClass]="showMore ? 'h-auto': ''">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aliquid architecto
                     consectetur, cupiditate debitis distinctio eum harum, iure maiores molestias mollitia odio provident

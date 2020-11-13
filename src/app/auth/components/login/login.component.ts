@@ -24,9 +24,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+
     this.auth.login(this.loginForm.value)
       .pipe(
-        tap(() => {
+        tap((data) => {
+          console.log(data);
           this.notifier.notify(
             'success',
             'Logged',

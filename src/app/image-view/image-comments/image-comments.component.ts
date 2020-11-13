@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-image-comments',
@@ -9,10 +9,13 @@ export class ImageCommentsComponent implements OnInit {
   postComments = [];
   showMore = false;
 
+  @Input() showComments = true;
+
   constructor() { }
 
   ngOnInit() {
-    for (let i = 0; i < 10; i++) {
+
+    for (let i = 0; i < 100; i++) {
       this.postComments.push(i);
     }
   }

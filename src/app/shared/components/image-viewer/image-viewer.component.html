@@ -1,19 +1,26 @@
-<div id="wrapper" class="position-relative">
-    <div id="close" class="bg-white rounded-circle d-flex align-items-center justify-content-center" *ngIf="showMenu">
-        <i class="fa fa-times fa-2x" aria-hidden="true"></i>
-    </div>
+<div class="d-flex" id="wrapper">
 
-    <div id="bottom-menu" *ngIf="showMenu">
-        <div class="row mx-auto text-center">
-            <div class="col">Likes</div>
-            <div class="col">Comments</div>
+    <div id="page-content-wrapper">
+
+        <div class="row ">
+            <div class="container-fluid bg-main">
+                <div id="close" class="bg-white rounded-circle d-flex align-items-center justify-content-center"
+                     *ngIf="showMenu">
+                    <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+                </div>
+
+                <div id="bottom-menu" *ngIf="showMenu">
+                    <div class="row mx-auto text-center">
+                        <div class="col">Likes</div>
+                        <div class="col">Comments</div>
+                    </div>
+                </div>
+
+                <div id="image-wrapper" class="d-flex justify-content-center align-items-center">
+                    <img src="../../../../assets/img/blogenium-nature-wallpapers-3.jpg" class="img-fluid"/>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div id="image-wrapper" class="d-flex justify-content-center align-items-center">
-            <img src="../../../../assets/img/blogenium-nature-wallpapers-3.jpg" class="img-fluid"/>
-    </div>
-
-
-
+    <app-comments-view class="sticky-top sidebar-menu"></app-comments-view>
 </div>

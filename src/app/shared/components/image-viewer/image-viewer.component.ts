@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {fromEvent} from 'rxjs';
 
 @Component({
   selector: 'app-image-viewer',
@@ -6,8 +7,9 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
   styleUrls: ['./image-viewer.component.scss']
 })
 export class ImageViewerComponent implements OnInit {
+
   showMenu = false;
-  @ViewChild('actions', {static: false}) menuActions = ElementRef;
+
   constructor() { }
 
   ngOnInit() {

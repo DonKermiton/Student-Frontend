@@ -6,7 +6,7 @@ body {
 
 }
 
-.sidebar-menu{
+.sidebar-menu {
   height: 100%;
 }
 
@@ -15,12 +15,18 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
+
 }
 
 #image-wrapper {
   background-color: #333;
   height: 100%;
+  max-height: 100vh;
   width: 100%;
+}
+
+#image-wrapper img {
+  max-height: 100vh;
 }
 
 #close {
@@ -31,6 +37,14 @@ body {
   left: 5%;
 }
 
+#fullscreen-button {
+  position: fixed;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  top: 2%;
+  right: 5%;
+}
+
 #bottom-menu {
   position: absolute;
   bottom: 0;
@@ -39,13 +53,21 @@ body {
   height: 2.6rem;
   line-height: 2.6rem;
 
-  background-color: rgba(255,255,255, 0.4);
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+#page-content-wrapper.hide-main-content {
+  margin-left: -100vw;
 }
 
 @media (min-width: 1280px) {
-  #bottom-menu{
+  #bottom-menu {
     display: none;
   }
+  #fullscreen-button {
+    position: absolute;
+  }
+
 }
 
 
@@ -60,4 +82,8 @@ body {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+  #page-content-wrapper.hide-main-content {
+    margin-left: 0;
+  }
+
 }
