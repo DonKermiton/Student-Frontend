@@ -8,6 +8,7 @@ import {ConfirmDialogService} from '../../../../shared/services/confirm-dialog.s
 import {Subscription} from 'rxjs';
 import {CanEditProfileService} from '../../../../shared/services/can-edit-profile.service';
 import {Location} from '@angular/common';
+import {NavigationService} from '../../../../shared/services/navigation.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class ProfilePhotoCollectionComponent implements OnInit {
     deletePhotoSubscription: Subscription;
 
     constructor(public users: UsersService,
-                private photos: PhotoService,
+                public photos: PhotoService,
                 private CanEditProfile: CanEditProfileService,
                 private confirmService: ConfirmDialogService,
                 private route: ActivatedRoute,

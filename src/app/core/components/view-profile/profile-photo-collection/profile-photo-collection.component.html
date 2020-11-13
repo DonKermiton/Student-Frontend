@@ -11,7 +11,7 @@
              *ngFor="let png of this.photoCollection; let i = index" appPhotoOption>
 
             <img src="/api/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
-                 class="img-fluid rounded" (click)="router.navigate(['/image-view'])">
+                 class="img-fluid rounded" (click)="photos.navigateToImageInfo(png.imgLink)">
 
 
             <div class="photoOptions" [hidden]="!canEditProfile">

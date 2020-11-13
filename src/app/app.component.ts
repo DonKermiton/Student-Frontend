@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './auth/services/auth.service';
+import {NavigationService} from './shared/services/navigation.service';
 
 
 @Component({
@@ -10,7 +11,8 @@ import {AuthService} from './auth/services/auth.service';
 export class AppComponent implements OnInit {
   title = 'studentApp';
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService,
+              private navigationService: NavigationService) {
   }
 
   ngOnInit() {

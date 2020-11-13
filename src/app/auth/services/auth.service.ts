@@ -25,7 +25,7 @@ export class AuthService {
 
     public login(user: UserPayLoad): Observable<any> {
         console.log(user);
-        const base = this.http.post('/api/users/login', user, {responseType: 'json'});
+        const base = this.http.post('api/users/login', user, {responseType: 'json'});
 
         return base.pipe(
             tap((data: TokenResponse) => {
@@ -69,6 +69,5 @@ export class AuthService {
         localStorage.setItem('userToken', token);
         this.token = token;
     }
-
 
 }

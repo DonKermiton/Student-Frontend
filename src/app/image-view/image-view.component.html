@@ -1,7 +1,7 @@
 <div class="d-flex" id="wrapper">
     <div id="page-content-wrapper" class="position-relative" [class.hide-main-content]="fullScreenEvent">
-        <div id="close" class="bg-white rounded-circle d-flex align-items-center justify-content-center ">
-            <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+        <div id="close" class="bg-white rounded-circle d-flex align-items-center justify-content-center" (click)="backToPreviousPage()" >
+            <i class="fa fa-2x" aria-hidden="true" [ngClass]="navigationService.getPreviousUrl() === '/' ? 'fa-times' : 'fa-arrow-left'"></i>
         </div>
 
         <div id="fullscreen-button" class="bg-white rounded-circle d-flex align-items-center justify-content-center" (click)="fullScreenEvent = !fullScreenEvent">
@@ -18,7 +18,7 @@
 
 
         <div id="image-wrapper" class="d-flex justify-content-center align-items-center">
-            <img src="../../../../assets/img/blogenium-nature-wallpapers-3.jpg" class="img-fluid"/>
+            <img [src]="'/api/photo/getPhotoWithUser?id=' + imgLink " class="img-fluid"/>
         </div>
 
 

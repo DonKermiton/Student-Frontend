@@ -2,12 +2,12 @@
     <div id="items-wrapper" class="d-flex flex-column">
         <div id="comments-heading" class="d-flex border-bottom border-white" >
             <img src="../../../assets/img/profile_placeholder.png" class="img-fluid"/>
-            <div class="d-flex flex-column ml-2">
+            <div class="d-flex flex-column ml-2" *ngIf="user">
                 <div>
-                    <span>Name Surname</span>
+                    <span>{{user.first_name}} {{user.last_name}}</span>
                 </div>
                 <div>
-                    <small class="text-muted">Date</small>
+                    <small class="text-muted">{{photoDate}}</small>
                 </div>
             </div>
         </div>

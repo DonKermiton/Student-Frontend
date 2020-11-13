@@ -26,11 +26,11 @@ import {LoggedInterceptor} from "./auth/interceptors/logged.interceptor";
     SharedModule,
     AngularFileUploaderModule,
   ],
-  providers: [ {
-    provide: HTTP_INTERCEPTORS,
-    useClass: LoggedInterceptor,
-    multi: true
-  }],
+  // providers: [ {
+  //   provide: HTTP_INTERCEPTORS,
+  //   useClass: LoggedInterceptor,
+  //   multi: true
+  // }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
