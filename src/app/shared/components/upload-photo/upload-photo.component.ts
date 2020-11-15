@@ -11,6 +11,8 @@ import {photoModel} from '../../../core/models/photo.model';
 export class UploadPhotoComponent implements OnInit {
 
     @Output() closeModalEmitter = new EventEmitter<void>();
+    @Output() emitPhotos = new EventEmitter<photoModel[]>();
+
     public filesToUpload: photoModel[];
     sendingImage = false;
 
@@ -20,16 +22,16 @@ export class UploadPhotoComponent implements OnInit {
 
     uploadImage() {
         this.sendingImage = true;
-        for(const photo of this.filesToUpload) {
+      /*  for(const photo of this.filesToUpload) {
             this.users.uploadPhoto(photo).subscribe(console.log);
-        }
+        }*/
 
         this.closeModal();
 
     }
 
     files(files: photoModel[]) {
-        this.filesToUpload = files;
+        this.emitPhotos.emit(files);
 
     }
 

@@ -9,16 +9,16 @@
     <div class="row collectionImg" *ngIf="this.photoCollection;else loadingPhoto">
         <div class="col-xs-12 col-md-5 col-xl-3 mt-3 border-bottom border-dark"
              *ngFor="let png of this.photoCollection; let i = index" appPhotoOption>
-
-            <img src="/api/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
-                 class="img-fluid rounded" (click)="photos.navigateToImageInfo(png.imgLink)">
-
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <img src="/api/photo/getSelectedPhoto/{{numberID}}/{{png.imgLink}}" [alt]="png.id"
+                     class="img-fluid rounded " (click)="photos.navigateToImageInfo(png.imgLink)">
+            </div>
 
             <div class="photoOptions" [hidden]="!canEditProfile">
                 <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
-                <div class="dropdown-menu" >
+                <div class="dropdown-menu">
                     <a class="dropdown-item" (click)="selectPhotoAsFront(png.id)" *ngIf="isYourProfile">Set as front
                         profile Photo</a>
                     <a class="dropdown-item" (click)="selectPhotoAsBack(png.id)" *ngIf="isYourProfile">Set as back

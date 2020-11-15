@@ -11,14 +11,13 @@ import {NavigationService} from './shared/services/navigation.service';
 export class AppComponent implements OnInit {
   title = 'studentApp';
 
-  constructor(private auth: AuthService,
-              private navigationService: NavigationService) {
+  constructor(auth: AuthService,
+              navigationService: NavigationService) {
+    if (auth.getToken()) {
+      auth.autoLogin();
+    }
   }
 
   ngOnInit() {
-    if (this.auth.getToken()) {
-        this.auth.autoLogin();
-    }
-
   }
 }

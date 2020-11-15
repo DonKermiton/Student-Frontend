@@ -21,6 +21,10 @@
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-7 offset-xl-1 col-xl-6 mt-3  rounded ">
+
+
+            <button class="w-100 btn btn-primary" (click)="modalOpen = true">Create post</button>
+
             <h5 class="text-center" *ngIf="postNumber == 0">No post has been added yet</h5>
             <div class="search-results"
                  data-infinite-scroll
@@ -145,4 +149,4 @@
     </div>
 </div>
 
-<app-upload-post *ngIf="false"></app-upload-post>
+<app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false"></app-upload-post>

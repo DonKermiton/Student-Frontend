@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../../shared/models/user.model';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {photoModel} from '../../core/models/photo.model';
-import {PhotoService} from '../../shared/services/photo.service';
 
 @Injectable({
     providedIn: 'root',
@@ -36,14 +35,17 @@ export class UsersService {
         return this.http.get(`/api/photo/getUserProfile/Back/${id}`, {responseType: 'text'});
     }
 
-    uploadPhoto(form) {
+    uploadPhoto(form, postID: 0) {
         const formData = new FormData();
         formData.append('file', form);
 
         return this.http.put('/api/photo/upload', formData,
             {
                 responseType: 'text',
-                headers: {Authorization: localStorage.getItem('userToken')}
+                headers: new HttpHeaders({
+                    Authorization: localStorage.getItem('userToken'),
+                    postID: String(postID)
+                })
             });
     }
 

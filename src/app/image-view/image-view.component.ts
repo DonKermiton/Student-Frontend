@@ -24,7 +24,6 @@ export class ImageViewComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.route.queryParams
             .pipe(
                 mergeMap((params: Params) => {
@@ -32,7 +31,7 @@ export class ImageViewComponent implements OnInit {
                     return this.photo.getPhoto(params.id)
                 }),
             )
-            .subscribe()
+            .subscribe(console.log)
     }
 
     backToPreviousPage() {

@@ -3,13 +3,16 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PostComment} from '../models/post.model';
 import {map, tap} from 'rxjs/operators';
+import {UsersService} from "../../auth/services/users.service";
+import {photoModel} from "../../core/models/photo.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PostsService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private users: UsersService) {
     }
 
     getUserPost(id: number, skip: number) {
@@ -26,8 +29,11 @@ export class PostsService {
         return this.http.get(`/api/posts/userPost/Count?id=${id}`, {responseType: 'text'});
     }
 
-    createPost() {
-
+    createPost(post: string) {
+        const postObj = {
+            text: post
+        }
+        return this.http.put(`/api/posts/userPost/create`, postObj, {headers: {Authorization: localStorage.getItem('userToken')}})
     }
 
     deletePost(id: number) {

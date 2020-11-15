@@ -1,14 +1,17 @@
 <div id="wrapper" class="d-flex justify-content-center align-items-center" (click)="hideModal()">
     <div class="h-auto bg-light w-75 rounded" (click)="$event.stopPropagation()">
-        <div class="col-12">
+        <div class="col-xs-12">
             <h3 class="text-center mt-3">Create Post</h3>
             <hr>
             <div class="col-12 h-75">
                 <label for="desc">Post Description</label>
-                <textarea id="desc" cols="300" rows="10" class="w-100 h-100 form-control" ></textarea>
+                <textarea id="desc" cols="300" rows="5" class="w-100 h-100 form-control" #textAreaElement></textarea>
             </div>
-            <div class="empty-space">
-                <hr>
+
+            <h5 class="text-center">Upload Images</h5>
+
+            <div>
+                <app-upload-photo (emitPhotos)="filesToUpload = $event"></app-upload-photo>
             </div>
             <div class="row justify-content-around mb-3">
                 <button class="btn btn-primary w-25" (click)="createPost()">Create</button>

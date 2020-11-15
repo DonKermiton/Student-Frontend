@@ -21,7 +21,8 @@ export class ProfileTableComponent implements OnInit {
     throttle = 300;
     scrollDistance = 1;
     scrollUpDistance = 2;
-    direction = '';
+
+
     modalOpen = false;
     postArray: PostModel[] = [];
 
@@ -68,7 +69,7 @@ export class ProfileTableComponent implements OnInit {
                 ),
                 map((photo: photoModel[]) => photo)
             ).subscribe((photo: any) => {
-            this.addItems();
+            this.addItems(0)
             this.photoCollection = photo;
             if (photo.url) {
                 this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
@@ -92,8 +93,8 @@ export class ProfileTableComponent implements OnInit {
         return size;
     }
 
-    addItems() {
-        this.postSubscription = this.postsService.getUserPost(this.id, this.skip)
+    addItems(skip:number) {
+        this.postSubscription = this.postsService.getUserPost(this.id, skip)
             .pipe(
                 switchMap((post: PostModel[]) => post),
                 map((post: PostModel) => post),
@@ -110,33 +111,16 @@ export class ProfileTableComponent implements OnInit {
 
     }
 
-    appendItems() {
-        this.addItems();
-    }
 
-    prependItems() {
-        this.addItems();
-    }
 
     onScrollDown(ev) {
         console.log('scrolled down!!', ev);
-        // add another 20 items
 
-        this.skip += 1;
+        this.skip += 5;
         this.sum += 5;
-        this.appendItems();
+        this.addItems(this.skip);
 
-        this.direction = 'down';
     }
-
-    onUp(ev) {
-        console.log('scrolled up!', ev);
-        this.sum += 20;
-        this.prependItems();
-
-        this.direction = 'up';
-    }
-
     toggleModal() {
         this.modalOpen = !this.modalOpen;
     }
@@ -151,13 +135,6 @@ export class ProfileTableComponent implements OnInit {
                 this.postComments.push(postComments);
             }
         });
-    }
-
-    getPostComments(id: number) {
-    }
-
-    emitShowComments(id: number) {
-        this.showCommentsArray.push(id);
     }
 
     deletePost(postID: number) {
