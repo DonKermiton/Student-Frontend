@@ -149,4 +149,4 @@
     </div>
 </div>
 
-<app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false"></app-upload-post>
+<app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false" (addedPost)="addPost($event)" ></app-upload-post>

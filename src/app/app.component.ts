@@ -13,9 +13,7 @@ export class AppComponent implements OnInit {
 
   constructor(auth: AuthService,
               navigationService: NavigationService) {
-    if (auth.getToken()) {
-      auth.autoLogin();
-    }
+
   }
 
   ngOnInit() {

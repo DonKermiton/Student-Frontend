@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {fromEvent} from 'rxjs';
 import {Router} from '@angular/router';
+import {AuthService} from '../../../auth/services/auth.service';
 
 @Component({
     selector: 'app-layout-logged',
@@ -10,7 +11,11 @@ import {Router} from '@angular/router';
 export class LayoutLoggedComponent implements OnInit {
     sideMenu = false;
 
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                auth: AuthService) {
+        if (auth.getToken()) {
+            auth.autoLogin();
+        }
     }
 
     ngOnInit() {

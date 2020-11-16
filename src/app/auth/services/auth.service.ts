@@ -60,6 +60,7 @@ export class AuthService {
     private handleLogin() {
         this.getUserData().subscribe(data => {
             console.log('login', data);
+            console.log();
             this.user.User.next(data);
             this.user.getUserInfo(data.id);
         });

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {map, mergeMap, switchMap, take, takeLast, tap} from 'rxjs/operators';
 import {User} from '../../../../shared/models/user.model';
 import {ActivatedRoute, Params} from '@angular/router';
 import {photoModel} from '../../../models/photo.model';
@@ -80,6 +80,26 @@ export class ProfileTableComponent implements OnInit {
         this.initForm();
     }
 
+    addPost(event: PostModel) {
+        console.log(event);
+        this.users.getUser()
+            .pipe(
+                take(1),
+                map(user => {
+                    if (user) {
+                        event.user = {
+                            first_name: user.first_name,
+                            last_name: user.last_name,
+                            id: user.id
+                        }
+                        this.postArray.unshift(event)
+                    }
+                })
+            )
+            .subscribe()
+
+    }
+
     windowWidth() {
         let size;
         if (window.innerWidth < 880) {
@@ -93,24 +113,22 @@ export class ProfileTableComponent implements OnInit {
         return size;
     }
 
-    addItems(skip:number) {
+    addItems(skip: number) {
         this.postSubscription = this.postsService.getUserPost(this.id, skip)
             .pipe(
-                switchMap((post: PostModel[]) => post),
+                mergeMap((post: PostModel[]) => post),
                 map((post: PostModel) => post),
-                switchMap((post) => {
+                mergeMap((post) => {
                     if (this.postArray.length < this.postNumber) {
                         this.postArray.push(post);
                     }
                     return this.postsService.countPostComments(post.postID);
                 })
             ).subscribe((likes: number) => {
-                console.log(likes);
                 this.postSubscription.unsubscribe();
             });
 
     }
-
 
 
     onScrollDown(ev) {
@@ -121,6 +139,7 @@ export class ProfileTableComponent implements OnInit {
         this.addItems(this.skip);
 
     }
+
     toggleModal() {
         this.modalOpen = !this.modalOpen;
     }
