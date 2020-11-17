@@ -45,15 +45,43 @@ body {
   right: 5%;
 }
 
+.photo-nav {
+  position: absolute;
+  top: 50%;
+
+  background-color: #fff;
+}
+
+.left {
+  left: 0;
+  transform: translate(50%, -50%);
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translate(-25%, 0%);
+  background-color: #fff;
+}
+.bottom {
+  bottom: 0;
+  background-color: transparent;
+}
+
+.right {
+  right: 0;
+  transform: translate(-50%, -50%);
+}
+
 #bottom-menu {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
   width: 100vw;
   height: 2.6rem;
   line-height: 2.6rem;
+  text-align: center;
 
-  background-color: rgba(255, 255, 255, 0.4);
 }
 
 #page-content-wrapper.hide-main-content {

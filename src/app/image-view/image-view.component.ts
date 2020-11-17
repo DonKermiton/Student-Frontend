@@ -4,6 +4,7 @@ import {PhotoService} from '../shared/services/photo.service';
 import {filter, mergeMap} from 'rxjs/operators';
 import {Location} from '@angular/common';
 import {NavigationService} from '../shared/services/navigation.service';
+import {photoModel} from '../core/models/photo.model';
 
 @Component({
     selector: 'app-image-view',
@@ -12,9 +13,12 @@ import {NavigationService} from '../shared/services/navigation.service';
 })
 export class ImageViewComponent implements OnInit {
 
+    isCollection = false;
+
     fullScreenEvent = false;
     imgLink: string;
 
+    photoCollection: photoModel[];
 
     constructor(private route: ActivatedRoute,
                 private photo: PhotoService,
@@ -40,5 +44,24 @@ export class ImageViewComponent implements OnInit {
        } else {
            this.location.back();
        }
+    }
+
+    findPhotoInCollection() {
+         return this.photoCollection.findIndex(e => e.imgLink === this.imgLink)
+    }
+
+    previousPhotoInCollection() {
+        this.imgLink = this.photoCollection[this.findPhotoInCollection() - 1].imgLink;
+    }
+
+    nextPhotoInCollection() {
+        this.imgLink = this.photoCollection[this.findPhotoInCollection() + 1].imgLink;
+    }
+
+    handlePhotoCollection($event: photoModel[]) {
+        this.photoCollection =$event;
+        if(this.photoCollection.length > 1) {
+            this.isCollection = true;
+        }
     }
 }

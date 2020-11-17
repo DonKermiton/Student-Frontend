@@ -1,22 +1,31 @@
 <div class="d-flex" id="wrapper">
     <div id="page-content-wrapper" class="position-relative" [class.hide-main-content]="fullScreenEvent">
-        <div id="close" class="bg-white rounded-circle d-flex align-items-center justify-content-center" (click)="backToPreviousPage()" >
-            <i class="fa fa-2x" aria-hidden="true" [ngClass]="navigationService.getPreviousUrl() === '/' ? 'fa-times' : 'fa-arrow-left'"></i>
+        <div id="close" class="bg-white rounded-circle d-flex align-items-center justify-content-center"
+             (click)="backToPreviousPage()">
+            <i class="fa fa-2x" aria-hidden="true"
+               [ngClass]="navigationService.getPreviousUrl() === '/' ? 'fa-times' : 'fa-arrow-left'"></i>
         </div>
 
-        <div id="fullscreen-button" class="bg-white rounded-circle d-flex align-items-center justify-content-center" (click)="fullScreenEvent = !fullScreenEvent">
+        <div id="fullscreen-button" class="bg-white rounded-circle d-flex align-items-center justify-content-center"
+             (click)="fullScreenEvent = !fullScreenEvent">
             <i class="fa fa-arrows-alt  fa-2x" aria-hidden="true"></i>
         </div>
 
-        <div id="bottom-menu">
-            <div class="row mx-auto text-center">
-                <div class="col">Likes</div>
-                <div class="col">Comments</div>
-            </div>
-        </div>
+
+        <button class="btn-outline-primary btn rounded-circle center bottom">
+            <i class="fa fa-thumbs-up"></i>
+        </button>
 
 
-
+        <ng-container *ngIf="photoCollection && photoCollection.length > 1">
+            <span class="center rounded px-2 py-1">{{findPhotoInCollection() + 1}} / {{photoCollection.length }}</span>
+            <button class="btn rounded photo-nav left" (click)="previousPhotoInCollection()"
+                    [disabled]="findPhotoInCollection() - 1 < 0"><i class="fa fa-caret-left"></i>
+            </button>
+            <button class="btn rounded photo-nav right" (click)="nextPhotoInCollection()"
+                    [disabled]="findPhotoInCollection() + 1 >= photoCollection.length"><i class="fa fa-caret-right"></i>
+            </button>
+        </ng-container>
         <div id="image-wrapper" class="d-flex justify-content-center align-items-center">
             <img [src]="'/api/photo/getPhotoWithUser?id=' + imgLink " class="img-fluid"/>
         </div>
@@ -24,5 +33,6 @@
 
     </div>
 
-    <app-image-comments [showComments]="fullScreenEvent"></app-image-comments>
+    <app-image-comments [showComments]="fullScreenEvent"
+                        (emitPhotoCollection)="handlePhotoCollection($event)"></app-image-comments>
 </div>

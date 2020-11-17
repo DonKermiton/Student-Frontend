@@ -69,7 +69,7 @@ export class ProfileTableComponent implements OnInit {
                 ),
                 map((photo: photoModel[]) => photo)
             ).subscribe((photo: any) => {
-            this.addItems(0)
+            this.addItems(0);
             this.photoCollection = photo;
             if (photo.url) {
                 this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();

@@ -16,6 +16,7 @@ import { ShowPostOptionsDirective } from './directives/show-post-options.directi
 import { ShowMoreOptionsDirective } from './directives/show-more-options.directive';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { CommentsViewComponent } from './components/image-viewer/comments-view/comments-view.component';
+import { CreateCommentComponent } from './components/create-comment/create-comment.component';
 
 
 
@@ -34,6 +35,7 @@ import { CommentsViewComponent } from './components/image-viewer/comments-view/c
     ShowMoreOptionsDirective,
     ImageViewerComponent,
     CommentsViewComponent,
+    CreateCommentComponent,
 
 
   ],
@@ -43,7 +45,8 @@ import { CommentsViewComponent } from './components/image-viewer/comments-view/c
         ConfirmActionComponent,
         UploadPhotoComponent,
         UploadPostComponent,
-        ShowPostOptionsDirective
+        ShowPostOptionsDirective,
+        CreateCommentComponent
     ],
     imports: [
         CommonModule,

@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {photoModel} from '../../core/models/photo.model';
 import {AuthService} from '../../auth/services/auth.service';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {PostModel} from '../models/post.model';
 
 @Injectable({
     providedIn: 'root'
@@ -51,6 +53,16 @@ export class PhotoService {
             responseType: 'text',
             headers: {Authorization: `${this.auth.getToken()}`}
         });
+    }
+
+    getPostPhotoCollection(postID: number):Observable<photoModel[]> {
+        const params = new HttpParams({
+            fromObject: {
+                postID: `${postID}`,
+            }
+        });
+
+        return this.http.get<photoModel[]>(`/api/photo/post/collection`, {params})
     }
 
 

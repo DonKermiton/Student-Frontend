@@ -1,10 +1,10 @@
 <div class="bg-second " id="comments-wrapper" [class.hide-comments]="showComments">
-    <div id="items-wrapper" class="d-flex flex-column">
-        <div id="comments-heading" class="d-flex border-bottom border-white" >
+    <div id="items-wrapper" class="d-flex flex-column" *ngIf="postData">
+        <div id="comments-heading" class="d-flex border-bottom border-white">
             <img src="../../../assets/img/profile_placeholder.png" class="img-fluid"/>
-            <div class="d-flex flex-column ml-2" *ngIf="user">
+            <div class="d-flex flex-column ml-2">
                 <div>
-                    <span>{{user.first_name}} {{user.last_name}}</span>
+                    <span>{{postData.user.first_name}} {{postData.user.last_name}}</span>
                 </div>
                 <div>
                     <small class="text-muted">{{photoDate}}</small>
@@ -12,11 +12,9 @@
             </div>
         </div>
 
-        <div id="photo-description" class="p-2" >
+        <div id="photo-description" class="p-2">
             <div class="photo-description-text" [ngClass]="showMore ? 'h-auto': ''">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aliquid architecto
-                    consectetur, cupiditate debitis distinctio eum harum, iure maiores molestias mollitia odio provident
-                    quas recusandae reiciendis rerum vitae voluptates?</p>
+                <p>{{postData.text}}</p>
             </div>
 
             <div class="text-center" (click)="showMore = !showMore">
@@ -25,16 +23,23 @@
         </div>
 
         <div id="photo-comments" class="mx-2 mt-3">
+            <button class="btn btn-outline-primary w-100">Add Comment</button>
+            <div>
+                <hr>
+            </div>
             <ng-container *ngFor="let comment of postComments">
                 <div class="w-100 mb-1 bg-dark">
-                    <div>
-                        <img src="/api/photo/getUserProfile/Front/{{5}}" alt="id" class="rounded"
-                             width="15"
-                             height="15">
-                        <small class="text-info">Name Surname</small>
+                    <div class="d-flex justify-content-between">
+                        <img src="/api/photo/getUserProfile/Front/{{comment.ownerID}}" alt="id"
+                             class="rounded img-fluid"
+                             width="30"
+                             height="30">
+                        <small class="text-info">{{comment.user.first_name}} {{comment.user.last_name}}</small>
+
+                        <small class="text-secondary">{{getPostDate(comment.created)}} ago</small>
                     </div>
                     <div>
-                        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda minima obcaecati perspiciatis, recusandae sint sunt velit? Assumenda, beatae consequuntur cupiditate ipsum maiores molestias nihil nostrum soluta suscipit, tempore ullam.</small>
+                        <small>{{comment.text}}</small>
                     </div>
 
                 </div>
