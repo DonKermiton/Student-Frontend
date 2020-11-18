@@ -23,7 +23,14 @@
         </div>
 
         <div id="photo-comments" class="mx-2 mt-3">
-            <button class="btn btn-outline-primary w-100">Add Comment</button>
+            <div class="d-flex ">
+                <button class="btn-outline-primary btn flex-fill">
+                    <i class="fa fa-thumbs-up"></i>
+                </button>
+                <button class="btn-outline-success btn flex-fill" (click)="isCreatingComment = true">
+                    Add a Comment
+                </button>
+            </div>
             <div>
                 <hr>
             </div>
@@ -49,3 +56,5 @@
     </div>
 
 </div>
+
+<app-create-comment [postID]="this.postID" *ngIf="isCreatingComment" (emitCloseModal)="isCreatingComment = false" (wroteComment)="addWroteComment($event)"></app-create-comment>

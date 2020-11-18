@@ -62,6 +62,15 @@ export class PostsService {
         return this.http.get<PostComment[]>(`/api/posts/userPost/Comment/all`, {params, responseType: 'json'});
     }
 
+    createPostComment(postID: string,text: string) {
+        const obj = {
+            postID,
+            text
+        }
+
+        return this.http.put(`/api/posts/userPost/comment/create`, obj, {headers: {Authorization: localStorage.getItem('userToken')}, responseType: 'json'})
+    }
+
     getSelectedPost(post: number):Observable<PostModel>{
         const params = new HttpParams({
             fromObject: {
@@ -76,11 +85,4 @@ export class PostsService {
         return this.http.get(`/api/posts/userPost/Comments/Count?id=${id}`);
     }
 
-    createComment(postID: number, text: string) {
-        return
-    }
-
-    countPostLikes(id: number) {
-        return this.http.get(`/api/posts/userPost/likes/count?id=${id}`);
-    }
 }

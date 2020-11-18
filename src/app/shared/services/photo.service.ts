@@ -25,9 +25,6 @@ export class PhotoService {
         return this.http.get(`/api/photo/getPhoto/${userID}/${photoID}`, {responseType: 'text'});
     }
 
-    getPhoto(imgLink: string) {
-        return this.http.get(`/api/photo/getPhotoWithUser?id=${imgLink}`, {responseType: 'text'});
-    }
 
     getPhotoCredentials(imgLink: string) {
         return this.http.get(`/api/photo/getPhotoCredentials?id=${imgLink}`);

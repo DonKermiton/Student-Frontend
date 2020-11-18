@@ -37,6 +37,13 @@ body {
   left: 5%;
 }
 
+.show-buttons{
+  opacity: 1;
+}
+.hide-buttons{
+  opacity: 0;
+}
+
 #fullscreen-button {
   position: fixed;
   min-width: 2.5rem;
@@ -62,6 +69,19 @@ body {
   left: 50%;
   transform: translate(-25%, 0%);
   background-color: #fff;
+}
+
+.photo-collection {
+  position: absolute;
+  left: 0%;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.photo-collection img{
+  height: 3rem;
+  width: 5rem;
+  border: 1px solid red;
 }
 .bottom {
   bottom: 0;

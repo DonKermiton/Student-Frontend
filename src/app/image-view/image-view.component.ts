@@ -1,10 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Navigation, NavigationEnd, NavigationStart, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PhotoService} from '../shared/services/photo.service';
-import {filter, mergeMap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {Location} from '@angular/common';
 import {NavigationService} from '../shared/services/navigation.service';
 import {photoModel} from '../core/models/photo.model';
+import {fromEvent} from 'rxjs';
+
+
 
 @Component({
     selector: 'app-image-view',
@@ -19,6 +22,8 @@ export class ImageViewComponent implements OnInit {
     imgLink: string;
 
     photoCollection: photoModel[];
+    showButtons = false;
+    timer;
 
     constructor(private route: ActivatedRoute,
                 private photo: PhotoService,
@@ -28,26 +33,36 @@ export class ImageViewComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.handleTimeout();
+        fromEvent(document, 'mousemove').subscribe(() => {
+            this.showButtons = true;
+            this.handleTimeout();
+        });
+        fromEvent(document, 'touchstart').subscribe(() => {
+            this.showButtons = true;
+            this.handleTimeout();
+        });
+
+
         this.route.queryParams
             .pipe(
-                mergeMap((params: Params) => {
+                tap((params: Params) => {
                     this.imgLink = params.id;
-                    return this.photo.getPhoto(params.id)
                 }),
             )
-            .subscribe(console.log)
+            .subscribe()
     }
 
     backToPreviousPage() {
-       if(this.navigationService.getPreviousUrl() === '/') {
-           this.router.navigate(['dashboard']);
-       } else {
-           this.location.back();
-       }
+        if (this.navigationService.getPreviousUrl() === '/') {
+            this.router.navigate(['dashboard']);
+        } else {
+            this.location.back();
+        }
     }
 
     findPhotoInCollection() {
-         return this.photoCollection.findIndex(e => e.imgLink === this.imgLink)
+        return this.photoCollection.findIndex(e => e.imgLink === this.imgLink)
     }
 
     previousPhotoInCollection() {
@@ -59,9 +74,16 @@ export class ImageViewComponent implements OnInit {
     }
 
     handlePhotoCollection($event: photoModel[]) {
-        this.photoCollection =$event;
-        if(this.photoCollection.length > 1) {
+        this.photoCollection = $event;
+        if (this.photoCollection.length > 1) {
             this.isCollection = true;
         }
+    }
+
+    private handleTimeout() {
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => {
+            this.showButtons = false;
+        }, 1300);
     }
 }
