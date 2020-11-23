@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../../../auth/services/users.service';
 import {mergeMap, tap} from 'rxjs/operators';
 import {StorageService} from '../../../shared/services/filestorage.service';
-import {of} from 'rxjs';
 
 @Component({
     selector: 'app-view-files',
@@ -39,16 +38,32 @@ export class ViewFilesComponent implements OnInit {
             .subscribe()
     }
 
-    clickHandler(name: string,isDir: boolean) {
-        if(isDir) {
+    clickHandler(name: string, isDir: boolean) {
+        if (isDir) {
             this.activeUrl = this.activeUrl + `/${name}`;
-            this.storage.getSelectedUrl(this.activeUrl).subscribe((data:[]) => {
+            this.storage.getSelectedUrl(this.activeUrl).subscribe((data: []) => {
                 this.fileArray = data;
             })
         } else {
             this.selectedFile = name;
             this.selectedFilePath = this.activeUrl;
         }
+
+    }
+
+    goUp() {
+        this.activeUrl = this.activeUrl.substring(0, this.activeUrl.lastIndexOf("/") + 1)
+        this.storage.getSelectedUrl(this.activeUrl).subscribe((data: []) => {
+            this.fileArray = data;
+        })
+    }
+
+    createDirectory($event: MouseEvent) {
+
+    }
+
+    deleteDirectory($event: MouseEvent) {
+        this.storage.deleteDirectory(this.activeUrl, true, false).subscribe(console.log)
 
     }
 }

@@ -25,4 +25,18 @@ export class StorageService {
         return this.http.get('/api/storage/space/files', {params});
     }
 
+    deleteDirectory(name: string, isDir: boolean, force: boolean) {
+        const params = new HttpParams({
+            fromObject: {
+                name,
+                type: isDir ? 'dir' : 'file',
+                force: isDir ? 'true' : 'false'
+            }
+        })
+
+        return this.http.delete('/api/storage/space/file', {params});
+    }
+
+
+
 }
