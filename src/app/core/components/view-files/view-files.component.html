@@ -1,0 +1,36 @@
+<div class="row">
+    <mwl-gauge
+            [max]="( 1000 * 1000 * 100) / 1024 / 1024"
+            [dialStartAngle]="-90"
+            [dialEndAngle]="-90.001"
+            [value]="occupiedSpace"
+            [animated]="true"
+            [animationDuration]="1"
+    >
+    </mwl-gauge>
+    <div class="d-flex justify-content-center align-items-center">
+        <span>{{occupiedSpace}}MB</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <app-upload-photo></app-upload-photo>
+        <ul class="list-group">
+            <ng-container *ngFor="let file of fileArray">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    [ngClass]="file.isDir ? 'list-group-item-warning': ''" (click)="clickHandler(file.name,file.isDir)">
+                    <span>{{file.name}}</span>
+                    <i class="fa" [ngClass]="file.isDir ? 'fa-folder': 'fa-file'"></i>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+    <div class="col-6">
+            <h5 class="text-center" >
+                {{selectedFile ? selectedFile : 'No File Selected'}}
+            </h5>
+    </div>
+</div>
+
+

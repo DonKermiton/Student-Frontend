@@ -39,7 +39,8 @@
                         <div class="col-12 pl-0 pr-0">
                             <div class="row mx-auto">
                                 <div class="col px-0">
-                                    <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded img-fluid">
+                                    <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id"
+                                         class="rounded img-fluid">
                                 </div>
                                 <div class="col-8">
                                     <span class="post-author text-warning">{{post.user.first_name}} {{post.user.last_name}}</span>
@@ -68,9 +69,10 @@
 
                         </div>
                         <div class="post-body">
-                            <span class="border-left border-secondary px-2 bg-light">
+                            <span class="border-left border-secondary px-2 bg-light" *ngIf="post.text">
                             {{post.text}}
                             </span>
+
                         </div>
                         <hr>
                         <!-- <div class="px-5 text-right">
@@ -149,5 +151,5 @@
     </div>
 </div>
 
-<app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false" (addedPost)="addPost($event)" ></app-upload-post>
+<app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false" (addedPost)="addPost($event)"></app-upload-post>
 <!--<app-create-comment></app-create-comment>-->

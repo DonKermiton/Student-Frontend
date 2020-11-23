@@ -10,6 +10,7 @@ import {SharedModule} from "../shared/shared.module";
 import { PhotoOptionDirective } from './directives/photo-option.directive';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { ShowCommentsDirective } from './directives/show-comments.directive';
+import {GaugeModule} from 'angular-gauge';
 
 
 @NgModule({
@@ -19,8 +20,10 @@ import { ShowCommentsDirective } from './directives/show-comments.directive';
         CoreRoutingModule,
         AngularFileUploaderModule,
         SharedModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        GaugeModule.forRoot()
     ]
+
 })
 export class CoreModule {
 }

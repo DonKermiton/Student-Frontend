@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve --proxy-config proxy.conf.json --port",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -21,6 +21,7 @@
     "@angular/router": "~8.1.2",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "angular-file-uploader": "^7.0.2",
+    "angular-gauge": "^4.0.0",
     "angular-notifier": "^6.0.1",
     "bootstrap": "^4.3.1",
     "date-fns": "^2.16.1",

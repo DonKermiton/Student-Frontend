@@ -49,7 +49,7 @@ export class ProfilePhotoCollectionComponent implements OnInit {
                     this.isYourProfile = (user.id === this.numberID) || false;
                     return this.users.getPhotoCollection(100, this.numberID);
                 }),
-                map((photo: photoModel[]) => photo)
+
             )
             .subscribe((photo: any) => {
                 this.photoCollection = photo;

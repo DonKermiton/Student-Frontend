@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
-import {map, mergeMap, switchMap, take, takeLast, tap} from 'rxjs/operators';
+import {map, mergeMap, switchMap, take, tap} from 'rxjs/operators';
 import {User} from '../../../../shared/models/user.model';
 import {ActivatedRoute, Params} from '@angular/router';
 import {photoModel} from '../../../models/photo.model';
@@ -9,6 +9,7 @@ import {PostsService} from '../../../../shared/services/posts.service';
 import {PostComment, PostModel} from '../../../../shared/models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {Subscription} from 'rxjs';
+import {PhotoService} from '../../../../shared/services/photo.service';
 
 @Component({
     selector: 'app-profile-table',
@@ -21,6 +22,7 @@ export class ProfileTableComponent implements OnInit {
     throttle = 300;
     scrollDistance = 1;
     scrollUpDistance = 2;
+    postPhoto;
 
 
     modalOpen = false;
@@ -41,7 +43,8 @@ export class ProfileTableComponent implements OnInit {
 
     constructor(public users: UsersService,
                 private route: ActivatedRoute,
-                public postsService: PostsService) {
+                public postsService: PostsService,
+                private photo: PhotoService) {
     }
 
     ngOnInit() {
@@ -67,17 +70,28 @@ export class ProfileTableComponent implements OnInit {
                         1 ? 1 : (this.numberOfPhoto < 6 ? this.numberOfPhoto : 6), this.id);
                     }
                 ),
-                map((photo: photoModel[]) => photo)
-            ).subscribe((photo: any) => {
-            this.addItems(0);
-            this.photoCollection = photo;
-            if (photo.url) {
-                this.users.getPhotoByUrl(this.id, photo.imgLink).subscribe();
-            }
+                map((photo: photoModel[]) => photo),
+                mergeMap((photo: any) => {
+                    this.addItems(0);
+                    this.photoCollection = photo;
+                    return this.photo.getPostPhotoCollection(68);
+                })
+            ).subscribe((photo) => {
+            this.postPhoto = (photo);
+
         });
 
 
         this.initForm();
+    }
+
+    isPostHasPhoto(postID) {
+        for (const photo of this.postPhoto) {
+            if(photo.postID == postID) {
+                return true;
+            }
+        }
+        return false;
     }
 
     addPost(event: PostModel) {

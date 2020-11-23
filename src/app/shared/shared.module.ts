@@ -17,6 +17,8 @@ import { ShowMoreOptionsDirective } from './directives/show-more-options.directi
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { CommentsViewComponent } from './components/image-viewer/comments-view/comments-view.component';
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
+import { ViewFilesComponent } from '../core/components/view-files/view-files.component';
+import {GaugeModule} from 'angular-gauge';
 
 
 
@@ -36,6 +38,7 @@ import { CreateCommentComponent } from './components/create-comment/create-comme
     ImageViewerComponent,
     CommentsViewComponent,
     CreateCommentComponent,
+    ViewFilesComponent,
 
 
   ],
@@ -52,6 +55,7 @@ import { CreateCommentComponent } from './components/create-comment/create-comme
         CommonModule,
         SharedRoutingModule,
         AngularFileUploaderModule,
+        GaugeModule,
 
     ]
 })

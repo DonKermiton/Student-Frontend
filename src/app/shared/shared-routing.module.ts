@@ -5,7 +5,8 @@ import {ImageViewerComponent} from "./components/image-viewer/image-viewer.compo
 
 
 const routes: Routes = [
-  {path: 'photo', component: ImageViewerComponent}
+  {path: 'photo', component: ImageViewerComponent},
+
 ];
 
 @NgModule({

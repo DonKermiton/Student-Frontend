@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import {User} from '../../shared/models/user.model';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {map, switchMap, take, tap} from 'rxjs/operators';
 import {photoModel} from '../../core/models/photo.model';
 
 @Injectable({
@@ -68,7 +68,7 @@ export class UsersService {
     }
 
     getUser() {
-        return this.User.asObservable();
+        return this.User.asObservable().pipe(take(1));
     }
 
     getSelectedUser(id: number): Observable<User> {
