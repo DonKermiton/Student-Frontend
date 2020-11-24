@@ -13,9 +13,7 @@ export class LayoutLoggedComponent implements OnInit {
 
     constructor(private router: Router,
                 auth: AuthService) {
-        if (auth.getToken()) {
-            auth.autoLogin();
-        }
+
     }
 
     ngOnInit() {

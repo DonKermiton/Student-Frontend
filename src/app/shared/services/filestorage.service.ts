@@ -37,6 +37,10 @@ export class StorageService {
         return this.http.delete('/api/storage/space/file', {params, responseType: 'text'});
     }
 
+    createDirectory(dir: string) {
+        return this.http.put('/api/storage/space/dir', {dir}, {responseType: 'text'});
+    }
+
 
 
 }

@@ -21,10 +21,11 @@
                 (click)="goUp()">
                 <span>...</span>
                 <div class="float-right" (click)="$event.stopPropagation()">
-                    <span (click)="createDirectory($event)">
+                    <span class="mx-2" (click)="addDirectoryModal = true">
                         <i class="fa fa-folder-open"></i>
                     </span>
-                    <span (click)="deleteDirectory($event)">
+                    |
+                    <span class="mx-2" (click)="deleteDirectory()">
                         <i class="fa fa-trash"></i>
                     </span>
                 </div>
@@ -45,6 +46,6 @@
     </div>
 </div>
 
-<app-write-text *ngIf="addDirectoryModal"></app-write-text>
-
+<app-write-text *ngIf="addDirectoryModal" (emitCloseModal)="addDirectoryModal = false" (emitText)="createDirectory($event)"></app-write-text>
+<app-confirm-action *ngIf="confirmActionModal" (closeModalEmitter)="confirmActionModal = false" [messageBox]=""></app-confirm-action>
 

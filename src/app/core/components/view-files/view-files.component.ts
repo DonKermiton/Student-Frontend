@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../../../auth/services/users.service';
 import {mergeMap, tap} from 'rxjs/operators';
 import {StorageService} from '../../../shared/services/filestorage.service';
+import {ConfirmDialogService} from '../../../shared/services/confirm-dialog.service';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-view-files',
@@ -15,9 +17,12 @@ export class ViewFilesComponent implements OnInit {
     selectedFilePath = '';
     fileArray = [];
     addDirectoryModal = false;
+    hideNavBar = true;
+    confirmActionModal = false;
 
-    constructor(private user: UsersService,
-                private storage: StorageService) {
+    constructor(public user: UsersService,
+                private storage: StorageService,
+                private confirmService: ConfirmDialogService) {
     }
 
     ngOnInit() {
@@ -29,6 +34,7 @@ export class ViewFilesComponent implements OnInit {
                 }),
                 mergeMap((space) => {
                     this.occupiedSpace = space;
+                    // get folder directory
                     return this.storage.getSelectedUrl(this.activeUrl)
                 }),
                 tap((files: []) => {
@@ -40,30 +46,54 @@ export class ViewFilesComponent implements OnInit {
     }
 
     clickHandler(name: string, isDir: boolean) {
+        // check clicked element
         if (isDir) {
+            // if is directory change directory
             this.activeUrl = this.activeUrl + `/${name}`;
             this.storage.getSelectedUrl(this.activeUrl).subscribe((data: []) => {
                 this.fileArray = data;
             })
         } else {
+            // spy selected file on right side
             this.selectedFile = name;
             this.selectedFilePath = this.activeUrl;
         }
-
     }
 
     goUp() {
-        this.activeUrl = this.activeUrl.substring(0, this.activeUrl.lastIndexOf("/") + 1)
+        this.activeUrl = this.activeUrl.substring(0, this.activeUrl.lastIndexOf("/") + 1);
         this.storage.getSelectedUrl(this.activeUrl).subscribe((data: []) => {
             this.fileArray = data;
-        })
+        });
     }
 
-    createDirectory($event: MouseEvent) {
-
+    createDirectory($event) {
+        this.storage.createDirectory(this.activeUrl + '/'+ $event).subscribe(() => {
+            this.fileArray.unshift({name: $event, isDir: true});
+            this.addDirectoryModal = false;
+        }, err => console.log(err.error));
     }
 
-    deleteDirectory($event: MouseEvent) {
-        this.storage.deleteDirectory(this.activeUrl, true, false).subscribe()
+    confirmActionSub: Subscription;
+
+    deleteDirectory() {
+        this.confirmActionModal = true;
+        this.confirmActionSub = this.confirmService.getConfirmStream()
+            .subscribe(confirm => {
+                console.log(confirm);
+                if (confirm == true) {
+                    this.storage.deleteDirectory(this.activeUrl, true, false).subscribe(() => {
+                             this.goUp();
+                    })
+                } else {
+                    if(this.confirmActionSub) {
+                        this.confirmActionSub.unsubscribe();
+                    }
+                }
+            });
+        // this.storage.deleteDirectory(this.activeUrl, true, false).subscribe(() => {
+        //     this.goUp();
+        // })
     }
+
 }

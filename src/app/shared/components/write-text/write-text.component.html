@@ -11,10 +11,10 @@
                 <label for="desc">Folder Name</label>
                 <div class="row">
                     <div class="col-9">
-                        <input id="desc" class="form-control" #textAreaElement>
+                        <input id="desc" class="form-control" #inputArea>
                     </div>
                     <div class="col-3">
-                        <button class="btn btn-primary w-100">
+                        <button class="btn btn-primary w-100" (click)="emitValue()">
                             <i class="fa fa-caret-right"></i>
                         </button>
                     </div>
