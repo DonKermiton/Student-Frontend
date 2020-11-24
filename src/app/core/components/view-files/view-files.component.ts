@@ -33,7 +33,7 @@ export class ViewFilesComponent implements OnInit {
         this.user.getUser()
             .pipe(
                 mergeMap((user) => {
-                    this.activeUrl = `${user.id}`;
+                    this.activeUrl = `${user.id}/`;
                     return this.storage.getOccupiedSpace()
                 }),
                 mergeMap((space) => {
@@ -100,6 +100,7 @@ export class ViewFilesComponent implements OnInit {
     }
 
     uploadFiles($event) {
+        console.log($event);
         this.storage.uploadFile($event, this.activeUrl).subscribe(console.log);
     }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../auth/services/users.service';
 import {map, mergeMap, switchMap, take, tap} from 'rxjs/operators';
@@ -8,7 +8,7 @@ import {photoModel} from '../../../models/photo.model';
 import {PostsService} from '../../../../shared/services/posts.service';
 import {PostComment, PostModel} from '../../../../shared/models/post.model';
 import {formatDistanceToNow} from 'date-fns';
-import {Subscription} from 'rxjs';
+import {noop, Subscription} from 'rxjs';
 import {PhotoService} from '../../../../shared/services/photo.service';
 
 @Component({
@@ -16,7 +16,7 @@ import {PhotoService} from '../../../../shared/services/photo.service';
     templateUrl: './profile-table.component.html',
     styleUrls: ['./profile-table.component.scss']
 })
-export class ProfileTableComponent implements OnInit {
+export class ProfileTableComponent implements OnInit, OnDestroy {
     skip = 0;
     sum = 100;
     throttle = 300;
@@ -128,19 +128,19 @@ export class ProfileTableComponent implements OnInit {
     }
 
     addItems(skip: number) {
-        this.postSubscription = this.postsService.getUserPost(this.id, skip)
-            .pipe(
-                mergeMap((post: PostModel[]) => post),
-                map((post: PostModel) => post),
-                mergeMap((post) => {
-                    if (this.postArray.length < this.postNumber) {
-                        this.postArray.push(post);
-                    }
-                    return this.postsService.countPostComments(post.postID);
-                })
-            ).subscribe((likes: number) => {
-                this.postSubscription.unsubscribe();
-            });
+            this.postSubscription = this.postsService.getUserPost(this.id, skip)
+                .pipe(
+                    mergeMap((post: PostModel[]) => post),
+                    map((post: PostModel) => post),
+                    mergeMap((post) => {
+                        if (this.postArray.length < this.postNumber) {
+                            this.postArray.push(post);
+                        }
+                        return this.postsService.countPostComments(post.postID);
+                    })
+                ).subscribe(noop, noop, () => {
+                    this.postSubscription.unsubscribe();
+                });
 
     }
 
@@ -178,6 +178,11 @@ export class ProfileTableComponent implements OnInit {
         return this.postComments.filter(e => e.postID === id).length;
     }
 
+    ngOnDestroy(): void {
+        if (this.postSubscription) {
+            this.postSubscription.unsubscribe();
+        }
+    }
 
     private initForm() {
         this.imageForm = new FormGroup({

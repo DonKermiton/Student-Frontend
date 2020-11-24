@@ -17,8 +17,8 @@ import { ShowMoreOptionsDirective } from './directives/show-more-options.directi
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { CommentsViewComponent } from './components/image-viewer/comments-view/comments-view.component';
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
-import { ViewFilesComponent } from '../core/components/view-files/view-files.component';
-import {GaugeModule} from 'angular-gauge';
+import { ViewFilesComponent } from './components/view-files/view-files.component';
+import {GaugeModule} from "angular-gauge";
 import { WriteTextComponent } from './components/write-text/write-text.component';
 
 
@@ -51,13 +51,14 @@ import { WriteTextComponent } from './components/write-text/write-text.component
         UploadPhotoComponent,
         UploadPostComponent,
         ShowPostOptionsDirective,
-        CreateCommentComponent
+        CreateCommentComponent,
+        WriteTextComponent
     ],
     imports: [
         CommonModule,
         SharedRoutingModule,
         AngularFileUploaderModule,
-        GaugeModule,
+        GaugeModule.forRoot()
 
     ]
 })

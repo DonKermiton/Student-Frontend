@@ -11,10 +11,11 @@ import { PhotoOptionDirective } from './directives/photo-option.directive';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { ShowCommentsDirective } from './directives/show-comments.directive';
 import {GaugeModule} from 'angular-gauge';
+import {ViewFilesComponent} from "./components/view-files/view-files.component";
 
 
 @NgModule({
-    declarations: [ViewProfileComponent, ProfileTableComponent, ProfilePhotoCollectionComponent, PhotoOptionDirective, ShowCommentsDirective],
+    declarations: [ViewProfileComponent, ProfileTableComponent, ProfilePhotoCollectionComponent, PhotoOptionDirective, ShowCommentsDirective, ViewFilesComponent],
     imports: [
         CommonModule,
         CoreRoutingModule,

@@ -35,7 +35,9 @@ span {
 
 .active-sidebar-item::before {
   display: block;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
   content: '';
   height: 6px;
   width: 6px;

@@ -43,9 +43,10 @@ export class StorageService {
 
     uploadFile(form, activePath: string) {
         const formData = new FormData();
-        formData.append('file', form);
+        formData.append('file', form[0]);
 
-       return this.http.put('/api/storage/space', formData,
+
+        return this.http.put('/api/storage/space', formData,
             {
                 responseType: 'text',
                 headers: new HttpHeaders({
