@@ -14,6 +14,7 @@ export class ViewFilesComponent implements OnInit {
     selectedFile = '';
     selectedFilePath = '';
     fileArray = [];
+    addDirectoryModal = false;
 
     constructor(private user: UsersService,
                 private storage: StorageService) {
@@ -63,7 +64,6 @@ export class ViewFilesComponent implements OnInit {
     }
 
     deleteDirectory($event: MouseEvent) {
-        this.storage.deleteDirectory(this.activeUrl, true, false).subscribe(console.log)
-
+        this.storage.deleteDirectory(this.activeUrl, true, false).subscribe()
     }
 }

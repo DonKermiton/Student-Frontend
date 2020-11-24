@@ -19,6 +19,7 @@ import { CommentsViewComponent } from './components/image-viewer/comments-view/c
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
 import { ViewFilesComponent } from '../core/components/view-files/view-files.component';
 import {GaugeModule} from 'angular-gauge';
+import { WriteTextComponent } from './components/write-text/write-text.component';
 
 
 
@@ -39,6 +40,7 @@ import {GaugeModule} from 'angular-gauge';
     CommentsViewComponent,
     CreateCommentComponent,
     ViewFilesComponent,
+    WriteTextComponent,
 
 
   ],

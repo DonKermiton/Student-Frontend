@@ -34,7 +34,7 @@ export class StorageService {
             }
         })
 
-        return this.http.delete('/api/storage/space/file', {params});
+        return this.http.delete('/api/storage/space/file', {params, responseType: 'text'});
     }
 
 

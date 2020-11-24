@@ -1,0 +1,30 @@
+<div id="wrapper" class="d-flex justify-content-center align-items-center" (click)="hideModal()">
+    <div class="h-auto bg-light w-auto rounded" (click)="$event.stopPropagation()">
+        <div class="col-xs-12">
+            <div>
+            <h5 class="text-center mt-3">Create Directory</h5>
+
+            </div>
+            <hr>
+
+            <div class="col-12 h-75 mb-3">
+                <label for="desc">Folder Name</label>
+                <div class="row">
+                    <div class="col-9">
+                        <input id="desc" class="form-control" #textAreaElement>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-primary w-100">
+                            <i class="fa fa-caret-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+</div>
