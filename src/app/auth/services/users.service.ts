@@ -35,7 +35,7 @@ export class UsersService {
         return this.http.get(`/api/photo/getUserProfile/Back/${id}`, {responseType: 'text'});
     }
 
-    uploadPhoto(form, postID: 0) {
+    uploadPhoto(form, postID) {
         const formData = new FormData();
         formData.append('file', form);
 

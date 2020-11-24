@@ -20,11 +20,15 @@ export class UploadPhotoComponent implements OnInit {
                 private users: UsersService) {
     }
 
+    ngOnInit() {
+
+    }
+
     uploadImage() {
         this.sendingImage = true;
-      /*  for(const photo of this.filesToUpload) {
-            this.users.uploadPhoto(photo).subscribe(console.log);
-        }*/
+        /*  for(const photo of this.filesToUpload) {
+              this.users.uploadPhoto(photo).subscribe(console.log);
+          }*/
 
         this.closeModal();
 
@@ -35,14 +39,9 @@ export class UploadPhotoComponent implements OnInit {
 
     }
 
-    ngOnInit() {
-
-    }
-
     closeModal() {
         this.closeModalEmitter.emit();
     }
-
 
 
     reportChange(any: any) {

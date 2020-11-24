@@ -4,6 +4,7 @@ import {mergeMap, tap} from 'rxjs/operators';
 import {StorageService} from '../../../shared/services/filestorage.service';
 import {ConfirmDialogService} from '../../../shared/services/confirm-dialog.service';
 import {Subscription} from 'rxjs';
+import {photoModel} from '../../models/photo.model';
 
 @Component({
     selector: 'app-view-files',
@@ -18,7 +19,10 @@ export class ViewFilesComponent implements OnInit {
     fileArray = [];
     addDirectoryModal = false;
     hideNavBar = true;
+
     confirmActionModal = false;
+    confirmActionMessage: string;
+    confirmActionSub: Subscription;
 
     constructor(public user: UsersService,
                 private storage: StorageService,
@@ -67,33 +71,35 @@ export class ViewFilesComponent implements OnInit {
         });
     }
 
-    createDirectory($event) {
-        this.storage.createDirectory(this.activeUrl + '/'+ $event).subscribe(() => {
+    createDirectory($event: string) {
+        $event = $event.replace('.', '').replace('/', '');
+        this.storage.createDirectory(this.activeUrl + '/' + $event).subscribe(() => {
             this.fileArray.unshift({name: $event, isDir: true});
             this.addDirectoryModal = false;
         }, err => console.log(err.error));
     }
 
-    confirmActionSub: Subscription;
-
     deleteDirectory() {
         this.confirmActionModal = true;
+        this.confirmActionMessage = this.fileArray.length ? 'Directory is not empty. Are you Sure' : ''
+
+
         this.confirmActionSub = this.confirmService.getConfirmStream()
             .subscribe(confirm => {
                 console.log(confirm);
                 if (confirm == true) {
                     this.storage.deleteDirectory(this.activeUrl, true, false).subscribe(() => {
-                             this.goUp();
+                        this.goUp();
                     })
                 } else {
-                    if(this.confirmActionSub) {
+                    if (this.confirmActionSub) {
                         this.confirmActionSub.unsubscribe();
                     }
                 }
             });
-        // this.storage.deleteDirectory(this.activeUrl, true, false).subscribe(() => {
-        //     this.goUp();
-        // })
     }
 
+    uploadFiles($event) {
+        this.storage.uploadFile($event, this.activeUrl).subscribe(console.log);
+    }
 }

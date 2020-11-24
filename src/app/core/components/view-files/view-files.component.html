@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-6">
-        <app-upload-photo></app-upload-photo>
+        <app-upload-photo (emitPhotos)="uploadFiles($event)"></app-upload-photo>
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-info"
                 (click)="goUp()">
@@ -47,5 +47,5 @@
 </div>
 
 <app-write-text *ngIf="addDirectoryModal" (emitCloseModal)="addDirectoryModal = false" (emitText)="createDirectory($event)"></app-write-text>
-<app-confirm-action *ngIf="confirmActionModal" (closeModalEmitter)="confirmActionModal = false" [messageBox]=""></app-confirm-action>
+<app-confirm-action *ngIf="confirmActionModal" (closeModalEmitter)="confirmActionModal = false" [messageBox]="confirmActionMessage"></app-confirm-action>
 
