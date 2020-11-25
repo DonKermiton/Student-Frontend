@@ -25,7 +25,7 @@
                         <i class="fa fa-folder-open"></i>
                     </span>
                     |
-                    <span class="mx-2" (click)="deleteDirectory()">
+                    <span class="mx-2" (click)="deleteDirectory(true)">
                         <i class="fa fa-trash"></i>
                     </span>
                 </div>
@@ -47,7 +47,7 @@
 
             <button class="btn btn-primary w-100">Download</button>
             <hr>
-            <button class="btn btn-danger w-100" >Delete</button>
+            <button class="btn btn-danger w-100" (click)="deleteDirectory(false)">Delete</button>
         </div>
     </div>
 </div>

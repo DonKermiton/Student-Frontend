@@ -79,7 +79,7 @@ export class ViewFilesComponent implements OnInit {
         }, err => console.log(err.error));
     }
 
-    deleteDirectory() {
+    deleteDirectory(isDir: boolean) {
         this.confirmActionModal = true;
         this.confirmActionMessage = this.fileArray.length ? 'Directory is not empty. Are you Sure' : ''
 
@@ -88,8 +88,11 @@ export class ViewFilesComponent implements OnInit {
             .subscribe(confirm => {
                 console.log(confirm);
                 if (confirm == true) {
-                    this.storage.deleteDirectory(this.activeUrl, true, false).subscribe(() => {
-                        this.goUp();
+                    this.storage.deleteDirectory(isDir ? this.activeUrl : this.activeUrl + this.selectedFile, isDir, false).subscribe(() => {
+                        if(isDir) {
+                            this.goUp();
+                        }
+
                     })
                 } else {
                     if (this.confirmActionSub) {
@@ -102,5 +105,9 @@ export class ViewFilesComponent implements OnInit {
     uploadFiles($event) {
         console.log($event);
         this.storage.uploadFile($event, this.activeUrl).subscribe(console.log);
+    }
+
+    deleteFile() {
+
     }
 }

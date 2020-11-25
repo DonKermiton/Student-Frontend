@@ -67,11 +67,11 @@
         <div class="flex-fill"></div>
 
         <div class="d-flex" [ngClass]="sideMenuActive ? 'flex-row' : 'flex-column'" [style.flex-basis]="sideMenuActive ? '' : '10%'">
-            <div class="flex-fill text-center position-relative"     [routerLink]="'/core/view-files'" [routerLinkActiveOptions]="{exact: true}"
+            <div class="flex-fill text-center position-relative d-flex align-items-center justify-content-center"  [routerLink]="'/core/view-files'" [routerLinkActiveOptions]="{exact: true}"
                  routerLinkActive="active-sidebar-item text-info">
                 <i class="fa fa-folder"></i>
             </div>
-            <div class="flex-fill text-center">
+            <div class="flex-fill text-center  d-flex align-items-center justify-content-center">
                 <i class="fa fa-envelope"></i>
             </div>
 
