@@ -19,9 +19,7 @@ import {PhotoService} from '../../../../shared/services/photo.service';
 export class ProfileTableComponent implements OnInit, OnDestroy {
     skip = 0;
     sum = 100;
-    throttle = 300;
-    scrollDistance = 1;
-    scrollUpDistance = 2;
+
     postPhoto;
 
 

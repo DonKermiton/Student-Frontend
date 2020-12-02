@@ -31,6 +31,7 @@ export class ScrollTableComponent implements OnInit {
   }
 
   onScrollDown() {
+    console.log('test');
     this.sendMorePost.emit();
   }
 
