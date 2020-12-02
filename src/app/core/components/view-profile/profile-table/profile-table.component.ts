@@ -189,4 +189,8 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
             image: new FormControl(null),
         });
     }
+
+    emitMorePost() {
+        this.onScrollDown('');
+    }
 }

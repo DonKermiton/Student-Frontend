@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {SharedRoutingModule} from './shared-routing.module';
-import {NavbarComponent} from './components/navbar/navbar.component';
+
 import {LayoutLoggedComponent} from './components/layout-logged/layout-logged.component';
 import {SidemenuComponent} from './components/sidemenu/sidemenu.component';
 
@@ -20,13 +20,14 @@ import { CreateCommentComponent } from './components/create-comment/create-comme
 import { ViewFilesComponent } from './components/view-files/view-files.component';
 import {GaugeModule} from "angular-gauge";
 import { WriteTextComponent } from './components/write-text/write-text.component';
+import { ScrollTableComponent } from './components/scroll-table/scroll-table.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponent,
     LayoutLoggedComponent,
     SidemenuComponent,
     SpinnerComponent,
@@ -41,6 +42,7 @@ import { WriteTextComponent } from './components/write-text/write-text.component
     CreateCommentComponent,
     ViewFilesComponent,
     WriteTextComponent,
+    ScrollTableComponent,
 
 
   ],
@@ -52,13 +54,15 @@ import { WriteTextComponent } from './components/write-text/write-text.component
         UploadPostComponent,
         ShowPostOptionsDirective,
         CreateCommentComponent,
-        WriteTextComponent
+        WriteTextComponent,
+        ScrollTableComponent
     ],
     imports: [
         CommonModule,
         SharedRoutingModule,
         AngularFileUploaderModule,
-        GaugeModule.forRoot()
+        GaugeModule.forRoot(),
+        InfiniteScrollModule
 
     ]
 })
