@@ -21,6 +21,7 @@ import {GaugeModule} from "angular-gauge";
 import { WriteTextComponent } from './components/write-text/write-text.component';
 import { ScrollTableComponent } from './components/scroll-table/scroll-table.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { SmallCalendarComponent } from './components/small-calendar/small-calendar.component';
 
 
 
@@ -40,6 +41,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     ViewFilesComponent,
     WriteTextComponent,
     ScrollTableComponent,
+    SmallCalendarComponent,
 
 
   ],
@@ -52,7 +54,8 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         ShowPostOptionsDirective,
         CreateCommentComponent,
         WriteTextComponent,
-        ScrollTableComponent
+        ScrollTableComponent,
+        SmallCalendarComponent
     ],
     imports: [
         CommonModule,
