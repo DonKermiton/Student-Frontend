@@ -1,10 +1,13 @@
-<button class="w-100 btn btn-primary" (click)="modalOpen = true">Create post</button>
-<hr>
-<div class="d-flex justify-content-end ">
-    <button class="btn btn-outline-primary">test</button>
-    <button class="btn btn-outline-primary">test</button>
-    <button class="btn btn-outline-primary">test</button>
+<div class="d-flex">
+    <button class="w-100 btn btn-primary" (click)="modalOpen = true">Create post</button>
+    <div class="d-flex justify-content-center align-items-center" style="flex-basis: 5%"> | </div>
+    <!--    todo add logic to search post-->
+    <button class="btn btn-outline-primary">
+        <i class="fa fa-search"></i>
+    </button>
+
 </div>
+<hr>
 <div class="search-results"
      data-infinite-scroll
      debounce
@@ -120,4 +123,5 @@
     </div>
 </div>
 
+<app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false" (addedPost)="addPost($event)"></app-upload-post>
 <app-spinner *ngIf="postNumber != postArray.length && postNumber > 0"></app-spinner>

@@ -14,8 +14,7 @@ import { DragAndUploadDirective } from './directives/drag-and-upload.directive';
 import { UploadPostComponent } from './components/upload-post/upload-post.component';
 import { ShowPostOptionsDirective } from './directives/show-post-options.directive';
 import { ShowMoreOptionsDirective } from './directives/show-more-options.directive';
-import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
-import { CommentsViewComponent } from './components/image-viewer/comments-view/comments-view.component';
+
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
 import { ViewFilesComponent } from './components/view-files/view-files.component';
 import {GaugeModule} from "angular-gauge";
@@ -37,8 +36,6 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     UploadPostComponent,
     ShowPostOptionsDirective,
     ShowMoreOptionsDirective,
-    ImageViewerComponent,
-    CommentsViewComponent,
     CreateCommentComponent,
     ViewFilesComponent,
     WriteTextComponent,
