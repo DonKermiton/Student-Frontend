@@ -10,7 +10,11 @@ body {
 #page-content-wrapper {
   min-width: 100vw;
   min-height: 100vh;
-  overflow-x: hidden;
+
+}
+
+.row {
+  margin: 0;
 }
 
 @media (min-width: 768px) {

@@ -12,6 +12,10 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
   animation: shake 1s infinite;
 }
 
+.container-fluid {
+  padding: 0;
+}
+
 @keyframes shake {
   0% {
     transform: rotate(1deg);
@@ -25,3 +29,5 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 
 
 }
+
+

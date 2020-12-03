@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PostComment, PostModel} from '../../models/post.model';
 import {formatDistanceToNow} from 'date-fns';
+import {PostsService} from '../../services/posts.service';
 
 @Component({
   selector: 'app-scroll-table',
@@ -25,18 +26,23 @@ export class ScrollTableComponent implements OnInit {
   postComments: PostComment[] = [];
 
 
-  constructor() { }
+  constructor(private post: PostsService) { }
 
   ngOnInit() {
   }
 
   onScrollDown() {
-    console.log('test');
     this.sendMorePost.emit();
   }
 
   getPostComment(postID: number, last: number ){
-
+    console.log(postID);
+    this.post.getPostComment(postID, last).subscribe((postComments: PostComment) => {
+        if(postComments) {
+          this.postComments.push(postComments);
+          console.log(this.postComments);
+        }
+    })
   }
 
   getPostDate(date) {
@@ -48,7 +54,10 @@ export class ScrollTableComponent implements OnInit {
   }
 
   countSelectedPostComments(id: number) {
-
+    return null;
   }
 
+  test() {
+    console.log('test');
+  }
 }

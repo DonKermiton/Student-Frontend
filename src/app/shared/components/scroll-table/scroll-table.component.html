@@ -1,3 +1,10 @@
+<button class="w-100 btn btn-primary" (click)="modalOpen = true">Create post</button>
+<hr>
+<div class="d-flex justify-content-end ">
+    <button class="btn btn-outline-primary">test</button>
+    <button class="btn btn-outline-primary">test</button>
+    <button class="btn btn-outline-primary">test</button>
+</div>
 <div class="search-results"
      data-infinite-scroll
      debounce
@@ -99,7 +106,7 @@
 
             <div class="row text-center m-auto border-top">
                 <div class="col-6 border-right btn-outline-primary">
-                    <small> <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <small> <i class="fa fa-thumbs-up" aria-hidden="true" (load)="test()"></i>
                         Likes (4)</small>
                 </div>
                 <div class="col-6 btn-outline-success">

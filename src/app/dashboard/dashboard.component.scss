@@ -1,3 +1,4 @@
+
 #dashboard-main-content div:nth-child(2) {
   order: 3;
 }
@@ -5,12 +6,20 @@
   order: 2;
 }
 
+.row {
+  margin: 0;
+}
+
 
 @media(min-width: 1024px) {
+
   #dashboard-main-content div:nth-child(2) {
     order: 2;
   }
   #dashboard-main-content div:nth-child(3) {
     order: 3;
   }
+
+
+
 }
