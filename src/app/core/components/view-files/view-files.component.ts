@@ -5,6 +5,7 @@ import {StorageService} from '../../../shared/services/filestorage.service';
 import {ConfirmDialogService} from '../../../shared/services/confirm-dialog.service';
 import {Subscription} from 'rxjs';
 import {photoModel} from '../../models/photo.model';
+import {HttpEventType} from '@angular/common/http';
 
 @Component({
     selector: 'app-view-files',
@@ -19,6 +20,7 @@ export class ViewFilesComponent implements OnInit {
     fileArray = [];
     addDirectoryModal = false;
     hideNavBar = true;
+
 
     confirmActionModal = false;
     confirmActionMessage: string;
@@ -89,7 +91,7 @@ export class ViewFilesComponent implements OnInit {
                 console.log(confirm);
                 if (confirm == true) {
                     this.storage.deleteDirectory(isDir ? this.activeUrl : this.activeUrl + this.selectedFile, isDir, false).subscribe(() => {
-                        if(isDir) {
+                        if (isDir) {
                             this.goUp();
                         }
 
@@ -103,8 +105,27 @@ export class ViewFilesComponent implements OnInit {
     }
 
     uploadFiles($event) {
-        console.log($event);
-        this.storage.uploadFile($event, this.activeUrl).subscribe(console.log);
+        console.log($event.name);
+
+
+        this.storage.uploadFile($event, this.activeUrl).subscribe((resp) => {
+            let result;
+
+            if (resp.type === HttpEventType.Response) {
+                for (const el of $event) {
+                    console.log(el);
+                    this.fileArray.push({name: el.name, isDir: false});
+                    this.occupiedSpace += +( el.size / 1024 / 1024).toFixed(2)
+                }
+                result = 'Upload complete';
+            }
+            if (resp.type === HttpEventType.UploadProgress) {
+                // console.log('Progress ' + percentDone + '%');
+                result = Math.round(100 * resp.loaded / resp.total);
+            }
+
+
+        });
     }
 
     deleteFile() {

@@ -12,11 +12,10 @@ import {UsersService} from '../../../auth/services/users.service';
 })
 export class ScrollTableComponent implements OnInit {
 
-    @Output() sendMorePost = new EventEmitter<void>();
-    @Output() showComments = new EventEmitter();
+
     @Input() postArray: PostModel[] = [];
     @Input() id: number;
-
+    @Input() type: string;
 
     // infinite scroll variables
     throttle = 300;
@@ -36,17 +35,39 @@ export class ScrollTableComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.post.getUserPost(5, this.skip)
-            .pipe(
-                mergeMap((post: PostModel[]) => post),
-                map((post: PostModel) => post),
-                mergeMap((post) => {
 
-                    this.postArray.push(post);
-                    console.log(this.postArray);
-                    return this.post.countPostComments(post.postID);
-                })
-            ).subscribe();
+        switch (this.type) {
+
+            case 'dashboard': {
+                this.post.getUserPostDashboard(this.skip)
+                    .pipe(
+                        mergeMap((post: PostModel[]) => post),
+                        map((post: PostModel) => post),
+                        mergeMap((post) => {
+                            this.postArray.push(post);
+                            console.log(this.postArray);
+                            return this.post.countPostComments(post.postID);
+                        })
+                    ).subscribe();
+
+                break;
+            }
+
+            case 'profile': {
+                this.post.getUserPost(this.id, this.skip)
+                    .pipe(
+                        mergeMap((post: PostModel[]) => post),
+                        map((post: PostModel) => post),
+                        mergeMap((post) => {
+
+                            this.postArray.push(post);
+                            console.log(this.postArray);
+                            return this.post.countPostComments(post.postID);
+                        })
+                    ).subscribe();
+                break;
+            }
+        }
     }
 
     onScrollDown() {
@@ -54,16 +75,39 @@ export class ScrollTableComponent implements OnInit {
         // this.sendMorePost.emit();
         this.skip += 5;
         this.sum += 5;
-        this.post.getUserPost(5, this.skip)
-            .pipe(
-                mergeMap((post: PostModel[]) => post),
-                map((post: PostModel) => post),
-                mergeMap((post) => {
-                    this.postArray.push(post);
-                    console.log(this.postArray);
-                    return this.post.countPostComments(post.postID);
-                })
-            ).subscribe();
+        //TODO probably concatMap
+        switch (this.type) {
+
+            case 'dashboard': {
+                this.post.getUserPostDashboard(this.skip)
+                    .pipe(
+                        mergeMap((post: PostModel[]) => post),
+                        map((post: PostModel) => post),
+                        mergeMap((post) => {
+                            this.postArray.push(post);
+                            console.log(this.postArray);
+                            return this.post.countPostComments(post.postID);
+                        })
+                    ).subscribe();
+
+                break;
+            }
+
+            case 'profile': {
+                this.post.getUserPost(this.id, this.skip)
+                    .pipe(
+                        mergeMap((post: PostModel[]) => post),
+                        map((post: PostModel) => post),
+                        mergeMap((post) => {
+
+                            this.postArray.push(post);
+                            console.log(this.postArray);
+                            return this.post.countPostComments(post.postID);
+                        })
+                    ).subscribe();
+                break;
+            }
+        }
     }
 
     getPostComment(postID: number, last: number) {

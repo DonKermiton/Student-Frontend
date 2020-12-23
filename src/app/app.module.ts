@@ -11,6 +11,8 @@ import {SharedModule} from './shared/shared.module';
 import {AngularFileUploaderModule} from 'angular-file-uploader';
 import {LoggedInterceptor} from "./auth/interceptors/logged.interceptor";
 import {ErrorhandlerInterceptor} from './auth/interceptors/errorhandler.interceptor';
+
+
 // import {LoggedInterceptor} from './auth/interceptors/logged.interceptor';
 
 

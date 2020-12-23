@@ -5,6 +5,7 @@ import {PostComment, PostModel} from '../models/post.model';
 import {map, tap} from 'rxjs/operators';
 import {UsersService} from "../../auth/services/users.service";
 import {photoModel} from "../../core/models/photo.model";
+import {NotifierService} from 'angular-notifier';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,8 @@ import {photoModel} from "../../core/models/photo.model";
 export class PostsService {
 
     constructor(private http: HttpClient,
-                private users: UsersService) {
+                private users: UsersService,
+                private notifier: NotifierService) {
     }
 
     getUserPost(id: number, skip: number) {
@@ -22,7 +24,16 @@ export class PostsService {
                 skip: `${skip}`,
             }
         });
-        return this.http.get(`/api/posts/userPost`, {params, responseType: 'json'});
+        return this.http.get(`/api/posts/userPost/selected`, {params, responseType: 'json'});
+    }
+
+    getUserPostDashboard(skip: number) {
+        const params = new HttpParams({
+            fromObject: {
+                skip: `${skip}`,
+            }
+        });
+        return this.http.get(`/api/posts/userPost/dashboard`, {params, responseType: 'json'});
     }
 
     getUserPostNumber(id: number) {

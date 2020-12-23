@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpEventType, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../auth/services/auth.service';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -42,6 +43,11 @@ export class StorageService {
     }
 
     uploadFile(form, activePath: string) {
+        const headers = new HttpHeaders({
+            Authorization: localStorage.getItem('userToken'),
+            activePath: activePath,
+        })
+
         const formData = new FormData();
         formData.append('file', form[0]);
 
@@ -49,10 +55,9 @@ export class StorageService {
         return this.http.put('/api/storage/space', formData,
             {
                 responseType: 'text',
-                headers: new HttpHeaders({
-                    Authorization: localStorage.getItem('userToken'),
-                    activePath: activePath
-                })
+                headers,
+                reportProgress: true,
+                observe: 'events',
             });
     }
 

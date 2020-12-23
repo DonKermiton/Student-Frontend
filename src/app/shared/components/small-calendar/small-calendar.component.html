@@ -1,21 +1,29 @@
-<div class="month">
-    <ul>
-        <li class="prev">&#10094;</li>
-        <li class="next">&#10095;</li>
-        <li>{{month}}<br><span style="font-size:18px">{{today.getFullYear()}}</span></li>
-    </ul>
+<div id="wrapper">
+    <div id=main-title-wrapper>
+        <h5 class="text-muted d-inline-block">
+            <b class="text-primary">Incoming</b> Events</h5>
+        <small class="float-right">
+            >
+        </small>
+    </div>
+    <!--    TODO Implement-->
+
+    <div appShowMoreOptions class="rounded">
+        <div>
+            <div class="d-flex justify-content-between align-items-center py-2 border-primary border-bottom">
+                <span style="flex-basis: 60%">
+                    title
+                </span>
+                <span style="flex-basis: 30%">
+                    2020-02-01
+                </span>
+
+                <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+
+        <div class="more-options hideText" (click)="$event.stopPropagation()">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias aliquam culpa, dolores eaque enim est facere, magnam magni maxime nulla officiis quibusdam quisquam quo recusandae sapiente totam ut. Quasi?</p>
+        </div>
+    </div>
 </div>
-
-<ul class="weekdays">
-    <li>Mo</li>
-    <li>Tu</li>
-    <li>We</li>
-    <li>Th</li>
-    <li>Fr</li>
-    <li>Sa</li>
-    <li>Su</li>
-</ul>
-
-<ul class="days" >
-    <li *ngFor="let day of days" class="rounded-circle py-2"  [class.bg-success]="today.getDay() == day">{{day}}</li>
-</ul>

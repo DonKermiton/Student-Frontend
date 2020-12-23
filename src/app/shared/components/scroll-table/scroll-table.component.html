@@ -22,7 +22,7 @@
                 <div class="row mx-auto">
                     <div class="col px-0">
                         <img src="/api/photo/getUserProfile/Front/{{post.ownerID}}" alt="id"
-                             class="rounded img-thumbnail">
+                             class="rounded img-thumbnail" width="60" height="40">
                     </div>
                     <div class="col-8">
                         <span class="post-author text-warning">{{post.user.first_name}} {{post.user.last_name}}</span>
@@ -125,3 +125,4 @@
 
 <app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false" (addedPost)="addPost($event)"></app-upload-post>
 <app-spinner *ngIf="postNumber != postArray.length && postNumber > 0"></app-spinner>
+<app-write-text *ngIf="false"></app-write-text>
