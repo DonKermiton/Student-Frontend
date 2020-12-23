@@ -31,7 +31,7 @@ export class ScrollTableComponent implements OnInit {
     sum = 0;
 
     constructor(private post: PostsService,
-                private users: UsersService) {
+                public users: UsersService) {
     }
 
     ngOnInit() {
