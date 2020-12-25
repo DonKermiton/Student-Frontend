@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "angular-file-uploader": "^7.0.2",
+    "angular-file-uploader": "^7.0.3",
     "angular-gauge": "^4.0.0",
     "angular-notifier": "^6.0.1",
     "bootstrap": "^4.3.1",
@@ -28,8 +28,8 @@
     "jquery": "^3.5.1",
     "ngx-infinite-scroll": "^9.1.0",
     "popper.js": "^1.16.1",
-    "rxjs": "^6.4.0",
-    "tslib": "^1.9.0",
+    "rxjs": "^6.6.3",
+    "tslib": "^1.14.1",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
