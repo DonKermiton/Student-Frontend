@@ -77,7 +77,7 @@
             </div>
             <div id="wrapper">
                 <div class="text-right">
-                    <small class="text-primary" (click)="getPostComment(post.postID, i,0)">Show
+                    <small class="text-primary" (click)="getPostComment(post.postID, i)" *ngIf="!post.PostComment">Show
                         comments</small>
                 </div>
 
@@ -87,7 +87,7 @@
                          *ngIf="comment.postID === post.postID">
 
                         <div>
-                            <img src="/api/photo/getUserProfile/Front/{{id}}" alt="id" class="rounded"
+                            <img src="/api/photo/getUserProfile/Front/{{comment.ownerID}}" alt="id" class="rounded"
                                  width="15"
                                  height="15">
                             <small class="text-info">{{comment.user.first_name}} {{comment.user.last_name}}</small>
@@ -101,7 +101,7 @@
 
                 <div class="text-center">
                     <small class="text-primary"
-                           (click)="getPostComment(post.postID, i, countSelectedPostComments(post.postID))"
+                           (click)="getPostComment(post.postID, i)" *ngIf="post.PostComment"
                     >Show more</small>
                 </div>
 

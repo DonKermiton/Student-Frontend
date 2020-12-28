@@ -89,7 +89,7 @@ export class ScrollTableComponent implements OnInit {
         this.getPosts();
     }
 
-    getPostComment(postID: number, index: number, last: number) {
+    getPostComment(postID: number, index: number) {
         let skip;
 
         if (!this.postArray[index].PostComment) {
