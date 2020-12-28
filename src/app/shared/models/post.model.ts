@@ -11,6 +11,7 @@ export interface PostModel {
     };
     comments: number;
     likes: number;
+    PostComment: PostComment[];
 
 }
 

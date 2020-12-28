@@ -1,16 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PostComment, PostModel} from '../../models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {PostsService} from '../../services/posts.service';
-import {concatMap, map, mergeMap, take} from 'rxjs/operators';
+import {concatMap, map, take} from 'rxjs/operators';
 import {UsersService} from '../../../auth/services/users.service';
 import {SocketIoService} from '../../services/socketio.service';
-import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
-import { faShareSquare } from '@fortawesome/free-regular-svg-icons';
-import { faComments } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-
+import {faComments, faShareSquare, faThumbsUp} from '@fortawesome/free-regular-svg-icons';
+import {faEllipsisH, faSearch} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -25,7 +21,7 @@ export class ScrollTableComponent implements OnInit {
     faEllipsisH = faEllipsisH;
     faSearch = faSearch;
 
-    @Input() postArray: PostModel[] = [];
+    postArray: PostModel[] = [];
     @Input() id: number;
     @Input() type: string;
 
@@ -35,7 +31,6 @@ export class ScrollTableComponent implements OnInit {
     scrollUpDistance = 2;
 
     postNumber = 0;
-
     postComments: PostComment[] = [];
     modalOpen = false;
 
@@ -49,12 +44,12 @@ export class ScrollTableComponent implements OnInit {
 
     ngOnInit() {
         this.getPosts();
-    }ng
+    }
 
     getPosts() {
         this.socket.getPosts().subscribe(data => {
             this.postArray.unshift(data);
-        })
+        });
         switch (this.type) {
             case 'dashboard': {
                 this.post.getUserPostDashboard(this.skip)
@@ -94,13 +89,25 @@ export class ScrollTableComponent implements OnInit {
         this.getPosts();
     }
 
-    getPostComment(postID: number, last: number) {
-        this.post.getPostComment(postID, last).subscribe((postComments: PostComment) => {
+    getPostComment(postID: number, index: number, last: number) {
+        let skip;
+
+        if (!this.postArray[index].PostComment) {
+            skip = 0;
+        } else {
+            skip = this.postArray[index].PostComment.length;
+        }
+        this.post.getPostComment(postID, skip).subscribe((postComments: PostComment) => {
+            console.log(index);
+
             if (postComments) {
-                this.postComments.push(postComments);
-                console.log(this.postComments);
+                if (!this.postArray[index].PostComment) {
+                    this.postArray[index].PostComment = [];
+                }
+                console.log(postComments);
+                this.postArray[index].PostComment.push(postComments);
             }
-        })
+        });
     }
 
     getPostDate(date) {
@@ -127,13 +134,13 @@ export class ScrollTableComponent implements OnInit {
                             first_name: user.first_name,
                             last_name: user.last_name,
                             id: user.id
-                        }
+                        };
                         this.socket.sendPost(event);
-                        this.postArray.unshift(event)
+                        this.postArray.unshift(event);
                     }
                 })
             )
-            .subscribe()
+            .subscribe();
 
     }
 }

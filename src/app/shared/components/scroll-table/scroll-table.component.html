@@ -77,12 +77,12 @@
             </div>
             <div id="wrapper">
                 <div class="text-right">
-                    <small class="text-primary" (click)="getPostComment(post.postID, 0)">Show
+                    <small class="text-primary" (click)="getPostComment(post.postID, i,0)">Show
                         comments</small>
                 </div>
 
 
-                <ng-container *ngFor="let comment of postComments">
+                <ng-container *ngFor="let comment of post.PostComment">
                     <div class="w-100 px-5 pb-2 bg-light rounded mb-1"
                          *ngIf="comment.postID === post.postID">
 
@@ -101,7 +101,7 @@
 
                 <div class="text-center">
                     <small class="text-primary"
-                           (click)="getPostComment(post.postID, countSelectedPostComments(post.postID))"
+                           (click)="getPostComment(post.postID, i, countSelectedPostComments(post.postID))"
                     >Show more</small>
                 </div>
 
