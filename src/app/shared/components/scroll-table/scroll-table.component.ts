@@ -4,7 +4,14 @@ import {formatDistanceToNow} from 'date-fns';
 import {PostsService} from '../../services/posts.service';
 import {concatMap, map, mergeMap, take} from 'rxjs/operators';
 import {UsersService} from '../../../auth/services/users.service';
-import {SocketIoService} from "../../services/socketio.service";
+import {SocketIoService} from '../../services/socketio.service';
+import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
+import { faShareSquare } from '@fortawesome/free-regular-svg-icons';
+import { faComments } from '@fortawesome/free-regular-svg-icons';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+
 
 @Component({
     selector: 'app-scroll-table',
@@ -12,6 +19,11 @@ import {SocketIoService} from "../../services/socketio.service";
     styleUrls: ['./scroll-table.component.scss']
 })
 export class ScrollTableComponent implements OnInit {
+    faThumbsUp = faThumbsUp;
+    faShareSquare = faShareSquare;
+    faComments = faComments;
+    faEllipsisH = faEllipsisH;
+    faSearch = faSearch;
 
     @Input() postArray: PostModel[] = [];
     @Input() id: number;

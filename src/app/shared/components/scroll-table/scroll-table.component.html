@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center align-items-center" style="flex-basis: 5%"> | </div>
     <!--    todo add logic to search post-->
     <button class="btn btn-outline-primary">
-        <i class="fa fa-search"></i>
+        <fa-icon [icon]="faSearch"></fa-icon>
     </button>
 
 </div>
@@ -35,7 +35,7 @@
                         <button class="dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                            <i class="fa fa-rotate-90 fa-ellipsis-v" aria-hidden="true"></i>
+                            <fa-icon [icon]="faEllipsisH"></fa-icon>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item">Edit</a>
@@ -63,15 +63,15 @@
              </div>-->
             <div class="btn-group btn-group-sm w-100 px-5 pb-2" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-outline-primary w-100">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <fa-icon [icon]="faThumbsUp"></fa-icon>
                     Like
                 </button>
                 <button type="button" class="btn btn-outline-success w-100">
-                    <i class="fa fa-comment" aria-hidden="true"></i>
+                    <fa-icon [icon]="faComments"></fa-icon>
                     Add a comment
                 </button>
                 <button type="button" class="btn btn-outline-info w-100">
-                    <i class="fa fa-share" aria-hidden="true"></i>
+                    <fa-icon [icon]="faShareSquare"></fa-icon>
                     Share
                 </button>
             </div>
@@ -109,12 +109,12 @@
 
             <div class="row text-center m-auto border-top">
                 <div class="col-6 border-right btn-outline-primary">
-                    <small> <i class="fa fa-thumbs-up" aria-hidden="true" ></i>
+                    <small> <fa-icon [icon]="faThumbsUp"></fa-icon>
                         Likes (4)</small>
                 </div>
                 <div class="col-6 btn-outline-success">
                     <small *ngIf="postArray">
-                        <i class="fa fa-comment" aria-hidden="true"></i>
+                        <fa-icon [icon]="faComments"></fa-icon>
                         Comments ({{post.comments}})
                     </small>
                 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-groups-list',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./groups-list.component.scss']
 })
 export class GroupsListComponent implements OnInit {
-
+  faChevronCircleRight = faChevronCircleRight;
   constructor() { }
 
   ngOnInit() {

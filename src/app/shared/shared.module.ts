@@ -22,6 +22,7 @@ import {WriteTextComponent} from './components/write-text/write-text.component';
 import {ScrollTableComponent} from './components/scroll-table/scroll-table.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {SmallCalendarComponent} from './components/small-calendar/small-calendar.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 
@@ -61,6 +62,7 @@ import {SmallCalendarComponent} from './components/small-calendar/small-calendar
         AngularFileUploaderModule,
         GaugeModule.forRoot(),
         InfiniteScrollModule,
+        FontAwesomeModule,
     ]
 })
 export class SharedModule {

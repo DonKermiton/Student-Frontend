@@ -12,6 +12,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { ShowCommentsDirective } from './directives/show-comments.directive';
 import {GaugeModule} from 'angular-gauge';
 import {ViewFilesComponent} from "./components/view-files/view-files.component";
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {ViewFilesComponent} from "./components/view-files/view-files.component";
         AngularFileUploaderModule,
         SharedModule,
         InfiniteScrollModule,
-        GaugeModule.forRoot()
+        GaugeModule.forRoot(),
+        FontAwesomeModule
     ]
 
 })

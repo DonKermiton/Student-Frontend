@@ -136,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "studentApp"
+  "defaultProject": "studentApp",
+  "cli": {
+    "analytics": false
+  }
 }

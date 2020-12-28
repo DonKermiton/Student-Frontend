@@ -6,6 +6,10 @@ import {ConfirmDialogService} from '../../../shared/services/confirm-dialog.serv
 import {Subscription} from 'rxjs';
 import {photoModel} from '../../models/photo.model';
 import {HttpEventType} from '@angular/common/http';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-view-files',
@@ -26,6 +30,11 @@ export class ViewFilesComponent implements OnInit {
     confirmActionMessage: string;
     confirmActionSub: Subscription;
 
+
+    faTrash = faTrash;
+    faFolderOpen = faFolderOpen;
+    faFolder = faFolder;
+    faFile = faFile;
     constructor(public user: UsersService,
                 private storage: StorageService,
                 private confirmService: ConfirmDialogService) {

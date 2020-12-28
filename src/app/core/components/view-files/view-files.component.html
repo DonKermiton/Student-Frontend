@@ -22,11 +22,11 @@
                 <span>...</span>
                 <div class="float-right" (click)="$event.stopPropagation()">
                     <span class="mx-2" (click)="addDirectoryModal = true">
-                        <i class="fa fa-folder-open"></i>
+                         <fa-icon [icon]="faFolderOpen"></fa-icon>
                     </span>
                     |
                     <span class="mx-2" (click)="deleteDirectory(true)">
-                        <i class="fa fa-trash"></i>
+                        <fa-icon [icon]="faTrash"></fa-icon>
                     </span>
                 </div>
             </li>
@@ -34,7 +34,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center"
                     [ngClass]="file.isDir ? 'list-group-item-warning': ''" (click)="clickHandler(file.name,file.isDir)">
                     <span>{{file.name}}</span>
-                    <i class="fa" [ngClass]="file.isDir ? 'fa-folder': 'fa-file'"></i>
+                    <fa-icon [icon]="file.isDir ? faFolder : faFile"></fa-icon>
                 </li>
             </ng-container>
         </ul>
