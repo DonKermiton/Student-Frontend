@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../auth/services/users.service';
-import {PostsService} from '../shared/services/posts.service';
+
+import {SocketIoService} from "../shared/services/socketio.service";
+import {PostModel} from "../shared/models/post.model";
 
 @Component({
     selector: 'app-dashboard',
@@ -8,11 +10,16 @@ import {PostsService} from '../shared/services/posts.service';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+    emitPost: PostModel;
 
-    constructor(private users: UsersService) {
+    constructor(private users: UsersService,
+                private socket: SocketIoService) {
     }
 
     ngOnInit() {
+        this.socket.getPosts().subscribe((data) => {
+
+        });
         this.users.getUser()
             .pipe()
             .subscribe();

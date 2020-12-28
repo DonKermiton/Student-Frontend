@@ -2,8 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PostComment, PostModel} from '../../models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {PostsService} from '../../services/posts.service';
-import {map, mergeMap, take} from 'rxjs/operators';
+import {concatMap, map, mergeMap, take} from 'rxjs/operators';
 import {UsersService} from '../../../auth/services/users.service';
+import {SocketIoService} from "../../services/socketio.service";
 
 @Component({
     selector: 'app-scroll-table',
@@ -11,7 +12,6 @@ import {UsersService} from '../../../auth/services/users.service';
     styleUrls: ['./scroll-table.component.scss']
 })
 export class ScrollTableComponent implements OnInit {
-
 
     @Input() postArray: PostModel[] = [];
     @Input() id: number;
@@ -31,19 +31,25 @@ export class ScrollTableComponent implements OnInit {
     sum = 0;
 
     constructor(private post: PostsService,
-                public users: UsersService) {
+                public users: UsersService,
+                private socket: SocketIoService) {
     }
 
     ngOnInit() {
+        this.getPosts();
+    }ng
 
+    getPosts() {
+        this.socket.getPosts().subscribe(data => {
+            this.postArray.unshift(data);
+        })
         switch (this.type) {
-
             case 'dashboard': {
                 this.post.getUserPostDashboard(this.skip)
                     .pipe(
-                        mergeMap((post: PostModel[]) => post),
+                        concatMap((post: PostModel[]) => post),
                         map((post: PostModel) => post),
-                        mergeMap((post) => {
+                        concatMap((post) => {
                             this.postArray.push(post);
                             console.log(this.postArray);
                             return this.post.countPostComments(post.postID);
@@ -56,9 +62,9 @@ export class ScrollTableComponent implements OnInit {
             case 'profile': {
                 this.post.getUserPost(this.id, this.skip)
                     .pipe(
-                        mergeMap((post: PostModel[]) => post),
+                        concatMap((post: PostModel[]) => post),
                         map((post: PostModel) => post),
-                        mergeMap((post) => {
+                        concatMap((post) => {
 
                             this.postArray.push(post);
                             console.log(this.postArray);
@@ -71,43 +77,9 @@ export class ScrollTableComponent implements OnInit {
     }
 
     onScrollDown() {
-        // todo change to uni get post
-        // this.sendMorePost.emit();
         this.skip += 5;
         this.sum += 5;
-        //TODO probably concatMap
-        switch (this.type) {
-
-            case 'dashboard': {
-                this.post.getUserPostDashboard(this.skip)
-                    .pipe(
-                        mergeMap((post: PostModel[]) => post),
-                        map((post: PostModel) => post),
-                        mergeMap((post) => {
-                            this.postArray.push(post);
-                            console.log(this.postArray);
-                            return this.post.countPostComments(post.postID);
-                        })
-                    ).subscribe();
-
-                break;
-            }
-
-            case 'profile': {
-                this.post.getUserPost(this.id, this.skip)
-                    .pipe(
-                        mergeMap((post: PostModel[]) => post),
-                        map((post: PostModel) => post),
-                        mergeMap((post) => {
-
-                            this.postArray.push(post);
-                            console.log(this.postArray);
-                            return this.post.countPostComments(post.postID);
-                        })
-                    ).subscribe();
-                break;
-            }
-        }
+        this.getPosts();
     }
 
     getPostComment(postID: number, last: number) {
@@ -124,18 +96,16 @@ export class ScrollTableComponent implements OnInit {
     }
 
     deletePost(postID: number) {
-
+        // TODO add implementation
     }
 
     countSelectedPostComments(id: number) {
+        // TODO add implementation
         return null;
     }
 
-    test() {
-        console.log('test');
-    }
-
     addPost(event: PostModel) {
+
         this.users.getUser()
             .pipe(
                 take(1),
@@ -146,6 +116,7 @@ export class ScrollTableComponent implements OnInit {
                             last_name: user.last_name,
                             id: user.id
                         }
+                        this.socket.sendPost(event);
                         this.postArray.unshift(event)
                     }
                 })

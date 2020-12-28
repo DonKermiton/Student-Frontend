@@ -4,6 +4,7 @@ import {photoModel} from "../../../core/models/photo.model";
 import {UsersService} from "../../../auth/services/users.service";
 import {map} from "rxjs/operators";
 import {PostModel} from '../../models/post.model';
+import {SocketIoService} from "../../services/socketio.service";
 
 @Component({
     selector: 'app-upload-post',
@@ -17,7 +18,8 @@ export class UploadPostComponent implements OnInit {
     public filesToUpload: photoModel[];
 
     constructor(private post: PostsService,
-                private users: UsersService) {
+                private users: UsersService,
+                private socket: SocketIoService) {
     }
 
     ngOnInit() {

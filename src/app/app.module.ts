@@ -11,6 +11,9 @@ import {SharedModule} from './shared/shared.module';
 import {AngularFileUploaderModule} from 'angular-file-uploader';
 import {LoggedInterceptor} from "./auth/interceptors/logged.interceptor";
 import {ErrorhandlerInterceptor} from './auth/interceptors/errorhandler.interceptor';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
 
 
 // import {LoggedInterceptor} from './auth/interceptors/logged.interceptor';
@@ -28,6 +31,7 @@ import {ErrorhandlerInterceptor} from './auth/interceptors/errorhandler.intercep
     NotifierModule.withConfig(),
     SharedModule,
     AngularFileUploaderModule,
+    FontAwesomeModule,
   ],
    providers: [ {
      provide: HTTP_INTERCEPTORS,
