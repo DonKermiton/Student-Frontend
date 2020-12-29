@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PostComment, PostModel} from '../../models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {PostsService} from '../../services/posts.service';
-import {concatMap, map, take} from 'rxjs/operators';
+import {concatMap, map, take, tap} from 'rxjs/operators';
 import {UsersService} from '../../../auth/services/users.service';
 import {SocketIoService} from '../../services/socketio.service';
 import {faComments, faShareSquare, faThumbsUp} from '@fortawesome/free-regular-svg-icons';
@@ -29,7 +29,7 @@ export class ScrollTableComponent implements OnInit {
     throttle = 300;
     scrollDistance = 1;
     scrollUpDistance = 2;
-
+    lastAdded = 0;
     postNumber = 0;
     postComments: PostComment[] = [];
     modalOpen = false;
@@ -47,6 +47,7 @@ export class ScrollTableComponent implements OnInit {
     }
 
     getPosts() {
+
         this.socket.getPosts().subscribe(data => {
             this.postArray.unshift(data);
         });
@@ -58,10 +59,15 @@ export class ScrollTableComponent implements OnInit {
                         map((post: PostModel) => post),
                         concatMap((post) => {
                             this.postArray.push(post);
-                            console.log(this.postArray);
-                            return this.post.countPostComments(post.postID);
+
+                            return this.post.countPostComments(post.postID)
+                        }),
+                        tap((number:number) => {
+                            this.postArray[this.lastAdded].comments = number;
+                            this.lastAdded++;
+
                         })
-                    ).subscribe();
+                    ).subscribe(console.log);
 
                 break;
             }

@@ -76,7 +76,7 @@
                 </button>
             </div>
             <div id="wrapper">
-                <div class="text-right">
+                <div class="text-center" *ngIf="post.comments">
                     <small class="text-primary" (click)="getPostComment(post.postID, i)" *ngIf="!post.PostComment">Show
                         comments</small>
                 </div>
@@ -99,9 +99,9 @@
                     </div>
                 </ng-container>
 
-                <div class="text-center">
+                <div class="text-center" *ngIf="post.PostComment">
                     <small class="text-primary"
-                           (click)="getPostComment(post.postID, i)" *ngIf="post.PostComment"
+                           (click)="getPostComment(post.postID, i)" *ngIf="post.PostComment.length < post.comments"
                     >Show more</small>
                 </div>
 
