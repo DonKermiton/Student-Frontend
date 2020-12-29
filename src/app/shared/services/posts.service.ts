@@ -92,8 +92,12 @@ export class PostsService {
     }
 
     // count post Comments
-    countPostComments(id: number) {
-        return this.http.get(`/api/posts/userPost/Comments/Count?id=${id}`);
+    countPostComments(id: number):Observable<number> {
+        return this.http.get<number>(`/api/posts/userPost/Comments/Count?id=${id}`);
+    }
+
+    countPostLikes(id: number):Observable<number> {
+        return this.http.get<number>(`/api/posts/userPost/likes/Count?id=${id}`);
     }
 
 }

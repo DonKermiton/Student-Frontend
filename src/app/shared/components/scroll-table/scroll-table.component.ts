@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PostComment, PostModel} from '../../models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {PostsService} from '../../services/posts.service';
-import {concatMap, map, take, tap} from 'rxjs/operators';
+import {concatMap, map, mergeMap, take, tap} from 'rxjs/operators';
 import {UsersService} from '../../../auth/services/users.service';
 import {SocketIoService} from '../../services/socketio.service';
 import {faComments, faShareSquare, faThumbsUp} from '@fortawesome/free-regular-svg-icons';
@@ -47,9 +47,11 @@ export class ScrollTableComponent implements OnInit {
     }
 
     getPosts() {
-
+        let postID;
+        // todo change to universal usage
         this.socket.getPosts().subscribe(data => {
             this.postArray.unshift(data);
+            this.lastAdded++;
         });
         switch (this.type) {
             case 'dashboard': {
@@ -59,15 +61,19 @@ export class ScrollTableComponent implements OnInit {
                         map((post: PostModel) => post),
                         concatMap((post) => {
                             this.postArray.push(post);
-
-                            return this.post.countPostComments(post.postID)
+                            postID = post.postID;
+                            return this.post.countPostComments(postID)
                         }),
-                        tap((number:number) => {
+                        mergeMap((number:number) => {
                             this.postArray[this.lastAdded].comments = number;
-                            this.lastAdded++;
-
-                        })
-                    ).subscribe(console.log);
+                            return this.post.countPostLikes(postID);
+                        }),
+                       tap((value)=> {
+                           this.postArray[this.lastAdded].likes = value;
+                           this.lastAdded++;
+                           console.log(value);
+                       })
+                    ).subscribe();
 
                 break;
             }
