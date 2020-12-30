@@ -15,12 +15,12 @@ export class SocketIoService {
     this.socket = io.io(this.url);
   }
 
-  getPosts():Observable<PostModel> {
+  getPosts(): Observable<PostModel> {
     return Observable.create(observer => {
       this.socket.on('message-broadcast', msg => {
         observer.next(msg);
-      })
-    })
+      });
+    });
   }
 
   sendPost(message: object) {

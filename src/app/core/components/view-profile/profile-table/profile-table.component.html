@@ -22,10 +22,9 @@
 
         <div class="col-sm-12 col-md-6 col'-lg-7 offset-xl-1 col-xl-6 mt-3 rounded ">
 
-            <h5 class="text-center" *ngIf="postNumber == 0">No post has been added yet</h5>
             <app-scroll-table [id]="id" [type]="'profile'"></app-scroll-table>
 
-            <app-spinner *ngIf="postNumber != postArray.length && postNumber > 0"></app-spinner>
+            <app-spinner></app-spinner>
         </div>
 
         <ng-template #loadingPhoto>

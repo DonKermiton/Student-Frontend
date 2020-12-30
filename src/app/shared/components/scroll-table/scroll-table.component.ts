@@ -2,12 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PostComment, PostModel} from '../../models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {PostsService} from '../../services/posts.service';
-import {concatMap, map, mergeMap, take} from 'rxjs/operators';
+import {concatMap, delay, map, mergeMap, retryWhen, take} from 'rxjs/operators';
 import {UsersService} from '../../../auth/services/users.service';
 import {SocketIoService} from '../../services/socketio.service';
 import {faComments, faShareSquare, faThumbsUp} from '@fortawesome/free-regular-svg-icons';
-import {faEllipsisH, faSearch, faCaretRight} from '@fortawesome/free-solid-svg-icons';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {faCaretRight, faEllipsisH, faSearch} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -36,19 +35,34 @@ export class ScrollTableComponent implements OnInit {
 
     postAdded = 0;
 
-    commentsForm = new FormArray([]);
 
+    userID: number;
     skip = 0;
     sum = 0;
+    commentsForm = [];
 
     constructor(private post: PostsService,
                 public users: UsersService,
                 private socket: SocketIoService) {
     }
 
-
     ngOnInit() {
         this.getPosts();
+        this.users.getUserID()
+            .pipe(
+                map(response => {
+                    if (!response) {
+                        throw new Error();
+                    }
+                    return response;
+                }),
+                retryWhen(errors => errors.pipe(
+                    delay(1000),
+                ))
+                )
+            .subscribe((value) => {
+                this.userID = value;
+            });
     }
 
     getPosts() {
@@ -56,6 +70,7 @@ export class ScrollTableComponent implements OnInit {
         this.socket.getPosts().subscribe(data => {
             this.postArray.unshift(data);
         });
+
         switch (this.type) {
             case 'dashboard': {
                 this.post.getUserPostDashboard(this.skip)
@@ -64,12 +79,12 @@ export class ScrollTableComponent implements OnInit {
                         mergeMap((post) => {
                             this.postArray.push(post);
                             console.log(this.postArray.length);
-                            this.onAddComment();
+                            this.addComment();
                             return this.post.isInYourLikes(post.postID);
                         }),
                     ).subscribe((value) => {
                     if (value) {
-                        console.log(this.postAdded);
+                        // todo change to working
                         this.postArray[this.postAdded].isInYourLikes = true;
                     }
                     this.postAdded++;
@@ -89,7 +104,6 @@ export class ScrollTableComponent implements OnInit {
                         }),
                     ).subscribe((value) => {
                     if (value) {
-                        console.log(this.postAdded);
                         this.postArray[this.postAdded].isInYourLikes = true;
                     }
                     this.postAdded++;
@@ -120,8 +134,12 @@ export class ScrollTableComponent implements OnInit {
                 if (!this.postArray[index].PostComment) {
                     this.postArray[index].PostComment = [];
                 }
-
                 this.postArray[index].PostComment.push(postComments);
+                // TODO sorting not working
+                this.postArray[index].PostComment = this.postArray[index].PostComment
+                    .sort((a: PostComment, b: PostComment) => {
+                        return a.created.valueOf() - b.created.valueOf();
+                    });
             }
         });
     }
@@ -132,11 +150,6 @@ export class ScrollTableComponent implements OnInit {
 
     deletePost(postID: number) {
         // TODO add implementation
-    }
-
-    countSelectedPostComments(id: number) {
-        // TODO add implementation
-        return null;
     }
 
     addPost(event: PostModel) {
@@ -161,6 +174,7 @@ export class ScrollTableComponent implements OnInit {
     }
 
     handleLikeClick(postID: number, index: number) {
+        console.log(this.users.userID);
         this.postArray[index].isInYourLikes = !this.postArray[index].isInYourLikes;
 
         switch (this.postArray[index].isInYourLikes) {
@@ -177,15 +191,37 @@ export class ScrollTableComponent implements OnInit {
         }
     }
 
-    private onAddComment() {
-        this.commentsForm.push(new FormGroup({
-            text: new FormControl(null, Validators.required)
-        }));
-        console.log(this.commentsForm);
+    createComment(postID: number, i: number) {
+        console.log(this.commentsForm[i]);
+
+        this.post.createPostComment(postID, this.commentsForm[i]).subscribe(
+            (post: any) => {
+                const obj: PostComment = {
+                    created: new Date(),
+                    ownerID: post.id,
+                    postID,
+                    text: this.commentsForm[i],
+                    user: {first_name: post.first_name, id: post.id, last_name: post.last_name}
+                };
+                this.commentsForm[i] = '';
+                if (!this.postArray[i].PostComment) {
+                    this.postArray[i].PostComment = [];
+                }
+
+                console.log(typeof new Date(obj.created).toDateString());
+                console.log(typeof new Date(obj.created));
+
+                this.postArray[i].PostComment.push(obj);
+                this.postArray[i].comments++;
+                console.log(this.postArray[i].PostComment);
+                // this.wroteComment.emit(obj);
+
+            }
+        );
+        // this.post.createPostComment(postID, this.commentsForm.value[i]).subscribe(console.log);
     }
 
-
-    submit(i: number) {
-        console.log(this.commentsForm.value[i]);
+    private addComment() {
+        this.commentsForm.push();
     }
 }

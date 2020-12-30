@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {PostComment, PostModel} from '../models/post.model';
 import {UsersService} from '../../auth/services/users.service';
 import {NotifierService} from 'angular-notifier';
@@ -71,7 +71,7 @@ export class PostsService {
         return this.http.get<PostComment[]>(`/api/posts/userPost/Comment/all`, {params, responseType: 'json'});
     }
 
-    createPostComment(postID: string, text: string) {
+    createPostComment(postID: number, text: string) {
         const obj = {
             postID,
             text

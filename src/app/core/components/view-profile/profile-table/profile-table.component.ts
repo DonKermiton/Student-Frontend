@@ -7,8 +7,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {photoModel} from '../../../models/photo.model';
 import {PostsService} from '../../../../shared/services/posts.service';
 import {PostComment, PostModel} from '../../../../shared/models/post.model';
-import {formatDistanceToNow} from 'date-fns';
-import {noop, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {PhotoService} from '../../../../shared/services/photo.service';
 
 @Component({
@@ -30,7 +29,6 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
     photoCollection: photoModel[];
     numberOfPhoto = 0;
     imageForm: FormGroup;
-    postNumber = 0;
 
     canEditProfile = false;
 
@@ -51,11 +49,7 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
                 tap((params: Params) => {
                     this.id = params.id;
                 }),
-                switchMap(() =>
-                    this.postsService.getUserPostNumber(this.id)
-                ),
-                switchMap((nmb: any) => {
-                    this.postNumber = nmb;
+                switchMap(() => {
                     return this.users.getUser();
                 }),
                 switchMap((user: User) => {
@@ -70,7 +64,6 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
                 ),
                 map((photo: photoModel[]) => photo),
                 mergeMap((photo: any) => {
-                    this.addItems(0);
                     this.photoCollection = photo;
                     return this.photo.getPostPhotoCollection(68);
                 })
@@ -81,15 +74,6 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
 
 
         this.initForm();
-    }
-
-    isPostHasPhoto(postID) {
-        for (const photo of this.postPhoto) {
-            if(photo.postID == postID) {
-                return true;
-            }
-        }
-        return false;
     }
 
     addPost(event: PostModel) {
@@ -103,12 +87,12 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
                             first_name: user.first_name,
                             last_name: user.last_name,
                             id: user.id
-                        }
-                        this.postArray.unshift(event)
+                        };
+                        this.postArray.unshift(event);
                     }
                 })
             )
-            .subscribe()
+            .subscribe();
 
     }
 
@@ -125,56 +109,11 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
         return size;
     }
 
-    addItems(skip: number) {
-            this.postSubscription = this.postsService.getUserPost(this.id, skip)
-                .pipe(
-                    mergeMap((post: PostModel[]) => post),
-                    map((post: PostModel) => post),
-                    mergeMap((post) => {
-                        if (this.postArray.length < this.postNumber) {
-                            this.postArray.push(post);
-                        }
-                        return this.postsService.countPostComments(post.postID);
-                    })
-                ).subscribe(noop, noop, () => {
-                    this.postSubscription.unsubscribe();
-                });
-
-    }
-
-
-    onScrollDown(ev) {
-        console.log('scrolled down!!', ev);
-
-        this.skip += 5;
-        this.sum += 5;
-        this.addItems(this.skip);
-
-    }
 
     toggleModal() {
         this.modalOpen = !this.modalOpen;
     }
 
-    getPostDate(date) {
-        return formatDistanceToNow(new Date(date));
-    }
-
-    getPostComment(postID: number, last: number) {
-        this.postsService.getPostComment(postID, last).subscribe((postComments: PostComment) => {
-            if (postComments) {
-                this.postComments.push(postComments);
-            }
-        });
-    }
-
-    deletePost(postID: number) {
-        this.postsService.deletePost(postID).subscribe();
-    }
-
-    countSelectedPostComments(id: number) {
-        return this.postComments.filter(e => e.postID === id).length;
-    }
 
     ngOnDestroy(): void {
         if (this.postSubscription) {
@@ -188,7 +127,5 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
         });
     }
 
-    emitMorePost() {
-        this.onScrollDown('');
-    }
+
 }

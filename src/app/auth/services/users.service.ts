@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
+import {Observable, ReplaySubject} from 'rxjs';
 import {User} from '../../shared/models/user.model';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import {photoModel} from '../../core/models/photo.model';
@@ -14,6 +14,12 @@ export class UsersService {
     userID: number;
 
     constructor(private http: HttpClient) {
+    }
+
+    getUserID(): Observable<number> {
+        return Observable.create(observer => {
+            observer.next(this.userID);
+        });
     }
 
     getUserInfo(id: string): void {

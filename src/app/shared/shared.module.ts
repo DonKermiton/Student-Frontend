@@ -23,7 +23,7 @@ import {ScrollTableComponent} from './components/scroll-table/scroll-table.compo
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {SmallCalendarComponent} from './components/small-calendar/small-calendar.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -64,7 +64,7 @@ import {ReactiveFormsModule} from '@angular/forms';
         GaugeModule.forRoot(),
         InfiniteScrollModule,
         FontAwesomeModule,
-        ReactiveFormsModule,
+        FormsModule,
     ]
 })
 export class SharedModule {
