@@ -6,7 +6,8 @@ import {concatMap, map, mergeMap, take} from 'rxjs/operators';
 import {UsersService} from '../../../auth/services/users.service';
 import {SocketIoService} from '../../services/socketio.service';
 import {faComments, faShareSquare, faThumbsUp} from '@fortawesome/free-regular-svg-icons';
-import {faEllipsisH, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faEllipsisH, faSearch, faCaretRight} from '@fortawesome/free-solid-svg-icons';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ScrollTableComponent implements OnInit {
     faComments = faComments;
     faEllipsisH = faEllipsisH;
     faSearch = faSearch;
+    faCaretRight = faCaretRight;
 
     postArray: PostModel[] = [];
     @Input() id: number;
@@ -34,6 +36,8 @@ export class ScrollTableComponent implements OnInit {
 
     postAdded = 0;
 
+    commentsForm = new FormArray([]);
+
     skip = 0;
     sum = 0;
 
@@ -41,6 +45,7 @@ export class ScrollTableComponent implements OnInit {
                 public users: UsersService,
                 private socket: SocketIoService) {
     }
+
 
     ngOnInit() {
         this.getPosts();
@@ -59,6 +64,7 @@ export class ScrollTableComponent implements OnInit {
                         mergeMap((post) => {
                             this.postArray.push(post);
                             console.log(this.postArray.length);
+                            this.onAddComment();
                             return this.post.isInYourLikes(post.postID);
                         }),
                     ).subscribe((value) => {
@@ -157,7 +163,7 @@ export class ScrollTableComponent implements OnInit {
     handleLikeClick(postID: number, index: number) {
         this.postArray[index].isInYourLikes = !this.postArray[index].isInYourLikes;
 
-        switch ( this.postArray[index].isInYourLikes) {
+        switch (this.postArray[index].isInYourLikes) {
             case true: {
                 this.postArray[index].likes++;
                 this.post.sendLike(postID).subscribe();
@@ -169,5 +175,17 @@ export class ScrollTableComponent implements OnInit {
                 break;
             }
         }
+    }
+
+    private onAddComment() {
+        this.commentsForm.push(new FormGroup({
+            text: new FormControl(null, Validators.required)
+        }));
+        console.log(this.commentsForm);
+    }
+
+
+    submit(i: number) {
+        console.log(this.commentsForm.value[i]);
     }
 }

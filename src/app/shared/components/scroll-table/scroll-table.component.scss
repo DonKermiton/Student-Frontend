@@ -5,3 +5,50 @@
 
 .dropdown-toggle:after { content: none }
 
+.row{
+  margin: 0;
+}
+
+.buttonInside{
+  position:relative;
+  margin: 0 10%;
+  height: 3vh;
+}
+input{
+  height: 3vh;
+  width: 100%;
+  border-radius: 20px;
+  padding: 0 10px;
+  border:1px solid black;outline:none;
+}
+.send-comment-button{
+  position:absolute;
+
+  border-radius:100%;
+  height: 2.3vh;
+  width: 2.3vh;
+  right: 2%;
+  top: 10%;
+  background-color: transparent;
+  border: none;
+
+}
+button:hover{
+  cursor:pointer;
+}
+
+@media (min-width: 1280px) {
+  .buttonInside{
+    position:relative;
+    margin: 0 10%;
+    height: 3vh;
+  }
+
+  input{
+    height: 3vh;
+    width: 100%;
+    border-radius: 20px;
+    border:1px solid black;outline:none;
+  }
+
+}
