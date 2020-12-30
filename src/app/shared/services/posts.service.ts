@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PostComment, PostModel} from '../models/post.model';
-import {map, tap} from 'rxjs/operators';
-import {UsersService} from "../../auth/services/users.service";
-import {photoModel} from "../../core/models/photo.model";
+import {UsersService} from '../../auth/services/users.service';
 import {NotifierService} from 'angular-notifier';
 
 @Injectable({
@@ -43,8 +41,8 @@ export class PostsService {
     createPost(post: string) {
         const postObj = {
             text: post
-        }
-        return this.http.put(`/api/posts/userPost/create`, postObj, {headers: {Authorization: localStorage.getItem('userToken')}})
+        };
+        return this.http.put(`/api/posts/userPost/create`, postObj, {headers: {Authorization: localStorage.getItem('userToken')}});
     }
 
     deletePost(id: number) {
@@ -73,16 +71,19 @@ export class PostsService {
         return this.http.get<PostComment[]>(`/api/posts/userPost/Comment/all`, {params, responseType: 'json'});
     }
 
-    createPostComment(postID: string,text: string) {
+    createPostComment(postID: string, text: string) {
         const obj = {
             postID,
             text
-        }
+        };
 
-        return this.http.put(`/api/posts/userPost/comment/create`, obj, {headers: {Authorization: localStorage.getItem('userToken')}, responseType: 'json'})
+        return this.http.put(`/api/posts/userPost/comment/create`, obj, {
+            headers: {Authorization: localStorage.getItem('userToken')},
+            responseType: 'json'
+        });
     }
 
-    getSelectedPost(post: number):Observable<PostModel>{
+    getSelectedPost(post: number): Observable<PostModel> {
         const params = new HttpParams({
             fromObject: {
                 id: `${post}`,
@@ -92,12 +93,21 @@ export class PostsService {
     }
 
     // count post Comments
-    countPostComments(id: number):Observable<number> {
+    countPostComments(id: number): Observable<number> {
         return this.http.get<number>(`/api/posts/userPost/Comments/Count?id=${id}`);
     }
 
-    countPostLikes(id: number):Observable<number> {
-        return this.http.get<number>(`/api/posts/userPost/likes/Count?id=${id}`);
+    isInYourLikes(postID: number): Observable<number> {
+        return this.http.get<number>(`/api/posts/userPost/Like/your?id=${postID}`);
     }
+
+    sendLike(postID: number) {
+        return this.http.put(`/api/posts/userPost/like?id=${postID}`, {}, {headers: {Authorization: localStorage.getItem('userToken')}});
+    }
+
+    deleteLike(postID: number) {
+        return this.http.delete(`/api/posts/userPost/like?id=${postID}`, {headers: {Authorization: localStorage.getItem('userToken')}});
+    }
+
 
 }

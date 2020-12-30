@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PostComment, PostModel} from '../../models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {PostsService} from '../../services/posts.service';
-import {concatMap, map, mergeMap, take, tap} from 'rxjs/operators';
+import {concatMap, map, mergeMap, take} from 'rxjs/operators';
 import {UsersService} from '../../../auth/services/users.service';
 import {SocketIoService} from '../../services/socketio.service';
 import {faComments, faShareSquare, faThumbsUp} from '@fortawesome/free-regular-svg-icons';
@@ -29,10 +29,10 @@ export class ScrollTableComponent implements OnInit {
     throttle = 300;
     scrollDistance = 1;
     scrollUpDistance = 2;
-    lastAdded = 0;
     postNumber = 0;
-    postComments: PostComment[] = [];
     modalOpen = false;
+
+    postAdded = 0;
 
     skip = 0;
     sum = 0;
@@ -47,33 +47,27 @@ export class ScrollTableComponent implements OnInit {
     }
 
     getPosts() {
-        let postID;
         // todo change to universal usage
         this.socket.getPosts().subscribe(data => {
             this.postArray.unshift(data);
-            this.lastAdded++;
         });
         switch (this.type) {
             case 'dashboard': {
                 this.post.getUserPostDashboard(this.skip)
                     .pipe(
                         concatMap((post: PostModel[]) => post),
-                        map((post: PostModel) => post),
-                        concatMap((post) => {
+                        mergeMap((post) => {
                             this.postArray.push(post);
-                            postID = post.postID;
-                            return this.post.countPostComments(postID)
+                            console.log(this.postArray.length);
+                            return this.post.isInYourLikes(post.postID);
                         }),
-                        mergeMap((number:number) => {
-                            this.postArray[this.lastAdded].comments = number;
-                            return this.post.countPostLikes(postID);
-                        }),
-                       tap((value)=> {
-                           this.postArray[this.lastAdded].likes = value;
-                           this.lastAdded++;
-                           console.log(value);
-                       })
-                    ).subscribe();
+                    ).subscribe((value) => {
+                    if (value) {
+                        console.log(this.postAdded);
+                        this.postArray[this.postAdded].isInYourLikes = true;
+                    }
+                    this.postAdded++;
+                });
 
                 break;
             }
@@ -82,14 +76,18 @@ export class ScrollTableComponent implements OnInit {
                 this.post.getUserPost(this.id, this.skip)
                     .pipe(
                         concatMap((post: PostModel[]) => post),
-                        map((post: PostModel) => post),
-                        concatMap((post) => {
-
+                        mergeMap((post) => {
                             this.postArray.push(post);
-                            console.log(this.postArray);
-                            return this.post.countPostComments(post.postID);
-                        })
-                    ).subscribe();
+                            console.log(this.postArray.length);
+                            return this.post.isInYourLikes(post.postID);
+                        }),
+                    ).subscribe((value) => {
+                    if (value) {
+                        console.log(this.postAdded);
+                        this.postArray[this.postAdded].isInYourLikes = true;
+                    }
+                    this.postAdded++;
+                });
                 break;
             }
         }
@@ -116,7 +114,7 @@ export class ScrollTableComponent implements OnInit {
                 if (!this.postArray[index].PostComment) {
                     this.postArray[index].PostComment = [];
                 }
-                console.log(postComments);
+
                 this.postArray[index].PostComment.push(postComments);
             }
         });
@@ -154,5 +152,22 @@ export class ScrollTableComponent implements OnInit {
             )
             .subscribe();
 
+    }
+
+    handleLikeClick(postID: number, index: number) {
+        this.postArray[index].isInYourLikes = !this.postArray[index].isInYourLikes;
+
+        switch ( this.postArray[index].isInYourLikes) {
+            case true: {
+                this.postArray[index].likes++;
+                this.post.sendLike(postID).subscribe();
+                break;
+            }
+            case false: {
+                this.postArray[index].likes--;
+                this.post.deleteLike(postID).subscribe();
+                break;
+            }
+        }
     }
 }

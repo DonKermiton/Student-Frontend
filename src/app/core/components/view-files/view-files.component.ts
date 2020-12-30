@@ -4,12 +4,8 @@ import {mergeMap, tap} from 'rxjs/operators';
 import {StorageService} from '../../../shared/services/filestorage.service';
 import {ConfirmDialogService} from '../../../shared/services/confirm-dialog.service';
 import {Subscription} from 'rxjs';
-import {photoModel} from '../../models/photo.model';
 import {HttpEventType} from '@angular/common/http';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
-import { faFolder } from '@fortawesome/free-solid-svg-icons';
-import { faFile } from '@fortawesome/free-solid-svg-icons';
+import {faFile, faFolder, faFolderOpen, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-view-files',
@@ -35,6 +31,7 @@ export class ViewFilesComponent implements OnInit {
     faFolderOpen = faFolderOpen;
     faFolder = faFolder;
     faFile = faFile;
+
     constructor(public user: UsersService,
                 private storage: StorageService,
                 private confirmService: ConfirmDialogService) {
@@ -45,19 +42,19 @@ export class ViewFilesComponent implements OnInit {
             .pipe(
                 mergeMap((user) => {
                     this.activeUrl = `${user.id}/`;
-                    return this.storage.getOccupiedSpace()
+                    return this.storage.getOccupiedSpace();
                 }),
                 mergeMap((space) => {
                     this.occupiedSpace = space;
                     // get folder directory
-                    return this.storage.getSelectedUrl(this.activeUrl)
+                    return this.storage.getSelectedUrl(this.activeUrl);
                 }),
                 tap((files: []) => {
                     this.fileArray = files;
-                    console.log(this.fileArray)
+                    console.log(this.fileArray);
                 })
             )
-            .subscribe()
+            .subscribe();
     }
 
     clickHandler(name: string, isDir: boolean) {
@@ -67,7 +64,7 @@ export class ViewFilesComponent implements OnInit {
             this.activeUrl = this.activeUrl + `/${name}`;
             this.storage.getSelectedUrl(this.activeUrl).subscribe((data: []) => {
                 this.fileArray = data;
-            })
+            });
         } else {
             // spy selected file on right side
             this.selectedFile = name;
@@ -76,7 +73,7 @@ export class ViewFilesComponent implements OnInit {
     }
 
     goUp() {
-        this.activeUrl = this.activeUrl.substring(0, this.activeUrl.lastIndexOf("/") + 1);
+        this.activeUrl = this.activeUrl.substring(0, this.activeUrl.lastIndexOf('/') + 1);
         this.storage.getSelectedUrl(this.activeUrl).subscribe((data: []) => {
             this.fileArray = data;
         });
@@ -92,7 +89,7 @@ export class ViewFilesComponent implements OnInit {
 
     deleteDirectory(isDir: boolean) {
         this.confirmActionModal = true;
-        this.confirmActionMessage = this.fileArray.length ? 'Directory is not empty. Are you Sure' : ''
+        this.confirmActionMessage = this.fileArray.length ? 'Directory is not empty. Are you Sure' : '';
 
 
         this.confirmActionSub = this.confirmService.getConfirmStream()
@@ -104,7 +101,7 @@ export class ViewFilesComponent implements OnInit {
                             this.goUp();
                         }
 
-                    })
+                    });
                 } else {
                     if (this.confirmActionSub) {
                         this.confirmActionSub.unsubscribe();
@@ -124,7 +121,7 @@ export class ViewFilesComponent implements OnInit {
                 for (const el of $event) {
                     console.log(el);
                     this.fileArray.push({name: el.name, isDir: false});
-                    this.occupiedSpace += +( el.size / 1024 / 1024).toFixed(2)
+                    this.occupiedSpace += +(el.size / 1024 / 1024).toFixed(2);
                 }
                 result = 'Upload complete';
             }

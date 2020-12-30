@@ -12,7 +12,7 @@ export interface PostModel {
     comments: number;
     likes: number;
     PostComment: PostComment[];
-
+    isInYourLikes: boolean;
 }
 
 export interface PostComment {

@@ -75,7 +75,7 @@ span {
   #sidebar-wrapper {
     margin-left: 0;
     width: 6vw;
-    transition: width .3s;
+    transition: width .3s ease-in-out;
   }
    #sidebar-wrapper .hideText {
     display: none !important;
