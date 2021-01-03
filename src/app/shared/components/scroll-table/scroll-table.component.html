@@ -2,11 +2,12 @@
     <button class="w-100 btn btn-primary" (click)="modalOpen = true">Create post</button>
     <div class="d-flex justify-content-center align-items-center" style="flex-basis: 5%"> |</div>
     <!--    todo add logic to search post-->
-    <button class="btn btn-outline-primary">
+    <button class="btn btn-outline-primary" (click)="searchBox = true">
         <fa-icon [icon]="faSearch"></fa-icon>
     </button>
 
 </div>
+
 <hr>
 <div class="search-results"
      data-infinite-scroll
@@ -17,140 +18,12 @@
      (scrolled)="onScrollDown()"
 >
     <div class="card mt-2" *ngFor="let post of postArray; let i = index">
-        <div>
-            <div class="col-12 pl-0 pr-0">
-                <div class="row mx-auto">
-                    <div class="col px-0">
-                        <img src="/api/photo/getUserProfile/Front/{{post.ownerID}}" alt="id"
-                             class="rounded img-thumbnail" width="60" height="40">
-                    </div>
-                    <div class="col-8">
-                        <span class="post-author text-warning">{{post.user.first_name}} {{post.user.last_name}}</span>
-                        <br>
-                        <small class="text-secondary">{{getPostDate(post.created)}} ago</small>
-                    </div>
+        <app-post-component [post]="post"></app-post-component>
 
-
-                    <div class="col dropdown d-flex justify-content-end">
-                        <button class="dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                            <fa-icon [icon]="faEllipsisH"></fa-icon>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item">Edit</a>
-                            <a class="dropdown-item">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger"
-                               (click)="deletePost(post.postID)">Delete</a>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>
-            <div class="post-body">
-                            <span class="px-2 bg-light w-100 d-block" *ngIf="post.text">
-                            {{post.text}}
-                            </span>
-
-            </div>
-            <hr>
-            <!-- <div class="px-5 text-right">
-                 <i class="fa fa-thumbs-up rounded-circle p-1 text-primary" aria-hidden="true"></i>
-                 <small>3</small>
-             </div>-->
-
-            <div id="wrapper">
-                <div class="text-center" *ngIf="post.comments">
-                    <small class="text-primary" (click)="getPostComment(post.postID, i)" *ngIf="!post.PostComment">Show
-                        comments</small>
-                </div>
-
-
-                <ng-container *ngFor="let comment of post.PostComment; let i = index">
-                    <div class="d-flex " [ngClass]="userID !== comment.ownerID ? 'justify-content-start' : 'justify-content-end'">
-                        <div class="col-lg-10 col-md-11 col-xs-12 mb-1 border-info border bg-light" style="border-radius: 15px"
-                             *ngIf="comment.postID === post.postID">
-                            <div class="d-flex " >
-                                <div class="flex-fill text-left pl-3 ">
-                                    <img src="/api/photo/getUserProfile/Front/{{comment.ownerID}}" alt="id"
-                                         class="rounded-circle"
-                                         width="20"
-                                         height="20">
-                                    <small class="text-info ml-1">{{comment.user.first_name}} {{comment.user.last_name}}</small>
-                                </div>
-                                <small class="mr-3">{{getPostDate(comment.created)}} ago</small>
-                                <span class="badge badge-info d-flex align-items-center mr-3"
-                                      *ngIf="comment.ownerID === post.ownerID">
-                                <span>OP</span>
-                            </span>
-                                <div class="dropdown d-flex justify-content-end">
-                                    <button class="dropdown-toggle" type="button"
-                                            id="commentOptions" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <fa-icon [icon]="faEllipsisH"></fa-icon>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item">Edit</a>
-                                        <a class="dropdown-item">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item text-danger"
-                                           (click)="deletePost(post.postID)">Delete</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="border-top border-info">
-                                <small>{{comment.text}}</small>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
-
-                <div class="text-center" *ngIf="post.PostComment">
-                    <small class="text-primary"
-                           (click)="getPostComment(post.postID, i)" *ngIf="post.PostComment.length < post.comments"
-                    >Show more</small>
-                </div>
-
-                <div>
-                    <hr *ngIf="post.comments">
-                    <div class="d-flex justify-content-around align-items-center comment-field">
-                        <img src="/api/photo/getUserProfile/Front/{{(users.User| async).id}}" alt="profile"
-                             class="rounded-circle" width="30"
-                             height="30"
-                             style="border: 1px solid #224abe"
-                        />
-                        <input placeholder="Write comment" [(ngModel)]="commentsForm[i]">
-                        <button class="send-comment-button" (click)="createComment(post.postID, i)">
-                            <fa-icon [icon]="faCaretRight"></fa-icon>
-                        </button>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="row text-center m-auto border-top">
-                <div class="col-6 border-right" [ngClass]="post.isInYourLikes ? 'btn-primary' : 'btn-outline-primary'"
-                     (click)="handleLikeClick(post.postID, i)">
-                    <small>
-                        <fa-icon [icon]="faThumbsUp"></fa-icon>
-                        Likes ({{post.likes}})</small>
-                </div>
-                <div class="col-6 btn-outline-success">
-                    <small *ngIf="postArray">
-                        <fa-icon [icon]="faComments"></fa-icon>
-                        Comments ({{post.comments}})
-                    </small>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 <app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false" (addedPost)="addPost($event)"></app-upload-post>
 <app-spinner *ngIf="postNumber != postArray.length && postNumber > 0"></app-spinner>
 <app-write-text *ngIf="false"></app-write-text>
+<app-write-text (emitText)="searchPost($event)" (emitCloseModal)="searchBox = false" *ngIf="searchBox"></app-write-text>

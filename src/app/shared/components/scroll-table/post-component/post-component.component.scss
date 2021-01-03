@@ -1,0 +1,32 @@
+.dropdown button {
+  background-color:transparent;
+  border: none;
+}
+
+.dropdown-toggle:after { content: none }
+
+.row{
+  margin: 0;
+}
+
+.comment-field {
+  margin: 0 3% 2% 3%;
+
+  input {
+    flex-basis: 80%;
+    border-radius: 20px;
+    padding-left: 10px;
+    border: 1px solid dodgerblue;
+  }
+
+  button {
+    border: 1px solid dodgerblue;
+    width: 3vh;
+    height: 3vh;
+    border-radius: 50%;
+    color: dodgerblue;
+  }
+}
+
+
+

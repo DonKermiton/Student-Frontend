@@ -19,12 +19,13 @@ export class WriteTextComponent implements OnInit {
 
     ngOnInit() {
         this.keySub = fromEvent(document, 'keyup').subscribe((event) => {
-            console.log(event)
+            console.log(event);
         });
     }
 
     emitValue() {
         this.emitText.emit(this.textarea.nativeElement.value);
+        this.hideModal();
     }
 
     hideModal() {

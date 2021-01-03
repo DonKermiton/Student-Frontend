@@ -24,6 +24,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {SmallCalendarComponent} from './components/small-calendar/small-calendar.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { PostComponentComponent } from './components/scroll-table/post-component/post-component.component';
 
 
 
@@ -42,7 +43,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         ViewFilesComponent,
         WriteTextComponent,
         ScrollTableComponent,
-        SmallCalendarComponent
+        SmallCalendarComponent,
+        PostComponentComponent
 
     ],
     exports: [
