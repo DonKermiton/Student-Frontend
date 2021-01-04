@@ -6,6 +6,7 @@ import {delay, map, retryWhen} from 'rxjs/operators';
 import {faComments, faThumbsUp} from '@fortawesome/free-regular-svg-icons';
 import {faCaretRight, faEllipsisH} from '@fortawesome/free-solid-svg-icons';
 import {PostsService} from '../../../services/posts.service';
+import {PhotoService} from '../../../services/photo.service';
 
 
 @Component({
@@ -23,11 +24,14 @@ export class PostComponentComponent implements OnInit {
     userID: number;
     commentText: string;
     startComments = 0;
-    endComments = 10;
+    endComments = 100;
     showUserList = false;
+    commentBaseDate = 0;
+
 
     constructor(public users: UsersService,
-                private posts: PostsService) {
+                private posts: PostsService,
+                public photos: PhotoService) {
     }
 
     ngOnInit(): void {
@@ -81,31 +85,39 @@ export class PostComponentComponent implements OnInit {
 
             }
         );
-        this.posts.createPostComment(postID, this.commentText).subscribe(console.log);
     }
 
     getPostComment(postID: number) {
-        let skip;
+        let skip, moveUp;
 
         if (!this.post.PostComment) {
             skip = 0;
         } else {
             skip = this.post.PostComment.length;
         }
-        this.posts.getPostComment(postID, skip).subscribe((postComments: PostComment) => {
 
+        if (this.post.comments < 3) {
+            moveUp = 1;
+        } else {
+            moveUp = Math.floor(this.post.comments / 3)
+        }
+
+        this.posts.getPostComment(postID, skip, moveUp).subscribe((postComments: PostComment[]) => {
+            console.log(postComments);
             if (postComments) {
                 if (!this.post.PostComment) {
                     this.post.PostComment = [];
                 }
-                this.post.PostComment.push(postComments);
-                postComments.created = new Date(postComments.created);
-                console.log(new Date(postComments.created));
-                // todo Change
+                for (const comm of postComments) {
+                    this.post.PostComment.push(comm);
+                    comm.created = new Date(comm.created);
+                    // todo Change
+                }
                 this.post.PostComment = this.post.PostComment
                     .sort((a: PostComment, b: PostComment) => {
                         return a.created.valueOf() - b.created.valueOf();
                     });
+
             }
         });
     }

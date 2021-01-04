@@ -9,6 +9,22 @@
   margin: 0;
 }
 
+.basic-info:hover .user-card {
+  display: block;
+}
+
+.user-card {
+  position: absolute;
+  width: 80%;
+  height: 10vh;
+  display: none;
+  top: -10vh;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 15px;
+
+}
+
 .comment-field {
   margin: 0 3% 2% 3%;
 

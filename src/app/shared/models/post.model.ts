@@ -1,9 +1,12 @@
+import {photoModel} from '../../core/models/photo.model';
+
 export interface PostModel {
     postID: number;
     ownerID: number;
     created: Date;
     text: string;
     group: string;
+    photos: photoModel[];
     user: {
         id: number;
         first_name: string;

@@ -55,6 +55,7 @@ export class ScrollTableComponent implements OnInit {
                     .pipe(
                         concatMap((post: PostModel[]) => post),
                         map((post) => {
+                            console.log(post);
                             this.postArray.push(post);
                         }),
                     ).subscribe();

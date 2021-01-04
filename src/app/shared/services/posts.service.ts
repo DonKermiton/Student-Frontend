@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {PostComment, PostModel} from '../models/post.model';
 import {UsersService} from '../../auth/services/users.service';
 import {NotifierService} from 'angular-notifier';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -50,15 +51,16 @@ export class PostsService {
     }
 
     // get post Comments
-    getPostComment(postID: number, take: number): Observable<PostComment> {
+    getPostComment(postID: number, take: number, limit: number): Observable<PostComment[]> {
         const params = new HttpParams({
             fromObject: {
                 postID: `${postID}`,
                 skip: `${take}`,
+                limit: `${limit}`
             }
         });
 
-        return this.http.get<PostComment>(`/api/posts/userPost/Comment`, {params, responseType: 'json'});
+        return this.http.get<PostComment[]>(`/api/posts/userPost/Comment`, {params, responseType: 'json'});
     }
 
     getAllPostComments(postID: number): Observable<PostComment[]> {
@@ -109,5 +111,11 @@ export class PostsService {
         return this.http.delete(`/api/posts/userPost/like?id=${postID}`, {headers: {Authorization: localStorage.getItem('userToken')}});
     }
 
+
+    youLikePost(id: number):Observable<number> {
+        return this.http.get<number>(`/api/posts/userPost/likes/yourLikes?id=${id}`).pipe(
+            tap(console.log)
+        );
+    }
 
 }

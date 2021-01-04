@@ -68,8 +68,7 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
                     return this.photo.getPostPhotoCollection(68);
                 })
             ).subscribe((photo) => {
-            this.postPhoto = (photo);
-
+                this.postPhoto = photo;
         });
 
 
