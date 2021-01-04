@@ -13,6 +13,12 @@
   display: block;
 }
 
+.carousel-control-next,
+.carousel-control-prev {
+  width: 5%;
+  background-color: black;
+}
+
 .user-card {
   position: absolute;
   width: 80%;
