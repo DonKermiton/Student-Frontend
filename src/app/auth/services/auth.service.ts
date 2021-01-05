@@ -5,6 +5,7 @@ import {TokenResponse, UserPayLoad} from '../../shared/models/user.model';
 import {Observable} from 'rxjs';
 import {UsersService} from './users.service';
 import {tap} from "rxjs/operators";
+import {SocketIoService} from '../../shared/services/socketio.service';
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +15,8 @@ export class AuthService {
 
     constructor(private http: HttpClient,
                 private router: Router,
-                private user: UsersService) {
+                private user: UsersService,
+                private socket: SocketIoService) {
     }
 
     public autoLogin() {
@@ -60,9 +62,10 @@ export class AuthService {
     private handleLogin() {
         this.getUserData().subscribe(data => {
             console.log('login', data);
-            console.log();
+
             this.user.User.next(data);
             this.user.getUserInfo(data.id);
+            this.socket.userConnected(data);
         });
     }
 

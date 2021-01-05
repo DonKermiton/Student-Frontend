@@ -13,6 +13,12 @@ export interface UserModel {
   };
 }
 
+export interface UserSocket {
+  User: User;
+  socketID: string
+}
+
+
 export interface User {
   id: number;
   first_name: string;

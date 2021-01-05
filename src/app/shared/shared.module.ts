@@ -25,6 +25,7 @@ import {SmallCalendarComponent} from './components/small-calendar/small-calendar
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PostComponentComponent } from './components/scroll-table/post-component/post-component.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 
@@ -44,7 +45,8 @@ import { PostComponentComponent } from './components/scroll-table/post-component
         WriteTextComponent,
         ScrollTableComponent,
         SmallCalendarComponent,
-        PostComponentComponent
+        PostComponentComponent,
+        ChatComponent
 
     ],
     exports: [

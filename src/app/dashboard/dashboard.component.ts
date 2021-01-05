@@ -17,9 +17,6 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.socket.getPosts().subscribe((data) => {
-
-        });
         this.users.getUser()
             .pipe()
             .subscribe();

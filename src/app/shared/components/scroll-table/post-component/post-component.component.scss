@@ -1,12 +1,33 @@
 .dropdown button {
-  background-color:transparent;
+  background-color: transparent;
   border: none;
 }
 
-.dropdown-toggle:after { content: none }
+.dropdown-toggle:after {
+  content: none
+}
 
-.row{
+.row {
   margin: 0;
+}
+
+#imageSlider:hover .carousel-control-prev,
+{
+  opacity: .4;
+
+}
+
+#imageSlider:hover .carousel-control-next,
+{
+  opacity: .4;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  //display: none;
+  opacity: .1;
+  width: 5%;
+  background-color: black;
 }
 
 .basic-info:hover .user-card {

@@ -1,5 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {fromEvent} from 'rxjs';
+import {SocketIoService} from '../../services/socketio.service';
+import {UsersService} from '../../../auth/services/users.service';
 
 @Component({
     selector: 'app-layout-logged',
@@ -9,11 +11,14 @@ import {fromEvent} from 'rxjs';
 export class LayoutLoggedComponent implements OnInit {
     sideMenu = false;
 
-    constructor() {
+    constructor(private socket: SocketIoService,
+                private user: UsersService) {
 
     }
 
     ngOnInit() {
+
+
 
         // mobile swap screen to right to open sidemenu
         let touchX;

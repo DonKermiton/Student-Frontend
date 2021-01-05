@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {of} from "rxjs";
@@ -11,8 +11,12 @@ export class LoggedInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-        return of(null);
+       const authReq = req.clone({
+           headers: new HttpHeaders({
+               Authorization: localStorage.getItem('userToken')
+           })
+       });
 
-
+       return next.handle(authReq)
     }
 }
