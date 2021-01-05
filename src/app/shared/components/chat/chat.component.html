@@ -1,0 +1,58 @@
+<ng-container *ngIf="UsersActive">
+    <div class="row text-white border-bottom border-white" *ngFor="let user of UsersActive"
+         (click)="openMessageBox(user)">
+        <div class="col-4">{{user.User.first_name}} </div>
+        <div class="col-4">{{user.User.last_name}}</div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="chatUsers">
+    <div id="chat-box">
+        <!--        header-->
+        <div class="text-white  border-bottom border-white">
+            <div class="mx-3">
+                <span routerLink="/core/profile/{{chatUsers.User.id}}/table">{{chatUsers.User.first_name}} {{chatUsers.User.last_name}}</span>
+                <div class="float-right">
+                    <span (click)="chatUsers = null">hide</span>
+                    <span>|</span>
+                    <span (click)="chatUsers = null">X</span>
+                </div>
+            </div>
+        </div>
+
+        <!--        body-->
+        <div class="chat-box-body text-white">
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+        </div>
+
+        <input placeholder="Write comment" [(ngModel)]="commentText">
+    </div>
+
+</ng-container>

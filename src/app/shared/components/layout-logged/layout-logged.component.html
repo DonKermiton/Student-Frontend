@@ -1,12 +1,16 @@
 <div class="d-flex" id="wrapper">
-  <app-sidemenu class="position-fixed sidebar-menu" [sideMenuActive]="sideMenu"></app-sidemenu>
+    <app-sidemenu class="position-fixed sidebar-menu" [sideMenuActive]="sideMenu"></app-sidemenu>
 
-  <div id="page-content-wrapper">
+    <div id="page-content-wrapper">
 
-    <div class="row">
-      <div class="container-fluid bg-main" >
-        <router-outlet></router-outlet>
-      </div>
+        <div class="row">
+            <div class="container-fluid bg-main">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div id="chat-wrapper">
+        <app-chat class="position-sticky sticky-top"></app-chat>
+    </div>
 </div>

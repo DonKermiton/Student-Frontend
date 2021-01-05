@@ -46,6 +46,8 @@ export class ScrollTableComponent implements OnInit {
     getPosts() {
         // todo change to universal usage
         this.socket.getPosts().subscribe(data => {
+
+            console.log('tu ',data);
             this.postArray.unshift(data);
         });
 

@@ -2,16 +2,24 @@ body {
   overflow: hidden;
 }
 
+#wrapper {
+  width: 100%;
+}
 .sidebar-menu{
   height: 100%;
 }
 
 
 #page-content-wrapper {
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
 
 }
+
+#chat-wrapper {
+  display: none;
+}
+
 
 .row {
   margin: 0;
@@ -31,8 +39,17 @@ app-sidemenu {
     width: 100%;
 
   }
+
+  #chat-wrapper {
+    width: 15%;
+    min-height: 100vh;
+    background-color: #222222;
+    display: block;
+  }
+
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
+    margin-right: -15rem;
   }
 }
 
