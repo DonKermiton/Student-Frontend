@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {TokenResponse, UserPayLoad} from '../../shared/models/user.model';
+import {TokenResponse, User, UserPayLoad} from '../../shared/models/user.model';
 import {Observable} from 'rxjs';
 import {UsersService} from './users.service';
-import {tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {SocketIoService} from '../../shared/services/socketio.service';
 
 @Injectable({
@@ -20,8 +20,8 @@ export class AuthService {
     }
 
     public autoLogin() {
-        this.getToken();
-        this.handleLogin();
+
+        this.handleLogin().subscribe();
 
     }
 
@@ -30,18 +30,19 @@ export class AuthService {
         const base = this.http.post('api/users/login', user, {responseType: 'json'});
 
         return base.pipe(
-            tap((data: TokenResponse) => {
+            map((data: TokenResponse) => {
                 console.log(data);
                 if (data.token) {
                     this.saveToken(data.token);
                 }
                 return data;
-            })
+            }, (err) => console.log(err))
         );
     }
 
     public getUserData(): Observable<any> {
-        return this.http.get(`/api/users/profile`, {responseType: 'json', headers: {Authorization: `${this.getToken()}`}
+        return this.http.get(`/api/users/profile`, {
+            responseType: 'json', headers: {Authorization: `${this.getToken()}`}
         });
     }
 
@@ -49,24 +50,35 @@ export class AuthService {
         if (!this.token) {
             this.token = localStorage.getItem('userToken');
         }
+        // if (!this.token) {
+        //     this.router.navigate([''])
+        // }
         return this.token;
+
     }
 
     logout() {
         this.token = '';
         this.user.User.next(null);
-        window.localStorage.removeItem('userToken');
+        localStorage.removeItem('userToken');
         this.router.navigateByUrl('auth/login');
     }
-    // todo change
-    private handleLogin() {
-        this.getUserData().subscribe(data => {
-            console.log('login', data);
 
-            this.user.User.next(data);
-            this.user.getUserInfo(data.id);
-            this.socket.userConnected(data);
-        });
+    // todo change
+    public handleLogin(): Observable<User> {
+        this.getToken();
+
+        console.log('asdfasdfasdf asdf asdfsadf asdf asdf asdf asdf asdf asdfasdf asdf asdfsadfdasf asfsadf sdfsadfdegdfs')
+        return this.getUserData()
+            .pipe(
+                map((data) => {
+                    console.log('login', data);
+                    this.user.User.next(data);
+                    this.user.getUserInfo(data.id);
+                    this.socket.userConnected(data);
+                    return data;
+                })
+            )
     }
 
     private saveToken(token: string) {

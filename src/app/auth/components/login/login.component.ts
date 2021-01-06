@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
             'THAT_NOTIFICATION_ID'
           );
         }, error => {
+            console.log(error)
           this.notifier.notify(
             'error',
             error.error.text,
@@ -44,16 +45,20 @@ export class LoginComponent implements OnInit {
         mergeMap(user => this.auth.getUserData())
       )
       .subscribe(((data: User) => {
-        this.auth.autoLogin();
-        this.router.navigateByUrl('dashboard').then(
-          () => {
-            this.notifier.notify(
-              'success',
-              'Forwarding',
-              'Forwarding'
+          console.log(data);
+        this.auth.handleLogin().subscribe((data) => {
+            console.log(data);
+            this.router.navigateByUrl('dashboard').then(
+                () => {
+                    this.notifier.notify(
+                        'success',
+                        'Forwarding',
+                        'Forwarding'
+                    );
+                }
             );
-          }
-        );
+        })
+
       }));
   }
 

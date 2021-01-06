@@ -11,12 +11,17 @@ export class LoggedInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-       const authReq = req.clone({
-           headers: new HttpHeaders({
-               Authorization: localStorage.getItem('userToken')
-           })
-       });
+        let authReq;
 
-       return next.handle(authReq)
+        if (!localStorage.getItem('userToken')) {
+            authReq = req.clone();
+            return next.handle(authReq)
+        }
+
+         authReq = req.clone({
+            headers: req.headers.set('Authorization', localStorage.getItem('userToken'))
+        });
+        console.log(authReq);
+        return next.handle(authReq)
     }
 }

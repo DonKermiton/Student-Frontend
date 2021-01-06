@@ -45,14 +45,10 @@ export class UsersService {
         const formData = new FormData();
         formData.append('file', form);
 
-        return this.http.put('/api/photo/upload', formData,
+        return this.http.put(`/api/photo/upload?postID=${postID}`, formData,
             {
                 responseType: 'text',
-                headers: new HttpHeaders({
-                    Authorization: localStorage.getItem('userToken'),
-                    postID: String(postID)
                 })
-            });
     }
 
     countUserPhotos(id: number) {

@@ -27,6 +27,7 @@ export class PostComponentComponent implements OnInit {
     endComments = 100;
     showUserList = false;
     commentBaseDate = 0;
+    imageId: number = null;
 
 
     constructor(public users: UsersService,
@@ -35,6 +36,7 @@ export class PostComponentComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.imageId = this.post.postID;
         this.users.getUserID()
             .pipe(
                 map(response => {
