@@ -26,7 +26,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PostComponentComponent } from './components/scroll-table/post-component/post-component.component';
 import { ChatComponent } from './components/chat/chat.component';
-
+import {IvyCarouselModule} from 'angular-responsive-carousel';
 
 
 @NgModule({
@@ -66,9 +66,11 @@ import { ChatComponent } from './components/chat/chat.component';
         SharedRoutingModule,
         AngularFileUploaderModule,
         GaugeModule.forRoot(),
+        IvyCarouselModule,
         InfiniteScrollModule,
         FontAwesomeModule,
         FormsModule,
+
     ]
 })
 export class SharedModule {

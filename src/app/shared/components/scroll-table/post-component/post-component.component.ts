@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import {PostComment, PostModel} from '../../../models/post.model';
 import {formatDistanceToNow} from 'date-fns';
 import {UsersService} from '../../../../auth/services/users.service';
@@ -155,4 +155,5 @@ export class PostComponentComponent implements OnInit {
             console.log('test');
         }
     }
+
 }

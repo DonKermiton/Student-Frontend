@@ -67,8 +67,6 @@ export class AuthService {
     // todo change
     public handleLogin(): Observable<User> {
         this.getToken();
-
-        console.log('asdfasdfasdf asdf asdfsadf asdf asdf asdf asdf asdf asdfasdf asdf asdfsadfdasf asfsadf sdfsadfdegdfs')
         return this.getUserData()
             .pipe(
                 map((data) => {
