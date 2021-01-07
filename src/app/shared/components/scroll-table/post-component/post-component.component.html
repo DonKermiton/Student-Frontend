@@ -8,13 +8,6 @@
 
 
             <div class="basic-info col-8 position-relative">
-                <div class="user-card">
-                    <div class="d-flex align-items-center px-3 border-bottom border-dark">
-                        <span class="w-100 d-block">{{post.user.first_name}} {{post.user.last_name}}</span>
-                        <img src="/api/photo/getUserProfile/Front/{{post.ownerID}}" alt="id"
-                             class="rounded img-thumbnail" width="60" height="40">
-                    </div>
-                </div>
                 <span class="post-author text-warning">{{post.user.first_name}} {{post.user.last_name}}</span>
                 <br>
                 <small class="text-secondary">{{getPostDate(post.created)}} ago</small>
@@ -53,17 +46,13 @@
 
         <carousel *ngIf="post.photos.length > 1" [cellWidth]="'100%'" [dots]="true">
             <div class="carousel-cell" *ngFor="let image of post.photos">
-                <img class="d-block w-100"
+                <img class="d-block w-100 img-fluid"
                      src="/api/photo/getSelectedPhoto/{{post.ownerID}}/{{image.imgLink}}" alt="{{post.text}}"
                      (click)="photos.navigateToImageInfo(image.imgLink)">
             </div>
         </carousel>
     </div>
     <hr>
-    <!-- <div class="px-5 text-right">
-         <i class="fa fa-thumbs-up rounded-circle p-1 text-primary" aria-hidden="true"></i>
-         <small>3</small>
-     </div>-->
 
     <div id="wrapper">
         <div class="text-center" *ngIf="post.comments">
@@ -125,13 +114,12 @@
         <div>
             <hr *ngIf="post.comments">
             <div class="d-flex justify-content-around align-items-center comment-field">
-                <ng-template *ngIf="(users.User | async)">
-                    <img src="/api/photo/getUserProfile/Front/{{(users.User| async).id}}" alt="profile"
+                    <img src="/api/photo/getUserProfile/Front/{{users.userID}}" alt="profile"
                          class="rounded-circle" width="30"
                          height="30"
                          style="border: 1px solid #224abe"
                     />
-                </ng-template>
+
 
                 <input placeholder="Write comment" [(ngModel)]="commentText">
                 <div *ngIf="showUserList" class="bg-success">
@@ -148,7 +136,7 @@
 
     </div>
 
-    <div class="row text-center m-auto border-top">
+    <div class="row text-center m-auto border-top py-2">
         <div class="col-6 border-right" [ngClass]="post.isInYourLikes ? 'btn-primary' : 'btn-outline-primary'"
              (click)="handleLikeClick(post.postID)">
             <small>

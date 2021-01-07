@@ -36,16 +36,25 @@ app-sidemenu {
   }
   #page-content-wrapper {
     min-width: 0;
-    width: 100%;
+    width: 82%;
 
   }
 
   #chat-wrapper {
-    width: 15%;
-    min-height: 100vh;
+    width: 12%;
+    position: fixed;
+    top: 0;
+    right: 0;
     background-color: #222222;
     display: block;
+    border-left: 3px solid salmon;
+
+    max-height: 100vh;
+    min-height: 100vh;
+    //overflow-y: scroll;
+
   }
+
 
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;

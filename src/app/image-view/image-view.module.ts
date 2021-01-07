@@ -8,7 +8,10 @@ import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [ImageViewComponent, ImageCommentsComponent],
+    declarations: [ImageViewComponent, ImageCommentsComponent],
+    exports: [
+        ImageViewComponent
+    ],
     imports: [
         CommonModule,
         ImageViewRoutingModule,

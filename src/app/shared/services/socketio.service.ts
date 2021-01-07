@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import * as io from 'socket.io-client';
-import {Observable, of} from "rxjs";
-import {PostModel} from "../models/post.model";
+import {Observable} from 'rxjs';
+import {PostModel} from '../models/post.model';
 import {take} from 'rxjs/operators';
-import {UserSocket} from '../models/user.model';
+import {User, UserSocket} from '../models/user.model';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class SocketIoService {
-    readonly url = 'http://localhost:3000'
+    readonly url = 'http://localhost:3000';
     private socket;
 
     constructor() {
@@ -30,10 +30,26 @@ export class SocketIoService {
         return Observable.create(observer => {
             this.socket.on('user-connected', msg => {
                 observer.next(msg);
-            })
+            });
         }).pipe(
             take(1)
-        )
+        );
+    }
+
+    userStatusChangeActive(): Observable<UserSocket> {
+        return Observable.create(observer => {
+            this.socket.on('user-status-active', msg => {
+                observer.next(msg);
+            });
+        });
+    }
+
+    usersStatusChangeInactive(): Observable<number> {
+        return Observable.create(observer => {
+            this.socket.on('user-status-inactive', msg => {
+                observer.next(msg);
+            });
+        });
     }
 
     sendPost(message: object) {
@@ -45,7 +61,19 @@ export class SocketIoService {
     }
 
     createMessage(senderIndex: number, receiveIndex: number, msg: string) {
-        return this.socket.emit('create-message', {senderIndex, receiveIndex, msg})
+        return this.socket.emit('create-message', {senderIndex, receiveIndex, msg});
+    }
+
+    sendPrivyMessage(userID: UserSocket, message: string) {
+        return this.socket.emit('send-privy-message', {userID, message});
+    }
+
+    getPrivyMessage(): Observable<string> {
+        return Observable.create(observer => {
+            this.socket.on('send-privy-message', msg => {
+                observer.next(msg);
+            });
+        });
     }
 
 

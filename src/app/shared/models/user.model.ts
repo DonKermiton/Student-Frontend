@@ -15,7 +15,13 @@ export interface UserModel {
 
 export interface UserSocket {
   User: User;
-  socketID: string
+  socketMessage: SocketMessage[];
+  socketID: string;
+}
+
+export interface SocketMessage {
+  text: string;
+  date: Date;
 }
 
 
