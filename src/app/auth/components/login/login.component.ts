@@ -42,13 +42,13 @@ export class LoginComponent implements OnInit {
             'error_login'
           );
         }),
-        mergeMap(user => this.auth.getUserData())
+        mergeMap(() => this.auth.getUserData())
       )
       .subscribe(((data: User) => {
           console.log(data);
         this.auth.handleLogin().subscribe((data) => {
             console.log(data);
-            this.router.navigateByUrl('dashboard').then(
+            this.router.navigateByUrl('/core/dashboard').then(
                 () => {
                     this.notifier.notify(
                         'success',

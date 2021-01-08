@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, ReplaySubject} from 'rxjs';
 import {User} from '../../shared/models/user.model';
-import {map, switchMap, take, tap} from 'rxjs/operators';
+import {delay, map, retryWhen, switchMap, take, tap} from 'rxjs/operators';
 import {photoModel} from '../../core/models/photo.model';
 
 @Injectable({
@@ -19,7 +19,17 @@ export class UsersService {
     getUserID(): Observable<number> {
         return Observable.create(observer => {
             observer.next(this.userID);
-        });
+        }).pipe(
+            map(response => {
+                if (!response) {
+                    throw new Error();
+                }
+                return response;
+            }),
+            retryWhen(errors => errors.pipe(
+                delay(1000),
+            ))
+        );
     }
 
     getUserInfo(id: string): void {
@@ -48,7 +58,7 @@ export class UsersService {
         return this.http.put(`/api/photo/upload?postID=${postID}`, formData,
             {
                 responseType: 'text',
-                })
+            })
     }
 
     countUserPhotos(id: number) {

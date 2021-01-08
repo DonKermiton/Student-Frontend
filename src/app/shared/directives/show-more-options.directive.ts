@@ -25,7 +25,7 @@ export class ShowMoreOptionsDirective implements AfterViewChecked {
         const isActive = this.el.nativeElement.lastChild.style.height.replace(/\D/g, '');
         console.log(isActive == '');
         this.el.nativeElement.lastChild.style.height = isActive == '0' || isActive == '' ?
-            this.el.nativeElement.lastChild.children[0].clientHeight * this.el.nativeElement.lastChild.children.length + 'px' : '0vh';
+            this.el.nativeElement.lastChild.children[0].clientHeight * this.el.nativeElement.lastChild.children.length + 10 + 'px' : '0vh';
 
     }
 

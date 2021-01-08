@@ -49,9 +49,14 @@ span {
 
 .more-options{
   height: 0;
-
+  margin-left: 25px;
   overflow: hidden;
   transition: .3s;
+  cursor: pointer;
+}
+
+.more-options-element {
+  padding: 10px 0 10px 15px;
 }
 
 .list-group-item {

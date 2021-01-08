@@ -38,17 +38,6 @@ export class PostComponentComponent implements OnInit {
     ngOnInit(): void {
         this.imageId = this.post.postID;
         this.users.getUserID()
-            .pipe(
-                map(response => {
-                    if (!response) {
-                        throw new Error();
-                    }
-                    return response;
-                }),
-                retryWhen(errors => errors.pipe(
-                    delay(1000),
-                ))
-            )
             .subscribe((value) => {
                 this.userID = value;
             });
