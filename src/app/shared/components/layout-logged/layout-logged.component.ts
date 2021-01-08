@@ -13,7 +13,6 @@ export class LayoutLoggedComponent implements OnInit {
 
     constructor(private socket: SocketIoService,
                 private user: UsersService) {
-
     }
 
     ngOnInit() {

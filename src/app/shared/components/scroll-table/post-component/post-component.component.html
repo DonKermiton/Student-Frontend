@@ -46,7 +46,7 @@
 
         <carousel *ngIf="post.photos.length > 1" [cellWidth]="'100%'" [dots]="true">
             <div class="carousel-cell" *ngFor="let image of post.photos">
-                <img class="d-block w-100 img-fluid"
+                <img class="d-block" style="height: auto"
                      src="/api/photo/getSelectedPhoto/{{post.ownerID}}/{{image.imgLink}}" alt="{{post.text}}"
                      (click)="photos.navigateToImageInfo(image.imgLink)">
             </div>

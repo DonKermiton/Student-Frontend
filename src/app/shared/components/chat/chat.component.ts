@@ -21,6 +21,7 @@ export class ChatComponent implements OnInit {
 
     constructor(private socket: SocketIoService,
                 private user: UsersService) {
+
     }
 
     ngOnInit(): void {
@@ -29,10 +30,7 @@ export class ChatComponent implements OnInit {
             if (!this.chatUsers.socketMessage) {
                 this.chatUsers.socketMessage = [];
             }
-            this.commentText = msg;
             this.chatUsers.socketMessage.push(msg);
-            console.log('*-*-*-*-*-*-*-*-*-*--', msg.text);
-            console.log('*-*-*-*-*-*-*-*-*-*--', msg);
         });
         this.socket.getUserID().subscribe((user: UserSocket[]) => {
             console.log(user);

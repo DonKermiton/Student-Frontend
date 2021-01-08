@@ -21,7 +21,7 @@ export class LoggedInterceptor implements HttpInterceptor {
          authReq = req.clone({
             headers: req.headers.set('Authorization', localStorage.getItem('userToken'))
         });
-        console.log(authReq);
+
         return next.handle(authReq)
     }
 }
