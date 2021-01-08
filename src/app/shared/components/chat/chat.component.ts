@@ -12,19 +12,20 @@ import {UsersService} from '../../../auth/services/users.service';
 })
 export class ChatComponent implements OnInit {
     chatUsers: UserSocket;
-    UsersActive: UserSocket[];
+
     usersSub: Subscription;
     commentText: string;
     hideChat = false;
     loggedUser: User;
     faAngleDoubleDown = faAngleDoubleDown;
 
-    constructor(private socket: SocketIoService,
+    constructor(public socket: SocketIoService,
                 private user: UsersService) {
 
     }
 
     ngOnInit(): void {
+        console.log('socket', this.user.getSocketToken);
 
         this.socket.getPrivyMessage().subscribe((msg: any) => {
             if (!this.chatUsers.socketMessage) {
@@ -32,21 +33,19 @@ export class ChatComponent implements OnInit {
             }
             this.chatUsers.socketMessage.push(msg);
         });
-        this.socket.getUserID().subscribe((user: UserSocket[]) => {
-            console.log(user);
-            if (!this.UsersActive) {
-                this.UsersActive = [];
-            }
-            this.UsersActive = user;
-
+        this.socket.getSocketID().subscribe((token: any) => {
+            console.log(token);
+            this.user.setSocketToken = token.socket;
+            this.socket.UsersActive = token.users;
+            // this.UsersActive = user;
             // this.usersSub.unsubscribe();
         });
 
         this.socket.userStatusChangeActive().subscribe(user => {
-            this.UsersActive.push(user);
+            this.socket.UsersActive.push(user);
         });
         this.socket.usersStatusChangeInactive().subscribe(index => {
-            this.UsersActive.splice(index, 1);
+            this.socket.UsersActive.splice(index, 1);
         });
     }
 

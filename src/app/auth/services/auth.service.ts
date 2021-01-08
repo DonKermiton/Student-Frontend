@@ -13,6 +13,7 @@ import {SocketIoService} from '../../shared/services/socketio.service';
 export class AuthService {
     private token: string;
 
+
     constructor(private http: HttpClient,
                 private router: Router,
                 private user: UsersService,
@@ -20,10 +21,11 @@ export class AuthService {
     }
 
     public autoLogin() {
-
         this.handleLogin().subscribe();
-
     }
+
+
+
 
     public login(user: UserPayLoad): Observable<any> {
         console.log(user);

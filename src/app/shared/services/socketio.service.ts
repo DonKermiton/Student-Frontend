@@ -12,6 +12,7 @@ import {User, UserSocket} from '../models/user.model';
 export class SocketIoService {
     readonly url = 'http://localhost:3000';
     private socket;
+    UsersActive: UserSocket[] = [];
 
     constructor() {
         this.socket = io.io(this.url);
@@ -26,7 +27,7 @@ export class SocketIoService {
         });
     }
 
-    getUserID(): Observable<UserSocket[]> {
+    getSocketID(): Observable<object> {
         return Observable.create(observer => {
             this.socket.on('user-connected', msg => {
                 observer.next(msg);

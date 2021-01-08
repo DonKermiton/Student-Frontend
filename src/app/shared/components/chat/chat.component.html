@@ -1,5 +1,5 @@
-<ng-container *ngIf="UsersActive" style="min-height: 90vh">
-    <div class="row text-white border-bottom border-white active-user-list align-items-center justify-content-center py-2" *ngFor="let user of UsersActive"
+<ng-container *ngIf="socket.UsersActive" style="min-height: 90vh">
+    <div class="row text-white border-bottom border-white active-user-list align-items-center justify-content-center py-2" *ngFor="let user of socket.UsersActive"
          (click)="openMessageBox(user)">
         <div class="profile-image">
             <img src="/api/photo/getUserProfile/Front/{{user.User.id}}" alt="id"
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="spinner-border text-success " role="status" *ngIf="!UsersActive">
+<div class="spinner-border text-success " role="status" *ngIf="!socket.UsersActive">
     <span class="sr-only">Loading...</span>
 </div>
 

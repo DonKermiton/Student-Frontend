@@ -11,9 +11,19 @@ import {photoModel} from '../../core/models/photo.model';
 
 export class UsersService {
     User = new ReplaySubject<User>();
-    userID: number;
+    userID: number = null;
+    private socketToken: string = null;
 
     constructor(private http: HttpClient) {
+    }
+
+    public get getSocketToken() {
+        return this.socketToken;
+    }
+
+    public set setSocketToken(token: string) {
+        console.log(token);
+        this.socketToken = token;
     }
 
     getUserID(): Observable<number> {

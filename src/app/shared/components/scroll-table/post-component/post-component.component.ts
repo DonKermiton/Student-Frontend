@@ -54,7 +54,7 @@ export class PostComponentComponent implements OnInit {
     }
 
     createComment(postID: number) {
-        console.log(this.commentText);
+
         this.posts.createPostComment(postID, this.commentText).subscribe(
             (post: any) => {
                 const obj: PostComment = {
@@ -94,7 +94,6 @@ export class PostComponentComponent implements OnInit {
         }
 
         this.posts.getPostComment(postID, skip, moveUp).subscribe((postComments: PostComment[]) => {
-            console.log(postComments);
             if (postComments) {
                 if (!this.post.PostComment) {
                     this.post.PostComment = [];
@@ -114,7 +113,7 @@ export class PostComponentComponent implements OnInit {
     }
 
     handleLikeClick(postID: number) {
-        console.log(this.users.userID);
+
         this.post.isInYourLikes = !this.post.isInYourLikes;
 
         switch (this.post.isInYourLikes) {
@@ -138,10 +137,8 @@ export class PostComponentComponent implements OnInit {
     detectChange($event: string) {
         this.commentText = $event;
         if ($event[$event.length - 1] === '@') {
-            console.log('teraz');
             this.showUserList = true;
         } else if ($event.indexOf('@') === -1) {
-            console.log('test');
         }
     }
 

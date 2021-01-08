@@ -47,7 +47,6 @@ export class ScrollTableComponent implements OnInit {
         // todo change to universal usage
         this.socket.getPosts().subscribe(data => {
 
-            console.log('tu ',data);
             this.postArray.unshift(data);
         });
 
@@ -57,7 +56,6 @@ export class ScrollTableComponent implements OnInit {
                     .pipe(
                         concatMap((post: PostModel[]) => post),
                         map((post) => {
-                            console.log(post);
                             this.postArray.push(post);
                         }),
                     ).subscribe();
@@ -70,7 +68,6 @@ export class ScrollTableComponent implements OnInit {
                     .pipe(
                         concatMap((post: PostModel[]) => post),
                         map((post) => {
-                            console.log(post);
                             this.postArray.push(post);
                         }),
                     ).subscribe();
