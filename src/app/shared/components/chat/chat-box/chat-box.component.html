@@ -14,10 +14,13 @@
     </div>
 
     <div class="chat-body">
-        <div class="text-white" *ngFor="let msg of chatUsers.socketMessage">
-            testsetest
-            <span>{{msg.text}}</span>
-        </div>
+        <span>test</span>
+            <div class="text-white" *ngFor="let msg of chatUsers.socketMessage; let i = index">
+                <div class="w-100">
+                    <span>{{i}}</span>
+                    <span>{{msg}}</span>
+                </div>
+            </div>
     </div>
 
     <div class="chat-message d-flex">

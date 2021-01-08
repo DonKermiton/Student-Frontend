@@ -15,7 +15,8 @@
 </ng-container>
 <div class="border-info border-bottom"></div>
 <ng-container *ngFor="let user of chatUsers; let i = index">
-    <app-chat-box [chatUsers]="user" [style.right]="20 * i + '%'" style="position: fixed; bottom: 0;"></app-chat-box>
+    <app-chat-box [chatUsers]="user" [yourId]="yourID" [style.right]="20 * (i +1) + '%'"
+                  style="position: fixed; bottom: 0;"></app-chat-box>
 </ng-container>
 <div class="spinner-border text-success " role="status" *ngIf="!socket.UsersActive">
     <span class="sr-only">Loading...</span>
