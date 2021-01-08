@@ -17,9 +17,6 @@ export class LayoutLoggedComponent implements OnInit {
     }
 
     ngOnInit() {
-
-
-
         // mobile swap screen to right to open sidemenu
         let touchX;
 
