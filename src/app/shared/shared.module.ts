@@ -27,6 +27,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PostComponentComponent } from './components/scroll-table/post-component/post-component.component';
 import { ChatComponent } from './components/chat/chat.component';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { ChatBoxComponent } from './components/chat/chat-box/chat-box.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
         ScrollTableComponent,
         SmallCalendarComponent,
         PostComponentComponent,
-        ChatComponent
+        ChatComponent,
+        ChatBoxComponent
 
     ],
     exports: [

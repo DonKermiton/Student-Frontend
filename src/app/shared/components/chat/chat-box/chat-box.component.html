@@ -1,0 +1,29 @@
+<div id="chat-box" *ngIf="chatUsers" [ngClass]="hideChat ? 'active' : ''">
+    <div class="d-flex chat-header justify-content-between align-items-center px-3 py-2 text-white font-weight-bold">
+        <div>
+            <span (click)="closeChat()">X</span>
+            <span class="pl-2">|</span>
+            <span class="pl-2" (click)="hideChat = !hideChat">\/</span>
+        </div>
+        <div>
+            <span class="px-2"
+                  routerLink="/core/profile/{{chatUsers.User.id}}/table">{{chatUsers.User.first_name}} {{chatUsers.User.last_name}}</span>
+            <img src="/api/photo/getUserProfile/Front/{{chatUsers.User.id}}" alt="id"
+                 class="rounded-circle" width="20" height="20">
+        </div>
+    </div>
+
+    <div class="chat-body">
+        <div class="text-white" *ngFor="let msg of chatUsers.socketMessage">
+            testsetest
+            <span>{{msg.text}}</span>
+        </div>
+    </div>
+
+    <div class="chat-message d-flex">
+        <input placeholder="Write message" class="form-control" [(ngModel)]="commentText">
+        <div style="flex-basis: 10%"></div>
+        <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+        <div style="flex-basis: 10%"></div>
+    </div>
+</div>

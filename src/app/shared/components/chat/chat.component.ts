@@ -11,13 +11,12 @@ import {UsersService} from '../../../auth/services/users.service';
     styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-    chatUsers: UserSocket;
+    chatUsers: UserSocket[] = [];
 
     usersSub: Subscription;
     commentText: string;
     hideChat = false;
     loggedUser: User;
-    faAngleDoubleDown = faAngleDoubleDown;
 
     constructor(public socket: SocketIoService,
                 private user: UsersService) {
@@ -28,10 +27,11 @@ export class ChatComponent implements OnInit {
         console.log('socket', this.user.getSocketToken);
 
         this.socket.getPrivyMessage().subscribe((msg: any) => {
-            if (!this.chatUsers.socketMessage) {
-                this.chatUsers.socketMessage = [];
-            }
-            this.chatUsers.socketMessage.push(msg);
+            // if (!this.socket.UsersActive[0].socketMessage) {
+            //     this.chatUsers.socketMessage = [];
+            // }
+
+            // this.chatUsers.socketMessage.push(msg);
         });
         this.socket.getSocketID().subscribe((token: any) => {
             console.log(token);
@@ -50,17 +50,10 @@ export class ChatComponent implements OnInit {
     }
 
     openMessageBox(user: UserSocket) {
-        this.chatUsers = user;
+        this.chatUsers.push(user);
     }
 
-    closeChat() {
-        console.log('close');
-        this.chatUsers = null;
-    }
 
-    sendMessage() {
-        this.socket.sendPrivyMessage(this.chatUsers, this.commentText);
-    }
 
 
 }
