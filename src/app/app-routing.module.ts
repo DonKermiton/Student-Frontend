@@ -24,11 +24,6 @@ const routes: Routes = [
         component: LayoutLoggedComponent
     },
     {
-        path: 'dashboard',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-        component: LayoutLoggedComponent,
-    },
-    {
         path: 'shared',
         loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
     },

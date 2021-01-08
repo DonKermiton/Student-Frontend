@@ -4,6 +4,8 @@ import {ViewProfileComponent} from './components/view-profile/view-profile.compo
 import {ProfileTableComponent} from './components/view-profile/profile-table/profile-table.component';
 import {ProfilePhotoCollectionComponent} from './components/view-profile/profile-photo-collection/profile-photo-collection.component';
 import {ViewFilesComponent} from './components/view-files/view-files.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+
 
 
 const routes: Routes = [
@@ -14,6 +16,7 @@ const routes: Routes = [
             {path: 'photo', component: ProfilePhotoCollectionComponent},
         ],
     },
+    {path: 'dashboard', component: DashboardComponent}
 
 
 ];

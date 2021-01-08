@@ -13,6 +13,7 @@ export class LayoutLoggedComponent implements OnInit {
 
     constructor(private socket: SocketIoService,
                 private user: UsersService) {
+        console.log('_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_');
     }
 
     ngOnInit() {
