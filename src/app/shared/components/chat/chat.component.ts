@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SocketIoService} from '../../services/socketio.service';
 import {User, UserSocket} from '../../models/user.model';
 import {Subscription} from 'rxjs';
@@ -18,7 +18,8 @@ export class ChatComponent implements OnInit {
     yourID: number = null;
 
     constructor(public socket: SocketIoService,
-                private user: UsersService) {
+                private user: UsersService,
+                private ref: ChangeDetectorRef) {
 
     }
 
@@ -36,18 +37,44 @@ export class ChatComponent implements OnInit {
         });
 
         this.socket.userStatusChangeActive().subscribe(user => {
+            console.log('active user changed', user);
             this.socket.UsersActive.push(user);
         });
         this.socket.usersStatusChangeInactive().subscribe(index => {
-            this.socket.UsersActive.splice(index, 1);
+            console.log('user inactive changed', index);
+            this.socket.UsersActive = this.socket.UsersActive.splice(index, 1);
+            console.log(this.socket.UsersActive);
+        });
+
+        this.socket.getPrivyMessage().subscribe((msg: any) => {
+            console.log(msg);
+            const from: UserSocket = this.socket.UsersActive.find(e => e.socketID === msg.from);
+
+            const isAlreadyOpen = this.chatUsers.findIndex(e => e.User.id === from.User.id);
+
+            if (isAlreadyOpen === -1) {
+                if (!from.socketMessage) {
+                    from.socketMessage = [];
+                }
+                from.socketMessage.push({text: msg.message, date: new Date()});
+                console.log(from);
+                this.chatUsers.push(from);
+            }
+
+
+            // console.log(this.chatUsers);
         });
     }
 
     openMessageBox(user: UserSocket) {
         this.chatUsers.push(user);
+        console.log(this.chatUsers);
     }
 
 
-
-
+    closeChatEvent($event: number) {
+        this.chatUsers = this.chatUsers.splice($event, 1);
+        this.ref.detectChanges();
+        console.log(this.chatUsers);
+    }
 }

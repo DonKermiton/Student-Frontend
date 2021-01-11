@@ -65,8 +65,8 @@ export class SocketIoService {
         return this.socket.emit('create-message', {senderIndex, receiveIndex, msg});
     }
 
-    sendPrivyMessage(userID: UserSocket, message: string, id: number) {
-        return this.socket.emit('send-privy-message', {userID, message, id});
+    sendPrivyMessage(yourSocket: string, selectedToken: string, message: string) {
+        return this.socket.emit('send-privy-message', {yourSocket, selectedToken, message});
     }
 
     getPrivyMessage(): Observable<string> {
