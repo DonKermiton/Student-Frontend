@@ -53,6 +53,10 @@ export class UsersService {
         ).subscribe();
     }
 
+    getAllProfile(): Observable<User[]> {
+        return this.http.get<User[]>(`/api/users/profile/all`);
+    }
+
     getUserFrontProfile(id: number) {
         return this.http.get(`/api/photo/getUserProfile/Front/${id}`, {responseType: 'text'});
     }

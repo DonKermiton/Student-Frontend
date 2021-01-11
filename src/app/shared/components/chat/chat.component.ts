@@ -1,9 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SocketIoService} from '../../services/socketio.service';
-import {User, UserSocket} from '../../models/user.model';
+import {User, UserSocket, UsersSocket} from '../../models/user.model';
 import {Subscription} from 'rxjs';
 import {faAngleDoubleDown} from '@fortawesome/free-solid-svg-icons';
 import {UsersService} from '../../../auth/services/users.service';
+import {mergeMap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-chat',
@@ -12,6 +13,7 @@ import {UsersService} from '../../../auth/services/users.service';
 })
 export class ChatComponent implements OnInit {
     chatUsers: UserSocket[] = [];
+    users: UsersSocket = {User: [], socketMessage: []}
 
     usersSub: Subscription;
     commentText: string;
@@ -24,17 +26,34 @@ export class ChatComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('socket', this.user.getSocketToken);
         this.user.getUserID().subscribe((number) => {
             this.yourID = number;
-        })
-        this.socket.getSocketID().subscribe((token: any) => {
-            console.log(token);
-            this.user.setSocketToken = token.socket;
-            this.socket.UsersActive = token.users;
-            // this.UsersActive = user;
-            // this.usersSub.unsubscribe();
         });
+        this.socket.getSocketID()
+            .pipe(
+                mergeMap((token: any) => {
+                    console.log(token);
+                    this.user.setSocketToken = token.socket;
+                    this.socket.UsersActive = token.users.User;
+
+                    return this.user.getAllProfile();
+                }))
+            .subscribe((user) => {
+                // todo change
+                this.users.User = user;
+                console.log(this.users.User);
+                for (let i = 0; i < this.socket.UsersActive.length; i++) {
+                    for (let j = 0; j < this.users.User.length; j++) {
+                        if(this.socket.UsersActive[i].User.id === this.users.User[j].id) {
+                            this.users.User[j].socketID = this.socket.UsersActive[i].socketID;
+                            break;
+                        }
+                    }
+                }
+
+                console.log(this.users);
+
+            });
 
         this.socket.userStatusChangeActive().subscribe(user => {
             console.log('active user changed', user);
@@ -66,8 +85,8 @@ export class ChatComponent implements OnInit {
         });
     }
 
-    openMessageBox(user: UserSocket) {
-        this.chatUsers.push(user);
+    openMessageBox(user: any) {
+        // this.chatUsers.push(user);
         console.log(this.chatUsers);
     }
 

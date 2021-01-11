@@ -16,7 +16,12 @@ export interface UserModel {
 export interface UserSocket {
   User: User;
   socketMessage: SocketMessage[];
-  socketID: string;
+  socketID: string[];
+}
+
+export interface UsersSocket {
+  User: User[];
+  socketMessage: SocketMessage[];
 }
 
 export interface SocketMessage {
@@ -32,6 +37,7 @@ export interface User {
   email: string;
   accountType: number;
   group: string;
+  socketID: string[];
 }
 
 export interface TokenResponse {

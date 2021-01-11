@@ -1,21 +1,23 @@
-<ng-container *ngIf="socket.UsersActive" style="min-height: 90vh">
+<ng-container *ngIf="users" style="min-height: 90vh">
     <div class="row text-white border-bottom border-white active-user-list align-items-center justify-content-center py-2"
-         *ngFor="let user of socket.UsersActive"
+         *ngFor="let user of users.User"
          (click)="openMessageBox(user)">
-        <div class="profile-image">
-            <img src="/api/photo/getUserProfile/Front/{{user.User.id}}" alt="id"
+        <div [ngClass]="user.socketID ? 'profile-image' : ''">
+            <img src="/api/photo/getUserProfile/Front/{{user.id}}" alt="id"
                  class="rounded-circle " width="25" height="25">
         </div>
         <div class="col-7">
-            <small>{{user.User.first_name}} {{user.User.last_name}}</small>
+            <small>{{user.first_name}} {{user.last_name}}</small>
         </div>
 
     </div>
 
+
 </ng-container>
 <div class="border-info border-bottom"></div>
 <ng-container *ngFor="let user of chatUsers; let i = index">
-    <app-chat-box [chatUsers]="user" [yourId]="yourID" [style.right]="20 * (i +1) + '%'" [chatIndex]="i" (emitClose)="closeChatEvent($event)"
+    <app-chat-box [chatUsers]="user" [yourId]="yourID" [style.right]="20 * (i +1) + '%'" [chatIndex]="i"
+                  (emitClose)="closeChatEvent($event)"
                   style="position: fixed; bottom: 0;"></app-chat-box>
 </ng-container>
 <div class="spinner-border text-success " role="status" *ngIf="!socket.UsersActive">

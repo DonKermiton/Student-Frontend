@@ -11,8 +11,8 @@ import {User, UserSocket} from '../models/user.model';
 })
 export class SocketIoService {
     readonly url = 'http://localhost:3000';
-    private socket;
     UsersActive: UserSocket[] = [];
+    private socket;
 
     constructor() {
         this.socket = io.io(this.url);
@@ -65,7 +65,7 @@ export class SocketIoService {
         return this.socket.emit('create-message', {senderIndex, receiveIndex, msg});
     }
 
-    sendPrivyMessage(yourSocket: string, selectedToken: string, message: string) {
+    sendPrivyMessage(yourSocket: string, selectedToken: string[], message: string) {
         return this.socket.emit('send-privy-message', {yourSocket, selectedToken, message});
     }
 

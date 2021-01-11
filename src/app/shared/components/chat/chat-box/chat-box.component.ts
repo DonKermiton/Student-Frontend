@@ -30,10 +30,10 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
                 this.chatUsers.socketMessage = [];
             }
 
-            if (this.chatUsers.socketID === msg.from) {
-                console.log(this.chatUsers);
-                this.chatUsers.socketMessage.push({text: msg.message, date: new Date()});
-            }
+            // if (this.chatUsers.socketID === msg.from) {
+            //     console.log(this.chatUsers);
+            //     this.chatUsers.socketMessage.push({text: msg.message, date: new Date()});
+            // }
 
         });
     }
@@ -50,7 +50,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
     }
 
     sendMessage() {
-        this.socket.sendPrivyMessage(this.user.getSocketToken, this.chatUsers.socketID, this.commentText);
+        // this.socket.sendPrivyMessage(this.user.getSocketToken, this.chatUsers.socketID, this.commentText);
     }
 
     ngOnDestroy(): void {
