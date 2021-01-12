@@ -7,6 +7,7 @@ import {faComments, faThumbsUp} from '@fortawesome/free-regular-svg-icons';
 import {faCaretRight, faEllipsisH} from '@fortawesome/free-solid-svg-icons';
 import {PostsService} from '../../../services/posts.service';
 import {PhotoService} from '../../../services/photo.service';
+import {SocketIoService} from '../../../services/socketio.service';
 
 
 @Component({
@@ -32,10 +33,13 @@ export class PostComponentComponent implements OnInit {
 
     constructor(public users: UsersService,
                 private posts: PostsService,
-                public photos: PhotoService) {
+                public photos: PhotoService,
+                private socket: SocketIoService) {
     }
 
     ngOnInit(): void {
+        this.socket.subscribeToPost(this.post.postID);
+
         this.imageId = this.post.postID;
         this.users.getUserID()
             .subscribe((value) => {
@@ -47,6 +51,8 @@ export class PostComponentComponent implements OnInit {
                 this.post.isInYourLikes = true;
             }
         });
+
+        this.socket.eventsFromPost().subscribe(console.log);
     }
 
     getPostDate(date) {
@@ -54,7 +60,7 @@ export class PostComponentComponent implements OnInit {
     }
 
     createComment(postID: number) {
-
+        this.socket.emitPostEvent({postID, text: this.commentText});
         this.posts.createPostComment(postID, this.commentText).subscribe(
             (post: any) => {
                 const obj: PostComment = {

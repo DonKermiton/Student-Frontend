@@ -18,6 +18,22 @@ export class SocketIoService {
         this.socket = io.io(this.url);
     }
 
+    subscribeToPost(postID: number) {
+        return this.socket.emit('subscribeToPost', postID)
+    }
+
+    emitPostEvent(event: object) {
+        return this.socket.emit('post-events', event);
+    }
+
+    eventsFromPost(): Observable<any> {
+        return Observable.create(observer => {
+            this.socket.on('post-events', msg => {
+                observer.next(msg);
+            })
+        })
+    }
+
     getPosts(): Observable<PostModel> {
         return Observable.create(observer => {
             this.socket.on('connection-broadcast', msg => {
