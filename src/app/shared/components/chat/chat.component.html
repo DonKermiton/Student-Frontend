@@ -1,6 +1,6 @@
-<ng-container *ngIf="users" style="min-height: 90vh">
+<ng-container *ngIf="socket.users" style="min-height: 90vh">
     <div class="row text-white border-bottom border-white active-user-list align-items-center justify-content-center py-2"
-         *ngFor="let user of users.User"
+         *ngFor="let user of socket.users.User"
          (click)="openMessageBox(user)">
         <div [ngClass]="user.socketID ? 'profile-image' : ''">
             <img src="/api/photo/getUserProfile/Front/{{user.id}}" alt="id"
@@ -20,9 +20,9 @@
                   (emitClose)="closeChatEvent($event)"
                   style="position: fixed; bottom: 0;"></app-chat-box>
 </ng-container>
-<div class="spinner-border text-success " role="status" *ngIf="!socket.UsersActive">
-    <span class="sr-only">Loading...</span>
-</div>
+<!--<div class="spinner-border text-success " role="status" *ngIf="!socket.UsersActive">-->
+<!--    <span class="sr-only">Loading...</span>-->
+<!--</div>-->
 
 
 
