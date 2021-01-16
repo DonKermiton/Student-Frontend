@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import * as io from 'socket.io-client';
 import {Observable} from 'rxjs';
 import {PostModel} from '../models/post.model';
-import {take} from 'rxjs/operators';
-import {User, UserSocket, UsersSocket, UsersSocketModel} from '../models/user.model';
+import {take, tap} from 'rxjs/operators';
+import {UsersSocket, UsersSocketModel} from '../models/user.model';
 
 
 @Injectable({
@@ -13,7 +13,7 @@ export class SocketIoService {
     readonly url = 'http://localhost:3000';
     // UsersActive: UserSocket[] = [];
     activeUsers: UsersSocketModel;
-    users: UsersSocket = {User: []}
+    users: UsersSocket = {User: []};
     private socket;
 
     constructor() {
@@ -32,8 +32,8 @@ export class SocketIoService {
         return Observable.create(observer => {
             this.socket.on('post-events', msg => {
                 observer.next(msg);
-            })
-        })
+            });
+        });
     }
 
     getPosts(): Observable<PostModel> {
@@ -51,34 +51,29 @@ export class SocketIoService {
                 observer.next(msg);
             });
         }).pipe(
+            tap(console.log),
             take(1)
         );
     }
 
     userStatusChangeActive() {
         this.socket.on('user-status-active', msg => {
-            console.log(msg);
-            for (const user of this.users.User) {
-                if (msg.User.id === user.id) {
-                    user.socketID.push(msg.socketID)
-                }
-            }
+            console.log('User active', msg);
 
-            console.log(this.users.User);
         });
 
     }
 
     usersStatusChangeInactive() {
         this.socket.on('user-status-inactive', index => {
-            if (this.socket.activeUsers.users.User[index.i].socketID[index.j] === index.socket) {
-                this.socket.activeUsers.users.User[index.i].socketID.splice(index.j, 1);
+            if (this.users.User[index.i].socketID[index.j] === index.socket) {
+                this.users.User[index.i].socketID.splice(index.j, 1);
             } else {
                 let i = 0;
 
                 for (const userSocket of this.activeUsers.users.User) {
-                    for (const string of userSocket.socketID) {
-                        if (string === index.socket) {
+                    for (const socketID of userSocket.socketID) {
+                        if (socketID === index.socket) {
                             userSocket.socketID.splice(i, 1);
                             i = -1;
                             break;
@@ -91,6 +86,7 @@ export class SocketIoService {
                     i = 0;
                 }
             }
+
         });
 
     }
