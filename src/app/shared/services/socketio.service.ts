@@ -86,6 +86,7 @@ export class SocketIoService {
                     i = 0;
                 }
             }
+            console.log(this.users.User);
 
         });
 

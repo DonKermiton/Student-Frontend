@@ -42,10 +42,10 @@ export class ChatComponent implements OnInit {
                 this.socket.users.User = user;
 
                 for (const userSocket of this.socket.activeUsers.users.User) {
-                    for (const user of this.socket.users.User) {
-                        if (userSocket.User.id === user.id) {
+                    for (const userActive of this.socket.users.User) {
+                        if (userSocket.User.id === userActive.id) {
                             console.log(userSocket.socketID);
-                            user.socketID = userSocket.socketID;
+                            userActive.socketID = userSocket.socketID;
                             break;
                         }
                     }

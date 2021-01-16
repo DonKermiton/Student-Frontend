@@ -2,7 +2,7 @@
     <div class="row text-white border-bottom border-white active-user-list align-items-center justify-content-center py-2"
          *ngFor="let user of socket.users.User"
          (click)="openMessageBox(user)">
-        <div [ngClass]="user.socketID ? 'profile-image' : ''">
+        <div [ngClass]="user.socketID?.length > 0 ? 'profile-image' : ''">
             <img src="/api/photo/getUserProfile/Front/{{user.id}}" alt="id"
                  class="rounded-circle " width="25" height="25">
         </div>
