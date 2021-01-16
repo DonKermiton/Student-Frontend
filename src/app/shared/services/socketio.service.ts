@@ -21,7 +21,7 @@ export class SocketIoService {
     }
 
     subscribeToPost(postID: number) {
-        return this.socket.emit('subscribeToPost', postID)
+        return this.socket.emit('subscribeToPost', postID);
     }
 
     emitPostEvent(event: object) {
@@ -65,7 +65,7 @@ export class SocketIoService {
             }
 
             console.log(this.users.User);
-        })
+        });
 
     }
 

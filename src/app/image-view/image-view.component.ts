@@ -50,7 +50,7 @@ export class ImageViewComponent implements OnInit {
                     this.imgLink = params.id;
                 }),
             )
-            .subscribe()
+            .subscribe();
     }
 
     backToPreviousPage() {

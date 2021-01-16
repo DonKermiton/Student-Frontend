@@ -22,6 +22,12 @@
   opacity: .4;
 }
 
+.carousel-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .carousel-control-next,
 .carousel-control-prev {
   //display: none;
