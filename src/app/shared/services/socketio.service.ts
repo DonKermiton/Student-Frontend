@@ -10,10 +10,10 @@ import {UsersSocket, UsersSocketModel} from '../models/user.model';
     providedIn: 'root'
 })
 export class SocketIoService {
-    readonly url = 'http://localhost:3000';
     // UsersActive: UserSocket[] = [];
     activeUsers: UsersSocketModel;
     users: UsersSocket = {User: []};
+    private readonly url = 'http://localhost:3000';
     private socket;
 
     constructor() {
@@ -58,33 +58,49 @@ export class SocketIoService {
 
     userStatusChangeActive() {
         this.socket.on('user-status-active', msg => {
-            console.log('User active', msg);
-
+            for (const user of this.users.User) {
+                console.log(user.id);
+                if (user.id === msg.User.id) {
+                    if (!user.socketID) {
+                        user.socketID = [];
+                    }
+                    user.socketID.push(msg.socketID);
+                    break;
+                }
+            }
         });
 
     }
 
+    findAndRemoveUser(index) {
+        let i = 0;
+
+        for (const userSocket of this.activeUsers.users.User) {
+            for (const socketID of userSocket.socketID) {
+                if (socketID === index.socket) {
+                    userSocket.socketID.splice(i, 1);
+                    i = -1;
+                    break;
+                }
+                i++;
+            }
+            if (i < 0) {
+                break;
+            }
+            i = 0;
+        }
+    }
+
     usersStatusChangeInactive() {
         this.socket.on('user-status-inactive', index => {
-            if (this.users.User[index.i].socketID[index.j] === index.socket) {
-                this.users.User[index.i].socketID.splice(index.j, 1);
-            } else {
-                let i = 0;
-
-                for (const userSocket of this.activeUsers.users.User) {
-                    for (const socketID of userSocket.socketID) {
-                        if (socketID === index.socket) {
-                            userSocket.socketID.splice(i, 1);
-                            i = -1;
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i < 0) {
-                        break;
-                    }
-                    i = 0;
+            if (this.users.User[index.i]?.socketID?.length > 0) {
+                if (this.users.User[index.i].socketID[index.j] === index.socket) {
+                    this.users.User[index.i].socketID.splice(index.j, 1);
+                } else {
+                    this.findAndRemoveUser(index);
                 }
+            } else {
+                this.findAndRemoveUser(index);
             }
             console.log(this.users.User);
 
