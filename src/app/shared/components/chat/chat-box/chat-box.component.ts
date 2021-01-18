@@ -47,8 +47,10 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
             if (this.privyMsg) {
                 this.privyMsg.unsubscribe();
             }
-        }, 350);
-        console.log('close');
+            console.log('close');
+        }, 200);
+
+
     }
 
     sendMessage() {
