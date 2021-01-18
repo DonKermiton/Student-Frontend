@@ -1,5 +1,5 @@
-import {Component, Input, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
-import {User, UserSocket} from '../../../models/user.model';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {User} from '../../../models/user.model';
 import {SocketIoService} from '../../../services/socketio.service';
 import {Subscription} from 'rxjs';
 import {UsersService} from '../../../../auth/services/users.service';
@@ -11,11 +11,12 @@ import {UsersService} from '../../../../auth/services/users.service';
 })
 export class ChatBoxComponent implements OnInit, OnDestroy {
 
-    @Input() chatUsers: UserSocket;
+    @Input() chatUsers: User;
     @Input() yourId: number;
     @Input() chatIndex: number = null;
     @Output() emitClose = new EventEmitter<number>();
     hideChat = false;
+    exitChat = false;
     commentText: string;
     privyMsg: Subscription;
 
@@ -26,9 +27,9 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.privyMsg = this.socket.getPrivyMessage().subscribe((msg: any) => {
-            if (!this.chatUsers.socketMessage) {
-                this.chatUsers.socketMessage = [];
-            }
+            // if (!this.chatUsers.socketMessage) {
+            //     this.chatUsers.socketMessage = [];
+            // }
 
             // if (this.chatUsers.socketID === msg.from) {
             //     console.log(this.chatUsers);
@@ -39,14 +40,15 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
     }
 
     closeChat() {
+        this.exitChat = !this.exitChat;
+        setTimeout(() => {
+            this.emitClose.emit(this.chatIndex);
+
+            if (this.privyMsg) {
+                this.privyMsg.unsubscribe();
+            }
+        }, 350);
         console.log('close');
-        this.chatUsers = null;
-
-        this.emitClose.emit(this.chatIndex);
-
-        if (this.privyMsg) {
-            this.privyMsg.unsubscribe();
-        }
     }
 
     sendMessage() {

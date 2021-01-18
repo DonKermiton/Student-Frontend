@@ -25,7 +25,7 @@ export interface UsersSocketModel {
     socket: string;
     users: {
         User: UserSocket[];
-    }
+    };
 }
 
 

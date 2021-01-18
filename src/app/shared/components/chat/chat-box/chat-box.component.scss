@@ -14,6 +14,10 @@
   transition: bottom .4s cubic-bezier(.86,0,.07,1);
 }
 
+#chat-box.hide {
+  bottom: 100%;
+}
+
 #chat-box.active {
   bottom: calc(-40% + 43px);
 }

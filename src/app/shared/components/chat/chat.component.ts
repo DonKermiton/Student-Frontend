@@ -1,8 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SocketIoService} from '../../services/socketio.service';
-import {User, UserSocket, UsersSocket, UsersSocketModel} from '../../models/user.model';
+import {User} from '../../models/user.model';
 import {Subscription} from 'rxjs';
-import {faAngleDoubleDown} from '@fortawesome/free-solid-svg-icons';
 import {UsersService} from '../../../auth/services/users.service';
 import {mergeMap} from 'rxjs/operators';
 
@@ -12,15 +11,15 @@ import {mergeMap} from 'rxjs/operators';
     styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-    chatUsers: UserSocket[] = [];
+    chatUsers: User[] = [];
 
     usersSub: Subscription;
     commentText: string;
     yourID: number = null;
 
     constructor(public socket: SocketIoService,
-                private user: UsersService,
-                private ref: ChangeDetectorRef) {
+                private user: UsersService
+               ) {
 
     }
 
@@ -77,15 +76,30 @@ export class ChatComponent implements OnInit {
         });
     }
 
-    openMessageBox(user: any) {
-        // this.chatUsers.push(user);
-        console.log(this.chatUsers);
+    openMessageBox(user: User) {
+        // FIXME
+        console.log(window.innerWidth);
+        const isInArray = this.chatUsers.findIndex(e => e.id === user.id);
+        if (isInArray !== -1) {
+            this.chatUsers.splice(isInArray, 1);
+            this.chatUsers.unshift(user);
+            return;
+        }
+
+        if (window.innerWidth / 500 > this.chatUsers.length) {
+            this.chatUsers.push(user);
+        }
+        console.log('test', user.socketID);
     }
 
 
     closeChatEvent($event: number) {
-        this.chatUsers = this.chatUsers.splice($event, 1);
-        this.ref.detectChanges();
-        console.log(this.chatUsers);
+
+        console.log($event);
+        this.chatUsers.splice($event, 1);
+
+        // this.chatUsers = this.chatUsers.splice($event, 1);
+        // this.ref.detectChanges();
+        // console.log(this.chatUsers);
     }
 }

@@ -1,4 +1,4 @@
-<div id="chat-box" *ngIf="chatUsers" [ngClass]="hideChat ? 'active' : ''" >
+<div id="chat-box" *ngIf="chatUsers" [ngClass]="hideChat ? 'active' : ''" [style.bottom]="exitChat ? '100%': ''">
     <div class="d-flex chat-header justify-content-between align-items-center px-3 py-2 text-white font-weight-bold">
         <div>
             <span (click)="closeChat()">X</span>
@@ -7,20 +7,20 @@
         </div>
         <div>
             <span class="px-2"
-                  routerLink="/core/profile/{{chatUsers.User.id}}/table">{{chatUsers.User.first_name}} {{chatUsers.User.last_name}}</span>
-            <img src="/api/photo/getUserProfile/Front/{{chatUsers.User.id}}" alt="id"
+                  routerLink="/core/profile/{{chatUsers.id}}/table">{{chatUsers.first_name}} {{chatUsers.last_name}}</span>
+            <img src="/api/photo/getUserProfile/Front/{{chatUsers.id}}" alt="id"
                  class="rounded-circle" width="20" height="20">
         </div>
     </div>
 
     <div class="chat-body">
         <span>test</span>
-            <div class="text-white" *ngFor="let msg of chatUsers.socketMessage; let i = index">
-                <div class="w-100">
-                    <span>{{i}}</span>
-                    <span>{{msg.text}}</span>
-                </div>
-            </div>
+<!--            <div class="text-white" *ngFor="let msg of chatUsers.socketMessage; let i = index">-->
+<!--                <div class="w-100">-->
+<!--                    <span>{{i}}</span>-->
+<!--                    <span>{{msg.text}}</span>-->
+<!--                </div>-->
+<!--            </div>-->
     </div>
 
     <div class="chat-message d-flex">
