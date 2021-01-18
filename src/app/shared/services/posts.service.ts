@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {PostComment, PostModel} from '../models/post.model';
 import {UsersService} from '../../auth/services/users.service';
 import {NotifierService} from 'angular-notifier';
@@ -10,6 +10,10 @@ import {tap} from 'rxjs/operators';
     providedIn: 'root'
 })
 export class PostsService {
+    lastLoaded: string = null;
+
+    postArray: PostModel[] = [];
+
 
     constructor(private http: HttpClient,
                 private users: UsersService,
@@ -112,7 +116,7 @@ export class PostsService {
     }
 
 
-    youLikePost(id: number):Observable<number> {
+    youLikePost(id: number): Observable<number> {
         return this.http.get<number>(`/api/posts/userPost/likes/yourLikes?id=${id}`).pipe(
             tap(console.log)
         );

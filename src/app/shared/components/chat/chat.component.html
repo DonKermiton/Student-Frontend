@@ -1,16 +1,23 @@
 <ng-container *ngIf="socket.users" style="min-height: 90vh">
-    <div class="row text-white border-bottom border-white active-user-list align-items-center justify-content-center py-2"
+    <div
          *ngFor="let user of socket.users.User"
          (click)="openMessageBox(user)">
-        <ng-container *ngIf="user.id">
+        <div *ngIf="user.id" class="chat-element row text-white border-bottom border-white active-user-list align-items-center justify-content-center py-2">
             <div [ngClass]="user.socketID?.length > 0 ? 'profile-image' : ''">
                 <img src="/api/photo/getUserProfile/Front/{{user.id}}" alt="id"
                      class="rounded-circle " width="25" height="25">
             </div>
             <div class="col-7">
-                <small>{{user.first_name}} {{user.last_name}}</small>
+                <small class="font-weight-bold" style="font-size: 11px">{{user.first_name}} {{user.last_name}}</small>
             </div>
-        </ng-container>
+            <div class="col-1">
+                <span class="badge badge-pill badge-info">2</span>
+            </div>
+
+            <div class="col-1 chat-message-options" (click)="$event.stopPropagation()">
+                <fa-icon [icon]="faEllipsisV"></fa-icon>
+            </div>
+        </div>
 
     </div>
 

@@ -15,6 +15,22 @@
   width: 100vw;
   height: 30vh;
 }
+.chat-message-options {
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.chat-element {
+  transition: background-color .2s;
+}
+
+.chat-element:hover {
+  background-color: #444;
+}
+
+.chat-element:hover .chat-message-options{
+  opacity: 1;
+}
 
 .profile-image::after {
   position: absolute;

@@ -17,13 +17,13 @@
      [infiniteScrollThrottle]="throttle"
      (scrolled)="onScrollDown()"
 >
-    <div class="card mt-2" *ngFor="let post of postArray; let i = index">
+    <div class="card mt-2" *ngFor="let post of post.postArray; let i = index">
         <app-post-component [post]="post"></app-post-component>
 
     </div>
 </div>
 
 <app-upload-post *ngIf="modalOpen" (hideModel)="modalOpen = false" (addedPost)="addPost($event)"></app-upload-post>
-<app-spinner *ngIf="postNumber != postArray.length && postNumber > 0"></app-spinner>
+<app-spinner *ngIf="postNumber != post.postArray.length && postNumber > 0"></app-spinner>
 <app-write-text *ngIf="false"></app-write-text>
 <app-write-text (emitText)="searchPost($event)" (emitCloseModal)="searchBox = false" *ngIf="searchBox"></app-write-text>

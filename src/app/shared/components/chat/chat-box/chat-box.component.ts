@@ -20,6 +20,10 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
     commentText: string;
     privyMsg: Subscription;
 
+    throttle = 300;
+    scrollDistance = 1;
+    scrollUpDistance = 2;
+
     constructor(private socket: SocketIoService,
                 private user: UsersService) {
 
@@ -64,5 +68,9 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
         if (this.privyMsg) {
             this.privyMsg.unsubscribe();
         }
+    }
+
+    onUp() {
+        console.log('test');
     }
 }

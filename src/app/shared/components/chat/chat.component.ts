@@ -5,6 +5,8 @@ import {Subscription} from 'rxjs';
 import {UsersService} from '../../../auth/services/users.service';
 import {mergeMap} from 'rxjs/operators';
 
+import {faEllipsisV} from '@fortawesome/free-solid-svg-icons';
+
 @Component({
     selector: 'app-chat',
     templateUrl: './chat.component.html',
@@ -17,6 +19,7 @@ export class ChatComponent implements OnInit {
     commentText: string;
     yourID: number = null;
 
+    faEllipsisV = faEllipsisV;
     constructor(public socket: SocketIoService,
                 private user: UsersService
                ) {

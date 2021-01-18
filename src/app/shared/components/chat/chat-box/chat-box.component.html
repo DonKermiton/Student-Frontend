@@ -13,8 +13,43 @@
         </div>
     </div>
 
-    <div class="chat-body">
-        <span>test</span>
+    <div class="chat-body"
+         infinite-scroll
+         [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollUpDistance]="scrollUpDistance"
+         [infiniteScrollThrottle]="throttle"
+
+         (scrolledUp)="onUp()"
+    >
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
 <!--            <div class="text-white" *ngFor="let msg of chatUsers.socketMessage; let i = index">-->
 <!--                <div class="w-100">-->
 <!--                    <span>{{i}}</span>-->

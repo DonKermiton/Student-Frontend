@@ -18,7 +18,7 @@ export class ScrollTableComponent implements OnInit {
 
     faSearch = faSearch;
 
-    postArray: PostModel[] = [];
+
     @Input() id: number;
     @Input() type: string;
 
@@ -34,7 +34,7 @@ export class ScrollTableComponent implements OnInit {
     sum = 0;
     searchBox = false;
 
-    constructor(private post: PostsService,
+    constructor(public post: PostsService,
                 public users: UsersService,
                 private socket: SocketIoService) {
     }
@@ -47,7 +47,7 @@ export class ScrollTableComponent implements OnInit {
         // todo change to universal usage
         this.socket.getPosts().subscribe(data => {
 
-            this.postArray.unshift(data);
+            this.post.postArray.unshift(data);
         });
 
         switch (this.type) {
@@ -56,7 +56,7 @@ export class ScrollTableComponent implements OnInit {
                     .pipe(
                         concatMap((post: PostModel[]) => post),
                         map((post) => {
-                            this.postArray.push(post);
+                            this.post.postArray.push(post);
                         }),
                     ).subscribe();
 
@@ -68,7 +68,7 @@ export class ScrollTableComponent implements OnInit {
                     .pipe(
                         concatMap((post: PostModel[]) => post),
                         map((post) => {
-                            this.postArray.push(post);
+                            this.post.postArray.push(post);
                         }),
                     ).subscribe();
                 break;
@@ -95,7 +95,7 @@ export class ScrollTableComponent implements OnInit {
                             id: user.id
                         };
                         this.socket.sendPost(event);
-                        this.postArray.unshift(event);
+                        this.post.postArray.unshift(event);
                     }
                 })
             )
