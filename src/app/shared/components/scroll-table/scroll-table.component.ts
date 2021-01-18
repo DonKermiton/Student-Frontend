@@ -50,6 +50,12 @@ export class ScrollTableComponent implements OnInit {
             this.post.postArray.unshift(data);
         });
 
+        if (this.type !== this.post.lastLoaded) {
+            this.post.postArray = [];
+        }
+
+        this.post.lastLoaded = this.type;
+
         switch (this.type) {
             case 'dashboard': {
                 this.post.getUserPostDashboard(this.skip)
