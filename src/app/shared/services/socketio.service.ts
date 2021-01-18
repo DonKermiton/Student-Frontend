@@ -20,6 +20,10 @@ export class SocketIoService {
         this.socket = io.io(this.url);
     }
 
+    get userArray() {
+        return this.users.User.slice();
+    }
+
     subscribeToPost(postID: number) {
         return this.socket.emit('subscribeToPost', postID);
     }

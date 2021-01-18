@@ -136,18 +136,19 @@
 
     </div>
 
-    <div class="row text-center m-auto border-top py-2">
+    <div class="row text-center m-auto border-top">
         <div class="col-6 border-right" [ngClass]="post.isInYourLikes ? 'btn-primary' : 'btn-outline-primary'"
              (click)="handleLikeClick(post.postID)">
             <small>
                 <fa-icon [icon]="faThumbsUp"></fa-icon>
-                Likes ({{post.likes}})</small>
+                ({{post.likes}})</small>
         </div>
         <div class="col-6 btn-outline-success">
 
             <fa-icon [icon]="faComments"></fa-icon>
-            Comments ({{post.comments}})
-
+            <small>
+            ({{post.comments}})
+            </small>
         </div>
     </div>
 </div>
