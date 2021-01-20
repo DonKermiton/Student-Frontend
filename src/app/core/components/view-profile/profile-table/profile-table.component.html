@@ -7,14 +7,13 @@
                     <button class="btn btn-outline-primary btn-sm" routerLink="../photo">See All</button>
                 </div>
 
-                <div class="row mt-2 justify-content-between border-top sticky-top">
-                    <div class="col-xs-12 col-md-4 mt-2" *ngFor="let photo of photoCollection">
-                        <div>
-                            <ng-container *ngIf="this.photoCollection; else loadingPhoto">
-                                <img src="/api/photo/getSelectedPhoto/{{id}}/{{photo.imgLink}}" alt="{{photo.id}}"
-                                     class="img-fluid rounded">
-                            </ng-container>
-                        </div>
+                <div id="image-grid" class="sticky-top">
+                    <div *ngFor="let photo of photoCollection">
+                        <ng-container *ngIf="this.photoCollection; else loadingPhoto">
+                            <img src="/api/photo/getSelectedPhoto/{{id}}/{{photo.imgLink}}" alt="{{photo.id}}"
+                                 class="img-fluid rounded">
+                        </ng-container>
+
                     </div>
                 </div>
             </div>
@@ -34,5 +33,3 @@
     </div>
 </div>
 
-
-<!--<app-create-comment></app-create-comment>-->

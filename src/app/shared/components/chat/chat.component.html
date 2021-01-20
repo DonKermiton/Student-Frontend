@@ -1,4 +1,4 @@
-<ng-container *ngIf="socket.users" style="min-height: 90vh">
+<ng-container *ngIf="socket.users" style="min-height: 90vh; ">
     <div
          *ngFor="let user of socket.users.User"
          (click)="openMessageBox(user)">

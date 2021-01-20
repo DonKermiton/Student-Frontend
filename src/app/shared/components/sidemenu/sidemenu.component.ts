@@ -40,7 +40,14 @@ export class SidemenuComponent implements OnInit {
     ngOnInit(): void {
         this.users.getUserID().subscribe((id) => {
             this.userID = id;
-        })
+        });
+
+        document.querySelectorAll(".more-options-element").forEach(el => {
+            el.addEventListener("click", () => {
+                this.sideMenuActive = false;
+            });
+
+        });
     }
 
 }

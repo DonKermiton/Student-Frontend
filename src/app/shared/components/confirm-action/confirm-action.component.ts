@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild
+} from '@angular/core';
 import {interval, Subscription} from 'rxjs';
 import {ConfirmDialogService} from "../../services/confirm-dialog.service";
 
@@ -8,20 +18,23 @@ import {ConfirmDialogService} from "../../services/confirm-dialog.service";
     templateUrl: './confirm-action.component.html',
     styleUrls: ['./confirm-action.component.scss']
 })
-export class ConfirmActionComponent implements OnInit, OnDestroy {
+export class ConfirmActionComponent implements OnInit, OnDestroy, AfterViewInit {
     @Output() closeModalEmitter = new EventEmitter<void>();
-    @Input() messageBox: string;
-    timer= 0;
+    timer = 0;
     modalTimerHandler: Subscription;
+    @ViewChild('wrapper', {static: true}) wrapper: ElementRef;
+    @ViewChild('infobox', {static: true}) infobox: ElementRef;
+
 
     constructor(private confirmService: ConfirmDialogService) {
     }
 
     ngOnInit() {
+
         this.modalTimerHandler = interval(1000)
             .subscribe((number) => {
                 this.timer = number;
-                if(number >= 20) this.handleCloseModal()
+                if (number >= 20) this.handleCloseModal(false)
             })
     }
 
@@ -42,8 +55,24 @@ export class ConfirmActionComponent implements OnInit, OnDestroy {
         this.closeModalEmitter.emit();
     }
 
-    private handleCloseModal() {
-        this.modalTimerHandler.unsubscribe();
-        this.closeModal();
+    handleCloseModal(value: boolean) {
+        this.wrapper.nativeElement.classList.remove('active');
+        this.infobox.nativeElement.classList.remove('active');
+
+        setTimeout(() => {
+            this.emitResponse(value);
+            this.modalTimerHandler.unsubscribe();
+            this.closeModal();
+        }, 350);
+
+
     }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => {
+            this.wrapper.nativeElement.classList.add('active');
+            this.infobox.nativeElement.classList.add('active');
+        }, 1)
+    }
+
 }

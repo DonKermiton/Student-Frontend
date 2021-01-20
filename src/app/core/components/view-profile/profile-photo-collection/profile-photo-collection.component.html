@@ -38,7 +38,9 @@
     </ng-template>
 
     <app-confirm-action *ngIf="confirmBoxText" (closeModalEmitter)="closeConfirmBox()"
-                        [messageBox]="confirmBoxText"></app-confirm-action>
+                        >
+        <span>The image will be permanently deleted</span>
+    </app-confirm-action>
     <app-upload-photo *ngIf="photoBox" (closeModalEmitter)="closePhotoBox()"></app-upload-photo>
 </div>
 

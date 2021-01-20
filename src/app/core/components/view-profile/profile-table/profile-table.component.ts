@@ -10,6 +10,7 @@ import {PostComment, PostModel} from '../../../../shared/models/post.model';
 import {Subscription} from 'rxjs';
 import {PhotoService} from '../../../../shared/services/photo.service';
 
+
 @Component({
     selector: 'app-profile-table',
     templateUrl: './profile-table.component.html',
@@ -34,8 +35,7 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
 
     id: number;
     postSubscription: Subscription;
-    showCommentsArray = [];
-    postComments: PostComment[] = [];
+
 
     constructor(public users: UsersService,
                 private route: ActivatedRoute,
@@ -44,6 +44,7 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
         this.route.parent.params
             .pipe(
                 tap((params: Params) => {
@@ -124,7 +125,9 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
         this.imageForm = new FormGroup({
             image: new FormControl(null),
         });
+
     }
 
 
 }
+

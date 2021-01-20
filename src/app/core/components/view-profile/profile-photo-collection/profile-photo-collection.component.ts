@@ -11,6 +11,7 @@ import {Location} from '@angular/common';
 import {NavigationService} from '../../../../shared/services/navigation.service';
 
 
+
 @Component({
     selector: 'app-profile-photo-collection',
     templateUrl: './profile-photo-collection.component.html',

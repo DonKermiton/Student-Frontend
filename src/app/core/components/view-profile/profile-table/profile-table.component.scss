@@ -1,17 +1,29 @@
 .post-header {
   height: 30px;
 }
-.post-header img{
+
+.post-header img {
   height: 30px;
 }
 
-.post-body span{
+.post-body span {
   display: block;
   min-height: 10vh;
 }
 
 
+#image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px 15px;
 
+  div {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+  }
+
+}
 
 
 .dropdown-post div {
@@ -27,7 +39,7 @@
   z-index: 5;
 }
 
-.post-dropdown div{
+.post-dropdown div {
   padding: 5px 12px;
   white-space: nowrap;
 
@@ -35,10 +47,11 @@
 
 
 .dropdown button {
-  background-color:transparent;
+  background-color: transparent;
   border: none;
 }
 
 
-
-.dropdown-toggle:after { content: none }
+.dropdown-toggle:after {
+  content: none
+}

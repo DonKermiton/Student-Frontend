@@ -1,10 +1,10 @@
-<div id="wrapper" class="" *ngIf="profileUser ">
-    <div id="profile-images" class="position-relative bg-secondary">
+<div *ngIf="profileUser " class="" id="wrapper">
+    <div class="position-relative" id="profile-images">
         <div class="d-flex justify-content-center text-center">
-            <img src="/api/photo/getUserProfile/Back/{{profileUser.id}}" class="img-fluid rounded shadow"/>
+            <img class="img-fluid rounded shadow" src="/api/photo/getUserProfile/Back/{{profileUser.id}}"/>
         </div>
-        <img id="photo-front" src="/api/photo/getUserProfile/Front/{{profileUser.id}}" alt=""
-             class="img-fluid rounded-circle">
+        <img alt="" class="img-fluid rounded-circle" id="photo-front"
+             src="/api/photo/getUserProfile/Front/{{profileUser.id}}">
     </div>
     <hr>
 
@@ -13,18 +13,27 @@
         <h5 class="text-warning">({{profileUser.id}})  {{profileUser.group}}</h5>
     </div>
 
-    <div class="container">
-    <ul class="nav nav-tabs justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link" routerLink="table" routerLinkActive="active">Table</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="photo" routerLinkActive="active">Image Gallery</a>
-        </li>
-
-    </ul>
-
-
+    <div class="container d-flex justify-content-center align-items-center">
+        <span class="menu-item" routerLink="table" routerLinkActive="span-active">
+            <fa-icon [icon]="faReceipt"></fa-icon>
+             <small class="menu-item-text">
+                Table
+                 </small>
+            </span>
+        <span class="spacer">|</span>
+        <span class="menu-item" routerLink="photo" routerLinkActive="span-active">
+              <fa-icon [icon]="faCameraRetro"></fa-icon>
+             <small class="menu-item-text">
+                Image Gallery
+             </small>
+            </span>
+        <span class="spacer">|</span>
+        <span class="menu-item" routerLink="options" routerLinkActive="span-active">
+              <fa-icon [icon]="faCogs"></fa-icon>
+                <small class="menu-item-text">
+                    Your Account
+                </small>
+            </span>
 
     </div>
     <router-outlet (activate)="updateProfileViewImages()"></router-outlet>

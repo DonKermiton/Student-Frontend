@@ -55,5 +55,5 @@
 <app-write-text *ngIf="addDirectoryModal" (emitCloseModal)="addDirectoryModal = false"
                 (emitText)="createDirectory($event)"></app-write-text>
 <app-confirm-action *ngIf="confirmActionModal" (closeModalEmitter)="confirmActionModal = false"
-                    [messageBox]="confirmActionMessage"></app-confirm-action>
+                 ></app-confirm-action>
 

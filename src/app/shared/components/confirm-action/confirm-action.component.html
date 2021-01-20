@@ -1,13 +1,18 @@
-<div id="wrapper" class="d-flex justify-content-center">
-    <div id="info-box" class="col-xs-12 col-md-6 col-lg-4 bg-light rounded">
-        <h5 class="pt-3">Are you Sure ?</h5>
+<div id="wrapper" class="d-flex justify-content-center" #wrapper (click)="handleCloseModal(false)">
+    <div id="info-box" class="col-xs-12 col-md-6 col-lg-3 bg-light rounded" #infobox (click)="$event.stopPropagation()">
+        <div class="mt-2">
+            <span class="pt-3">Are you Sure ?</span>
+            <span class="float-right" (click)="handleCloseModal(false)">X</span>
+        </div>
         <small>{{20 - timer}}</small>
         <hr>
-        <span class="p-3 text-info" *ngIf="messageBox">{{messageBox}}</span>
+        <span class="p-3 text-danger">
+            <ng-content></ng-content>
+        </span>
 
-        <div class="d-flex justify-content-around pt-5 pb-2">
-            <button class="btn btn-primary w-25" (click)="emitResponse(false)">No</button>
-            <button class="btn btn-danger w-25" (click)="emitResponse(true)" [disabled]="timer < 2">Yes</button>
+        <div class="d-flex justify-content-end pt-5 pb-2">
+            <button class="btn btn-primary w-25 mr-3" (click)="handleCloseModal(false)">No</button>
+            <button class="btn btn-outline-danger w-25" (click)="handleCloseModal(true)" [disabled]="timer < 1">Yes</button>
         </div>
     </div>
 </div>

@@ -11,10 +11,7 @@ import {UsersService} from '../../../auth/services/users.service';
 export class LayoutLoggedComponent implements OnInit {
     sideMenu = false;
 
-    constructor(private socket: SocketIoService,
-                private user: UsersService) {
-        console.log('_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_');
-    }
+    constructor() {}
 
     ngOnInit() {
         // mobile swap screen to right to open sidemenu
@@ -28,11 +25,13 @@ export class LayoutLoggedComponent implements OnInit {
             // @ts-ignore
             this.sideMenu = (window.innerWidth / 3) < (event.touches[0].clientX - touchX);
         });
+
     }
 
     changeStateMenu() {
-        console.log('zmiana');
         this.sideMenu = !this.sideMenu;
+
     }
 
 }
+

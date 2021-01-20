@@ -4,12 +4,21 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0, .3);
-  z-index: 10000;
+  background-color: rgba(0,0,0, 0);
+  z-index: 100000;
+  transition: background-color .5s;
+}
+
+#wrapper.active {
+  background-color: rgba(0,0,0, .9);
 }
 
 #info-box {
   position: absolute;
-  top: 40%;
+  top: -20%;
+  transition: top .5s;
+}
 
+#info-box.active {
+  top: 40%;
 }
