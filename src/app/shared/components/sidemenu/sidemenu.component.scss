@@ -3,7 +3,7 @@
   margin-left: -100vw;
   width: 100vw;
 
-  color: white;
+  color: #E39F9F;
   font-weight: revert;
   background-color: #222;
 
@@ -41,7 +41,7 @@ span {
   height: 6px;
   width: 6px;
   left: 6%;
-  background-color: #17a2b8;
+  background-color: #F9CFAF;
 
   border-radius: 50%;
 
@@ -53,6 +53,10 @@ span {
   overflow: hidden;
   transition: .3s;
   cursor: pointer;
+}
+
+.text-info {
+  color: #F9CFAF !important;
 }
 
 .more-options-element {

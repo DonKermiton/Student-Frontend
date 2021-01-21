@@ -1,14 +1,14 @@
 <div>
     <div class="col-12 pl-0 pr-0">
         <div class="row mx-auto">
-            <div class="col px-0">
+            <div class="col px-0 d-flex justify-content-center align-items-center">
                 <img src="/api/photo/getUserProfile/Front/{{post.ownerID}}" alt="id"
-                     class="rounded img-thumbnail" width="60" height="40">
+                     class="rounded-circle border border-info" width="40" height="40" >
             </div>
 
 
             <div class="basic-info col-8 position-relative">
-                <span class="post-author text-warning">{{post.user.first_name}} {{post.user.last_name}}</span>
+                <span class="post-author">{{post.user.first_name}} {{post.user.last_name}}</span>
                 <br>
                 <small class="text-secondary">{{getPostDate(post.created)}} ago</small>
             </div>
@@ -35,7 +35,7 @@
     <hr>
 
     <div class="post-body" *ngIf="post">
-                            <span class="px-2 bg-light w-100 d-block" *ngIf="post.text">
+                            <span class="px-2 w-100 d-block" *ngIf="post.text">
                             {{post.text}}
                             </span>
         <div *ngIf="post.photos.length === 1">

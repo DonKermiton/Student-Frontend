@@ -4,21 +4,32 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0, 0);
   z-index: 100000;
-  transition: background-color .5s;
-}
-
-#wrapper.active {
-  background-color: rgba(0,0,0, .9);
+  animation: .7s ease-out 0s 1 showOpacity;
 }
 
 #info-box {
   position: absolute;
-  top: -20%;
+  top: 40%;
   transition: top .5s;
+  animation: .7s ease-out 0s 1 slideFromAbove;
 }
 
-#info-box.active {
-  top: 40%;
+@keyframes slideFromAbove {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes showOpacity {
+  0% {
+    background-color: rgba(0,0,0, 0);
+  }
+
+  100% {
+    background-color: rgba(0,0,0, .9);
+  }
 }

@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="d-flex post-button-container">
     <button class="w-100 btn add-post"  (click)="modalOpen = true">Create post</button>
     <div class="d-flex justify-content-center align-items-center" style="flex-basis: 5%"> |</div>
     <!--    todo add logic to search post-->
@@ -9,7 +9,7 @@
 </div>
 
 <hr>
-<div class="search-results"
+<div class="search-results overflow-hidden"
      data-infinite-scroll
      debounce
      [infiniteScrollDistance]="scrollDistance"

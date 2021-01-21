@@ -1,17 +1,20 @@
-<div class="container bg-light rounded">
+<div class="container rounded">
     <div class="row justify-content-around ">
-        <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 mt-3 rounded ">
-            <div class="sticky-top position-sticky">
+        <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-3 rounded ">
+            <div *ngIf="this.photoCollection; else loadingPhoto" class="sticky-top position-sticky px-2 py-3 rounded"
+                 style="background-color: #dedede;">
                 <div class="d-flex justify-content-between ">
                     <span>Photos ({{this.numberOfPhoto}})</span>
                     <button class="btn btn-outline-primary btn-sm" routerLink="../photo">See All</button>
                 </div>
 
-                <div id="image-grid" class="sticky-top">
+                <hr>
+
+                <div class="sticky-top" id="image-grid">
                     <div *ngFor="let photo of photoCollection">
                         <ng-container *ngIf="this.photoCollection; else loadingPhoto">
-                            <img src="/api/photo/getSelectedPhoto/{{id}}/{{photo.imgLink}}" alt="{{photo.id}}"
-                                 class="img-fluid rounded">
+                            <img alt="{{photo.id}}" class="img-fluid rounded"
+                                 src="/api/photo/getSelectedPhoto/{{id}}/{{photo.imgLink}}">
                         </ng-container>
 
                     </div>
@@ -27,7 +30,9 @@
         </div>
 
         <ng-template #loadingPhoto>
-            <app-spinner></app-spinner>
+            <div class="py-5 rounded" style="background-color: #dedede;">
+                <app-spinner></app-spinner>
+            </div>
         </ng-template>
 
     </div>

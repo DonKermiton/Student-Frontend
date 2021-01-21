@@ -56,8 +56,6 @@ export class ConfirmActionComponent implements OnInit, OnDestroy, AfterViewInit 
     }
 
     handleCloseModal(value: boolean) {
-        this.wrapper.nativeElement.classList.remove('active');
-        this.infobox.nativeElement.classList.remove('active');
 
         setTimeout(() => {
             this.emitResponse(value);
@@ -70,8 +68,8 @@ export class ConfirmActionComponent implements OnInit, OnDestroy, AfterViewInit 
 
     ngAfterViewInit(): void {
         setTimeout(() => {
-            this.wrapper.nativeElement.classList.add('active');
-            this.infobox.nativeElement.classList.add('active');
+            // this.wrapper.nativeElement.classList.add('active');
+            // this.infobox.nativeElement.classList.add('active');
         }, 1)
     }
 
