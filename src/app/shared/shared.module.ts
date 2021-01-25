@@ -28,6 +28,7 @@ import { PostComponentComponent } from './components/scroll-table/post-component
 import { ChatComponent } from './components/chat/chat.component';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import { ChatBoxComponent } from './components/chat/chat-box/chat-box.component';
+import { SmallEventCallendarComponent } from './components/small-event-callendar/small-event-callendar.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ChatBoxComponent } from './components/chat/chat-box/chat-box.component'
         SmallCalendarComponent,
         PostComponentComponent,
         ChatComponent,
-        ChatBoxComponent
+        ChatBoxComponent,
+        SmallEventCallendarComponent
 
     ],
     exports: [
@@ -61,7 +63,8 @@ import { ChatBoxComponent } from './components/chat/chat-box/chat-box.component'
         CreateCommentComponent,
         WriteTextComponent,
         ScrollTableComponent,
-        SmallCalendarComponent
+        SmallCalendarComponent,
+        SmallEventCallendarComponent
     ],
     imports: [
         CommonModule,
